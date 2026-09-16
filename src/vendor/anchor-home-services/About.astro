@@ -1,0 +1,146 @@
+---
+// Home Services industry template — About. Photo + copy split section,
+// per README.md's deferred plan. Photo prop follows the same bracket-
+// placeholder convention as Hero.astro's heroVideoUrl/heroPosterUrl — no
+// real or stock photo baked in, falls back to a brand-toned gradient
+// panel so it never looks broken.
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  body?: string;
+  stats?: Stat[];
+  photoUrl?: string;
+}
+
+const {
+  eyebrow = 'About Anchor',
+  headline = 'A Local Crew, Not a Call Center',
+  body = "Anchor is owned and run out of the community we serve — not a franchise, not a lead-gen middleman. When you call, you're talking to the people actually doing the work, not someone reading from a script three states away.",
+  stats = [
+    { value: 'Owner-Operated', label: 'Not a franchise or lead broker' },
+    { value: 'In-House Crews', label: 'No subcontracted strangers' },
+    { value: 'Written Quotes', label: 'The price you agree to is the price you pay' },
+  ],
+  photoUrl = '[ABOUT_PHOTO_URL]',
+} = Astro.props;
+
+const hasPhoto = !photoUrl.startsWith('[');
+---
+
+<section class="about">
+  <div class="about-inner">
+    <div
+      class="about-photo"
+      style={hasPhoto ? `background-image: url('${photoUrl}');` : ''}
+    >
+      {!hasPhoto && (
+        <span class="photo-fallback-label">[ABOUT_PHOTO_URL]</span>
+      )}
+    </div>
+
+    <div class="about-copy">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="body">{body}</p>
+
+      <div class="stat-list">
+        {stats.map((s) => (
+          <div class="stat">
+            <p class="stat-value">{s.value}</p>
+            <p class="stat-label">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #ffffff;
+    padding: 84px 40px;
+  }
+  .about-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-photo {
+    aspect-ratio: 4 / 3.4;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1C3A6B, #0B1B36);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-fallback-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F0A93B;
+    margin: 0 0 14px;
+  }
+  .headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #12294F;
+    margin: 0 0 22px;
+  }
+  .body {
+    font-size: 19.5px;
+    line-height: 1.7;
+    color: #4B5768;
+    margin: 0 0 32px;
+  }
+
+  .stat-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding-top: 28px;
+    border-top: 1px solid #E6E9EF;
+  }
+  .stat-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #12294F;
+    margin: 0 0 4px;
+  }
+  .stat-label {
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: #5C6B80;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .about-inner { grid-template-columns: 1fr; gap: 36px; }
+  }
+  @media (max-width: 560px) {
+    .about { padding: 56px 20px; }
+    .stat-list { grid-template-columns: 1fr; gap: 16px; }
+  }
+</style>

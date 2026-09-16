@@ -1,0 +1,200 @@
+---
+// Clean inline-SVG icon set (outline style, currentColor) rendered inside a
+// tinted circular badge — replaces bare emoji, which read as low-quality
+// next to the rest of the site's line-icon system (same pattern as
+// Hero.astro / SplitContent.astro's ICONS maps).
+const ICONS: Record<string, string> = {
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>',
+  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  award: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg>',
+  tag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3.24L3 3v6.59a2 2 0 0 0 .59 1.41l9.58 9.59a2 2 0 0 0 2.83 0l4.59-4.59a2 2 0 0 0 0-2.83z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
+  palette: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="6.5" cy="11.5" r="1.2"/><circle cx="9.5" cy="7.5" r="1.2"/><circle cx="14.5" cy="7.5" r="1.2"/><circle cx="17.5" cy="11.5" r="1.2"/></svg>',
+  droplet: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+};
+
+interface Item {
+  icon?: keyof typeof ICONS;
+  image?: string;
+  imagePendingLabel?: string;
+  title: string;
+  description?: string;
+  bullets?: string[];
+  linkLabel?: string;
+  linkHref?: string;
+}
+
+interface Props {
+  id?: string;
+  heading?: string;
+  headingAccent?: string;
+  subheading?: string;
+  items: Item[];
+  columns?: 2 | 3 | 4;
+  variant?: 'plain' | 'card';
+}
+
+const { id, heading, headingAccent, subheading, items, columns = 3, variant = 'plain' } = Astro.props;
+---
+
+<section class="feature-grid" id={id}>
+  <div class="container">
+    {heading && (
+      <h2>{heading} {headingAccent && <span class="accent">{headingAccent}</span>}</h2>
+    )}
+    {subheading && <p class="subheading">{subheading}</p>}
+    <div class={`grid cols-${columns}`}>
+      {items.map((item) => (
+        <div class:list={['feature-card', { 'has-image': variant === 'card' }]}>
+          {variant === 'card' && (
+            <div class="card-image-wrap">
+              {item.image
+                ? <img class="card-image" src={item.image} alt="" loading="lazy" />
+                : <div class="card-image placeholder">{item.imagePendingLabel ?? 'Photo pending'}</div>
+              }
+              <div class="card-image-fade" aria-hidden="true"></div>
+              <h3 class="card-title-overlay">{item.title}</h3>
+            </div>
+          )}
+          <div class="card-body">
+            {item.icon && <span class="icon-badge" aria-hidden="true" set:html={ICONS[item.icon]} />}
+            {variant !== 'card' && <h3>{item.title}</h3>}
+            {item.description && <p>{item.description}</p>}
+            {item.bullets && item.bullets.length > 0 && (
+              <ul class:list={{ checklist: variant === 'card' }}>
+                {item.bullets.map((b) => <li>{variant === 'card' ? '✓ ' : ''}{b}</li>)}
+              </ul>
+            )}
+            {item.linkLabel && item.linkHref && (
+              variant === 'card'
+                ? <a class="btn primary" href={item.linkHref}>{item.linkLabel}</a>
+                : <a class="text-link" href={item.linkHref}>{item.linkLabel} →</a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-grid { padding-block: var(--space-7); }
+  h2 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: var(--space-3);
+  }
+  .accent { color: var(--color-primary); }
+  .subheading {
+    text-align: center;
+    font-size: var(--text-lg);
+    opacity: 0.75;
+    max-width: 840px;
+    margin: 0 auto var(--space-5);
+  }
+  h2 + .subheading { margin-top: 0; }
+  .grid {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+  h2:only-child + .grid,
+  .subheading + .grid {
+    margin-top: var(--space-5);
+  }
+  .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .feature-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .feature-card:not(.has-image) {
+    padding: var(--space-4);
+    text-align: center;
+  }
+  .feature-card.has-image .card-body { padding: var(--space-4); }
+  .card-image-wrap {
+    position: relative;
+  }
+  .card-image {
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .card-image.placeholder {
+    background: var(--color-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+    opacity: 0.6;
+  }
+  .card-image-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 45%;
+    background: linear-gradient(to top, var(--color-bg) 15%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-title-overlay {
+    position: absolute;
+    left: var(--space-4);
+    bottom: var(--space-2);
+    font-size: var(--text-2xl);
+    margin: 0;
+  }
+  .icon-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    padding: 18px;
+    margin: 0 auto var(--space-3);
+    border-radius: 50%;
+    background: var(--color-muted);
+    color: var(--color-primary);
+  }
+  .icon-badge :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+  h3 { font-size: var(--text-lg); margin-bottom: var(--space-2); }
+  p { font-size: var(--text-base); opacity: 0.8; margin-bottom: var(--space-3); }
+  ul { list-style: none; padding: 0; margin-bottom: var(--space-3); }
+  .feature-card:not(.has-image) ul { padding-left: 0; }
+  ul.checklist li {
+    color: var(--color-fg);
+    font-size: var(--text-base);
+  }
+  li { margin-bottom: 8px; }
+  .text-link {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-button);
+    text-decoration: none;
+  }
+  .btn.primary {
+    display: block;
+    text-align: center;
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    padding: 14px;
+    font-size: var(--text-base);
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-button);
+    text-decoration: none;
+  }
+  @media (max-width: 768px) {
+    .grid.cols-2, .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .grid.cols-2, .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,279 @@
+---
+// Dark "watch Scout work" band for /scout, sitting below the "Scout Does
+// It All" banner. Structure cloned from the reference (pill badge +
+// headline over a dark full-bleed band, with a video-thumbnail mockup of
+// the actual product dashboard below) — colors are ScaleKit's own
+// (near-black --color-dark-bg instead of navy, lime instead of purple).
+// The reference's "world's best" superlative is dropped; the
+// "10,000+ businesses" figure is kept per explicit direction (the
+// user's own stat for Scout, not one invented unprompted here). The
+// dashboard mockup is an illustrative
+// concept screenshot (own invented business name, illustrative
+// percentages, and genuine Lorem Ipsum as the placeholder description
+// text — Lorem Ipsum is itself an honest, universally-recognized
+// placeholder, not a fabricated claim) rather than a real product
+// screenshot, since no real Scout UI exists yet.
+interface Props {
+  badgeLabel?: string;
+  headline?: string;
+  businessName?: string;
+  businessAddress?: string;
+  rating?: string;
+  reviewCount?: string;
+  gaugePercent?: number;
+  progressPercent?: number;
+}
+
+const {
+  badgeLabel = 'Your Always-On Local SEO Agent',
+  headline = "Scout doesn't guess. It learns from what's working across 10,000+ businesses and uses those insights to continuously improve your local SEO.",
+  businessName = 'Your Business Name',
+  businessAddress = '123 Main Street, Your City, ST',
+  rating = '2.1/5',
+  reviewCount = '120 reviews',
+  gaugePercent = 43,
+  progressPercent = 46,
+} = Astro.props;
+---
+
+<section class="demo-section">
+  <span class="demo-badge">{badgeLabel}</span>
+  <h2 class="demo-headline">{headline}</h2>
+
+  <div class="demo-frame">
+    <div class="demo-topbar">
+      <span class="demo-logo">
+        <span class="demo-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+        </span>
+        Scout
+      </span>
+      <div class="demo-topbar-right">
+        <span class="demo-bell"><svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
+        <span class="demo-avatar"></span>
+      </div>
+    </div>
+
+    <div class="demo-panel">
+      <div class="demo-biz-card">
+        <span class="demo-biz-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><path d="M4 20h16M7 20V10m5 10V4m5 16v-8"/></svg>
+        </span>
+        <div>
+          <p class="demo-biz-name">{businessName}</p>
+          <p class="demo-biz-address">{businessAddress}</p>
+          <p class="demo-biz-rating">★★☆☆☆ {rating} <span>({reviewCount})</span></p>
+        </div>
+      </div>
+
+      <div class="demo-gauge-block">
+        <div>
+          <p class="demo-gauge-label">Optimization Rating</p>
+          <p class="demo-gauge-sub">Fully optimize your profile to rank higher</p>
+        </div>
+        <div class="gauge-ring" style={`--pct: ${gaugePercent}`}>
+          <span class="gauge-value">{gaugePercent}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-progress">
+      <div class="progress-step is-done">
+        <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        Select Keywords
+        <span class="step-bar"><span class="step-bar-fill" style="width:100%"></span></span>
+      </div>
+      <div class="progress-step is-active">
+        <span class="step-icon"></span>
+        Optimize Profile
+        <span class="step-bar"><span class="step-bar-fill" style="width:60%"></span></span>
+      </div>
+      <div class="progress-step">
+        <span class="step-icon"></span>
+        Automate Everything
+        <span class="step-bar"><span class="step-bar-fill" style="width:0%"></span></span>
+      </div>
+      <span class="progress-total">{progressPercent}%</span>
+    </div>
+
+    <div class="demo-steps-header">
+      <div>
+        <p class="steps-title">Optimization Steps</p>
+        <p class="steps-sub">Review Scout's recommendations one by one, or approve all at once.</p>
+      </div>
+      <span class="approve-all">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+        Approve All
+      </span>
+    </div>
+
+    <div class="demo-description">
+      <p class="desc-title">Business Description</p>
+      <p class="desc-sub">Review Scout's suggested description, based on your business and target keywords.</p>
+      <div class="desc-box">
+        <p class="desc-box-label">Your current description</p>
+        <p class="desc-box-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .demo-section {
+    background: var(--color-dark-bg);
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    font-family: var(--font-body);
+  }
+  .demo-badge {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--space-5);
+  }
+  .demo-headline {
+    font-size: clamp(24px, 3.4vw, 36px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    color: var(--color-dark-fg);
+    max-width: 780px;
+    margin: 0 auto var(--space-7);
+  }
+
+  .demo-frame {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-align: left;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.4);
+  }
+
+  .demo-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .demo-logo { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 800; color: var(--color-fg); }
+  .demo-logo-icon { width: 26px; height: 26px; border-radius: 50%; background: var(--color-fg); display: flex; align-items: center; justify-content: center; }
+  .demo-logo-icon svg { width: 13px; height: 13px; }
+  .demo-topbar-right { display: flex; align-items: center; gap: var(--space-3); }
+  .demo-bell svg { width: 19px; height: 19px; }
+  .demo-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--color-bg-alt); border: 1px solid var(--color-border); }
+
+  .demo-panel {
+    background: var(--color-fg);
+    margin: var(--space-4) var(--space-5) 0;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  .demo-biz-card { display: flex; align-items: center; gap: var(--space-3); }
+  .demo-biz-logo {
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .demo-biz-logo svg { width: 22px; height: 22px; }
+  .demo-biz-name { font-size: 15px; font-weight: 800; color: #ffffff; margin: 0 0 2px; }
+  .demo-biz-address { font-size: 11.5px; color: rgba(255, 255, 255, 0.55); margin: 0 0 4px; }
+  .demo-biz-rating { font-size: 12px; color: var(--color-primary); margin: 0; }
+  .demo-biz-rating span { color: rgba(255, 255, 255, 0.55); }
+
+  .demo-gauge-block { display: flex; align-items: center; gap: var(--space-3); }
+  .demo-gauge-label { font-size: 13px; font-weight: 800; color: #ffffff; margin: 0 0 2px; }
+  .demo-gauge-sub { font-size: 11px; color: rgba(255, 255, 255, 0.5); margin: 0; max-width: 170px; }
+  .gauge-ring {
+    position: relative;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: conic-gradient(var(--color-primary) calc(var(--pct) * 1%), rgba(255, 255, 255, 0.15) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gauge-ring::before { content: ''; position: absolute; inset: 7px; background: var(--color-fg); border-radius: 50%; }
+  .gauge-value { position: relative; z-index: 1; font-size: 13px; font-weight: 800; color: #ffffff; }
+
+  .demo-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: var(--color-fg);
+    margin: var(--space-3) var(--space-5) 0;
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    flex-wrap: wrap;
+  }
+  .progress-step { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 700; color: rgba(255, 255, 255, 0.6); flex: 1; min-width: 150px; }
+  .progress-step.is-done, .progress-step.is-active { color: #ffffff; }
+  .step-icon { width: 16px; height: 16px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .progress-step.is-done .step-icon { background: var(--color-success); }
+  .progress-step.is-done .step-icon svg { width: 9px; height: 9px; }
+  .step-bar { flex: 1; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.15); overflow: hidden; }
+  .step-bar-fill { display: block; height: 100%; background: var(--color-primary); }
+  .progress-total { font-size: 13px; font-weight: 800; color: var(--color-primary); flex-shrink: 0; }
+
+  .demo-steps-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-5) var(--space-5) 0;
+    flex-wrap: wrap;
+  }
+  .steps-title { font-size: 17px; font-weight: 800; color: var(--color-fg); margin: 0 0 4px; }
+  .steps-sub { font-size: 12.5px; color: var(--color-text-mid); margin: 0; max-width: 420px; }
+  .approve-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-fg);
+    color: #ffffff;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 9px 16px;
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+  }
+  .approve-all svg { width: 13px; height: 13px; }
+
+  .demo-description { padding: var(--space-4) var(--space-5) var(--space-6); }
+  .desc-title { font-size: 14.5px; font-weight: 800; color: var(--color-fg); margin: 0 0 4px; }
+  .desc-sub { font-size: 12px; color: var(--color-text-mid); margin: 0 0 var(--space-3); }
+  .desc-box {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3);
+  }
+  .desc-box-label { font-size: 11px; font-weight: 700; color: var(--color-text-light); margin: 0 0 6px; }
+  .desc-box-text { font-size: 12px; line-height: 1.55; color: var(--color-text-mid); margin: 0; }
+
+  @media (max-width: 700px) {
+    .demo-panel { flex-direction: column; align-items: flex-start; }
+    .demo-progress { flex-direction: column; align-items: stretch; }
+  }
+</style>

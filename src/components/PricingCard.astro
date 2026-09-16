@@ -1,0 +1,245 @@
+---
+// Single pricing tier card, used inside PricingTierSection. Cloned
+// structurally from the Get Found Local reference (name, price, desc,
+// checklist, CTA, optional "Most Popular" badge) but restyled to
+// ScaleKit's own white-card-on-cream system instead of their red accent.
+// `placeholder` renders an honest "pricing pending" state (dashed border,
+// muted price) for the four services whose tier numbers Brandon hasn't
+// given yet — this must never be used to fake a real-looking number, see
+// decisions.md Section 9 no-fabrication discipline.
+interface Props {
+  name: string;
+  price?: string;
+  period?: string;
+  secondaryPrice?: string;
+  secondaryPeriod?: string;
+  description?: string;
+  features?: string[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  featured?: boolean;
+  badgeLabel?: string;
+  placeholder?: boolean;
+  footnote?: string;
+}
+
+const {
+  name,
+  price = '',
+  period = '',
+  secondaryPrice = '',
+  secondaryPeriod = '',
+  description = '',
+  features = [],
+  ctaLabel = 'Get Started',
+  ctaHref = '#book-call',
+  featured = false,
+  badgeLabel = '',
+  placeholder = false,
+  footnote = '',
+} = Astro.props;
+---
+
+<div class:list={['pricing-card', featured && 'is-featured', placeholder && 'is-placeholder']}>
+  {badgeLabel && <span class="tier-badge">{badgeLabel}</span>}
+
+  <h3 class="tier-name">{name}</h3>
+
+  {price && (
+    <p class="tier-price">
+      <span class="price">{price}</span>
+      {period && <span class="period">{period}</span>}
+    </p>
+  )}
+
+  {secondaryPrice && (
+    <p class="tier-price-secondary">
+      + <span class="secondary-price">{secondaryPrice}</span>
+      {secondaryPeriod && <span class="secondary-period">{secondaryPeriod}</span>}
+    </p>
+  )}
+
+  {description && <p class="tier-desc">{description}</p>}
+
+  {features.length > 0 && (
+    <ul class="tier-features">
+      {features.map((f) => (
+        <li>
+          <span class="check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </span>
+          {f}
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {footnote && (
+    <>
+      <div class="tier-divider"></div>
+      <p class="tier-footnote">{footnote}</p>
+    </>
+  )}
+
+  <a href={ctaHref} class="tier-cta">{ctaLabel}</a>
+</div>
+
+<style>
+  .pricing-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6) var(--space-5);
+    position: relative;
+    text-align: left;
+  }
+  .pricing-card.is-featured {
+    border-color: var(--color-primary-outline);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  }
+  .pricing-card.is-placeholder {
+    border-style: dashed;
+  }
+
+  .tier-badge {
+    position: absolute;
+    top: -13px;
+    right: 24px;
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+  }
+
+  .tier-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-fg);
+    margin: 0 0 10px;
+  }
+
+  .tier-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin: 0 0 var(--space-3);
+  }
+  .price {
+    font-size: 38px;
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+  }
+  .is-placeholder .price {
+    color: var(--color-text-light);
+    font-style: italic;
+    font-size: 28px;
+  }
+  .period {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-light);
+  }
+
+  .tier-price-secondary {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-3);
+  }
+  .secondary-price {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--color-fg);
+  }
+  .secondary-period {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-light);
+  }
+
+  .tier-desc {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-5);
+    min-height: 44px;
+  }
+
+  .tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .tier-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    color: var(--color-fg);
+    line-height: 1.4;
+  }
+  .is-placeholder .tier-features li {
+    color: var(--color-text-light);
+  }
+  .check {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .is-placeholder .check {
+    background: var(--color-bg-alt);
+  }
+  .check svg { width: 10px; height: 10px; }
+
+  .tier-divider {
+    border-top: 1px dashed var(--color-border);
+    margin: 0 0 var(--space-3);
+  }
+  .tier-footnote {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--color-text-light);
+    margin: 0 0 var(--space-4);
+  }
+
+  .tier-cta {
+    display: block;
+    text-align: center;
+    padding: 13px 20px;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--color-fg);
+    background: transparent;
+    border: 1.5px solid var(--color-fg);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tier-cta:hover { background: var(--color-fg); color: #ffffff; }
+  .is-featured .tier-cta {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-fg);
+  }
+  .is-featured .tier-cta:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+</style>

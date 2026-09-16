@@ -1,0 +1,148 @@
+---
+// Landscaping/Tree Care industry template — Gallery. Follows Header +
+// Hero, same placeholder brand (forest green #1E3D2B / moss accent
+// #9CB84E / terracotta #D97C4A / cream #F7F3E9, Fraunces + Work Sans).
+// This trade's whole positioning is "portfolio-first" — showcase real
+// project photos up front — so the second section is a multi-image
+// gallery grid rather than a services list (that's deferred; see README).
+// PLACEHOLDER: no real or stock photos are baked in. Each tile falls
+// back to a styled color placeholder (brand-toned gradient + leaf icon)
+// when no imageUrl is supplied — swap in real project photos before use.
+interface GalleryImage {
+  caption: string;
+  imageUrl?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
+  images?: GalleryImage[];
+}
+
+const {
+  eyebrow = 'Our Work',
+  headline = 'Real Jobs, Done Right',
+  subheadline = 'A look at recent tree care and land-clearing projects across the region — from routine trims to full removals.',
+  images = [
+    { caption: 'Professional Equipment' },
+    { caption: 'Precision Cutting' },
+    { caption: 'Licensed & Insured Crews' },
+    { caption: 'Stump Grinding' },
+    { caption: 'Commercial Tree Work' },
+    { caption: 'Before & After Grinding' },
+    { caption: 'Healthy Mature Trees' },
+    { caption: 'Cleared & Cleaned Up' },
+  ],
+} = Astro.props;
+
+// Rotates through a small set of brand-toned gradients so placeholder
+// tiles read as a varied photo grid instead of one flat color repeated.
+const gradients = [
+  'linear-gradient(135deg, #2F5941, #1E3D2B)',
+  'linear-gradient(135deg, #9CB84E, #6B8A3A)',
+  'linear-gradient(135deg, #D97C4A, #B15F34)',
+  'linear-gradient(135deg, #3D5A45, #22392B)',
+];
+---
+
+<section class="land-gallery" id="gallery">
+  <div class="gallery-inner">
+
+    <div class="gallery-header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="sub">{subheadline}</p>
+    </div>
+
+    <div class="gallery-grid">
+      {images.map((img, i) => (
+        <div
+          class="gallery-item"
+          style={img.imageUrl ? `background-image:url('${img.imageUrl}')` : `background-image:${gradients[i % gradients.length]}`}
+        >
+          {!img.imageUrl && (
+            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22V12"/>
+              <path d="M12 12C12 7 8 4 4 4C4 8 6.5 12 12 12Z"/>
+              <path d="M12 12C12 8 15.5 5.5 20 5.5C20 9.5 17 12.5 12 12.5Z"/>
+            </svg>
+          )}
+          <div class="caption-scrim"><span>{img.caption}</span></div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .land-gallery {
+    font-family: 'Work Sans', -apple-system, sans-serif;
+    background: #FAF8F2;
+    padding: 80px 40px;
+  }
+  .gallery-inner { max-width: 1400px; margin: 0 auto; }
+
+  .gallery-header { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9CB84E;
+    margin: 0 0 14px;
+  }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 500;
+    color: #1B211C;
+    margin: 0 0 12px;
+  }
+  .sub {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: #6B7A6E;
+    margin: 0;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .placeholder-icon { width: 34px; height: 34px; }
+  .caption-scrim {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 22px 14px 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+    display: flex;
+    align-items: flex-end;
+  }
+  .caption-scrim span {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+  }
+
+  @media (max-width: 900px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .land-gallery { padding: 56px 20px; }
+  }
+</style>

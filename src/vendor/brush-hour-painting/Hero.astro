@@ -1,0 +1,212 @@
+---
+// Rebuilt after visual re-inspection of the reference (screenshot, not text
+// summary): this is a two-column hero — text/CTAs/trust-badges on the left,
+// a card (passed in via the default slot) sitting beside it on the right,
+// over a background image — not a centered single-column hero with the
+// form as a separate section further down, which is what the first
+// text-only clone pass produced.
+//
+// Icons: matched to the reference's exact icon set (arrow-circle + phone on
+// the buttons, star/house/check on the badges) as clean inline SVGs rather
+// than emoji — emoji render inconsistently across platforms and don't match
+// the reference's crisp line-icon look. Icon shapes are decorative/style
+// choices, not factual claims, so reusing the same shapes as the reference
+// is fine even though the badge labels themselves are Brush Hour's own.
+const ICONS: Record<string, string> = {
+  'arrow-circle': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+  star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  house: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7"/><path d="M9 22V12h6v10"/><path d="M5 10v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+};
+
+interface Badge {
+  icon?: keyof typeof ICONS;
+  title: string;
+  subtitle: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline: string;
+  subheadline?: string;
+  primaryLabel: string;
+  primaryHref: string;
+  primaryIcon?: keyof typeof ICONS;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  secondaryIcon?: keyof typeof ICONS;
+  badges?: Badge[];
+  backgroundSrc?: string;
+}
+
+const {
+  eyebrow, headline, subheadline,
+  primaryLabel, primaryHref, primaryIcon = 'arrow-circle',
+  secondaryLabel, secondaryHref, secondaryIcon = 'phone',
+  badges = [], backgroundSrc,
+} = Astro.props;
+---
+
+<section class="hero" style={backgroundSrc ? `background-image: linear-gradient(90deg, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.45) 55%, rgba(255,255,255,0.2) 100%), url(${backgroundSrc})` : ''}>
+  <div class="hero-inner">
+    <div class="hero-text">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{headline}</h1>
+      {subheadline && <p class="subheadline">{subheadline}</p>}
+      <div class="hero-actions">
+        <a class="btn primary" href={primaryHref}>
+          <span class="btn-icon" set:html={ICONS[primaryIcon]} />
+          {primaryLabel}
+        </a>
+        {secondaryLabel && secondaryHref && (
+          <a class="btn secondary" href={secondaryHref}>
+            <span class="btn-icon" set:html={ICONS[secondaryIcon]} />
+            {secondaryLabel}
+          </a>
+        )}
+      </div>
+      {badges.length > 0 && (
+        <div class="badges">
+          {badges.map((b) => (
+            <div class="badge">
+              {b.icon && <span class="badge-icon" set:html={ICONS[b.icon]} />}
+              <div>
+                <p class="badge-title">{b.title}</p>
+                <p class="badge-subtitle">{b.subtitle}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+    <div class="hero-card">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: var(--color-muted);
+    background-size: cover;
+    background-position: center;
+    padding-block: var(--space-8);
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-6);
+    align-items: center;
+    /* Uses the shared .container width (now 1440px) — no bespoke override,
+       so every section below stays consistent with the hero automatically. */
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+  .hero-text {
+    /* 10% of the way from top-aligned toward fully centered (measured
+       full center offset was ~120px, so 10% = 12px), per explicit request. */
+    margin-top: 12px;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-button);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+  h1 {
+    font-size: var(--text-4xl);
+    line-height: 1.1;
+    margin-bottom: var(--space-3);
+  }
+  .subheadline {
+    font-size: var(--text-lg);
+    color: var(--color-fg);
+    opacity: 0.85;
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-6);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 32px;
+    border-radius: var(--radius-md);
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-button);
+    text-decoration: none;
+  }
+  .btn-icon {
+    display: inline-flex;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+  .btn-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+  .btn.primary {
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+  }
+  .btn.secondary {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+  .badges {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: nowrap;
+  }
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 0;
+  }
+  .badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 53px;
+    height: 53px;
+    padding: 12.5px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+  .badge-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+  .badge-title {
+    font-weight: var(--font-weight-button);
+    font-size: calc(var(--text-base) * 1.15);
+    white-space: nowrap;
+  }
+  .badge-subtitle {
+    font-size: calc(var(--text-sm) * 1.15);
+    opacity: 0.7;
+    white-space: nowrap;
+  }
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    h1 { font-size: var(--text-3xl); }
+  }
+  @media (max-width: 640px) {
+    .badges { flex-direction: column; flex-wrap: wrap; gap: var(--space-3); }
+    .badge-title, .badge-subtitle { white-space: normal; }
+  }
+</style>

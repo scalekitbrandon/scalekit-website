@@ -1,0 +1,118 @@
+---
+// Same pattern as /services/ads.astro and /services/automation.astro:
+// IndustryHero for pain-point framing, then the homepage's own real
+// RecoverOldLeads section for the deliverables grid, then the shared
+// Process/TrustStrip/FinalCta/BookCall/Footer stack.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import RecoverOldLeads from '../../components/RecoverOldLeads.astro';
+import Process from '../../components/Process.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Database Reactivation',
+    name: 'Database Reactivation for Service Businesses',
+    description: 'ScaleKit re-engages the dormant leads and past customers already sitting in your CRM, turning them back into booked jobs without spending more on ads.',
+    url: `${siteUrl}/services/reactivation`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Get Started', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Database Reactivation for Service Businesses | ScaleKit"
+  description="ScaleKit re-engages the dormant leads and past customers already sitting in your CRM, turning them back into booked jobs without spending more on ads."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="Reactivation"
+    headline="Recover Old Leads Sitting in Your CRM"
+    subheadline="You already paid to get those leads. Most of them never booked — not because they weren't interested, but because nobody followed back up. We bring them back without spending another dollar on ads."
+    painPoints={[
+      'Thousands of old leads sit untouched in your CRM right now',
+      'Past customers who loved the work never hear from you again',
+      "You're paying for new leads instead of reactivating the ones you already have",
+    ]}
+    ctaLabel="Get Started"
+  />
+
+  <RecoverOldLeads
+    eyebrow="What's Included"
+    headlineLine1="Everything Your"
+    headlineLine2="Reactivation Campaign Includes"
+    subheadline="Every dormant lead and past customer in your CRM, worked automatically across every channel."
+    ctaLabel="Get Started"
+    ctaHref="#book-call"
+  />
+
+  <Process />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Job From an Old Lead Actually Worth?"
+    subheadline="You already paid to acquire that lead once. Reactivating them costs nothing close to what a new lead does. ScaleKit makes sure that list doesn't just sit there."
+  />
+
+  <BookCall />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

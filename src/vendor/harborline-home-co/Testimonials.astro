@@ -1,0 +1,131 @@
+---
+// Harborline Home Co. — Testimonials. Same 3-card grid shape as
+// Anchor's. Generic placeholder reviewer names (different set from
+// Anchor's, so the two templates don't read as reusing the exact same
+// fake reviewers) — no fabricated specifics, swap for real reviews
+// before any real launch.
+interface Review {
+  name: string;
+  location: string;
+  quote: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  reviews?: Review[];
+}
+
+const {
+  eyebrow = 'What Homeowners Say',
+  headline = 'Real Reviews From Real Jobs',
+  reviews = [
+    {
+      name: 'Taylor S.',
+      location: 'Verified Customer',
+      quote: 'The estimate tool actually landed within a few hundred dollars of our final price. First contractor that didn\'t low-ball us to get the call.',
+    },
+    {
+      name: 'Casey M.',
+      location: 'Verified Customer',
+      quote: 'Loved that I could get a real number online before I ever picked up the phone. No pressure, no games.',
+    },
+    {
+      name: 'Jordan P.',
+      location: 'Verified Customer',
+      quote: 'Showed up when they said, gave us the final price in writing, and stuck to it exactly.',
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="testimonials" id="reviews">
+  <div class="testimonials-inner">
+    <div class="testimonials-header">
+      <div>
+        <p class="eyebrow">{eyebrow}</p>
+        <h2 class="headline">{headline}</h2>
+      </div>
+    </div>
+
+    <div class="review-grid">
+      {reviews.map((r) => (
+        <div class="review-card">
+          <div class="stars">
+            {Array.from({ length: 5 }).map(() => (
+              <svg viewBox="0 0 24 24" fill="#DE9A5C"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            ))}
+          </div>
+          <p class="quote">"{r.quote}"</p>
+          <p class="reviewer-name">{r.name}</p>
+          <p class="reviewer-location">{r.location}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #F7F3EC;
+    padding: 84px 40px;
+  }
+  .testimonials-inner { max-width: 1400px; margin: 0 auto; }
+
+  .testimonials-header { text-align: center; margin: 0 0 40px; }
+  .eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #DE9A5C;
+    margin: 0 0 12px;
+  }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 600;
+    color: #0E5E5E;
+    margin: 0;
+  }
+
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .review-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid #E3DCCD;
+  }
+  .stars { display: flex; gap: 3px; margin: 0 0 16px; }
+  .stars svg { width: 16px; height: 16px; }
+  .quote {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #34443F;
+    margin: 0 0 20px;
+  }
+  .reviewer-name {
+    font-family: 'Fraunces', serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #0E5E5E;
+    margin: 0;
+  }
+  .reviewer-location {
+    font-size: 12.5px;
+    color: #8B9994;
+    margin: 2px 0 0;
+  }
+
+  @media (max-width: 900px) {
+    .review-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .testimonials { padding: 56px 20px; }
+  }
+</style>

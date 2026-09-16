@@ -1,0 +1,159 @@
+---
+// Therapist Template 2 (group practice) — Hero.
+// Structure cloned from a reference group-therapy-practice site
+// (full-bleed photo hero, centered-left headline + two CTAs, thin
+// 3-item trust row below) — colors, copy, and business identity are
+// ScaleKit's own placeholder brand, not carried over from the reference.
+// PLACEHOLDER: [HERO_IMAGE_URL] needs a real photo before use — no
+// fabricated/stock image is baked in here. Headline and trust items are
+// generic placeholder copy for this invented practice, not real claims.
+interface TrustItem {
+  label: string;
+}
+
+interface Props {
+  headline?: string;
+  subheadline?: string;
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  trustItems?: TrustItem[];
+  heroImageUrl?: string;
+}
+
+const {
+  headline = 'Support That Meets You Where Life Actually Is.',
+  subheadline = 'Willowmere Therapy Group is a team of licensed therapists supporting individuals, couples, and families through the moments that feel like too much to carry alone.',
+  primaryCtaLabel = 'View Specialties',
+  primaryCtaHref = '#specialties',
+  secondaryCtaLabel = 'Book a Consultation',
+  secondaryCtaHref = '#contact',
+  trustItems = [
+    { label: 'Insurance-Friendly Care' },
+    { label: 'Licensed, Experienced Clinicians' },
+    { label: 'In-Person & Virtual Sessions' },
+  ],
+  heroImageUrl = '[HERO_IMAGE_URL]',
+} = Astro.props;
+---
+
+<section class="wg-hero">
+  <!-- PLACEHOLDER: replace heroImageUrl with a real photo before use -->
+  <div class="hero-bg" style={`background-image: linear-gradient(rgba(74,37,69,0.82), rgba(43,27,41,0.92)), url('${heroImageUrl}');`}></div>
+
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1 class="headline">{headline}</h1>
+      <p class="sub">{subheadline}</p>
+
+      <div class="cta-row">
+        <a href={primaryCtaHref} class="cta-outline">{primaryCtaLabel}</a>
+        <a href={secondaryCtaHref} class="cta-filled">{secondaryCtaLabel}</a>
+      </div>
+    </div>
+
+    <div class="trust-row">
+      {trustItems.map((item) => (
+        <span class="trust-item">{item.label}</span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .wg-hero {
+    position: relative;
+    font-family: 'Karla', -apple-system, sans-serif;
+    min-height: 640px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-color: #2B1B29;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 40px 56px;
+  }
+
+  .hero-copy { max-width: 640px; }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 4.2vw, 50px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+    margin: 0 0 20px;
+  }
+  .sub {
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 520px;
+    margin: 0 0 32px;
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 44px;
+  }
+  .cta-outline,
+  .cta-filled {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 26px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .cta-outline {
+    border: 1.5px solid #FFFFFF;
+    color: #FFFFFF;
+  }
+  .cta-outline:hover { background: #FFFFFF; color: #2B1B29; }
+  .cta-filled {
+    background: #C98A3E;
+    color: #2B1B29;
+  }
+  .cta-filled:hover { background: #DBA05A; }
+
+  .trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 34px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+  }
+  .trust-item {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  @media (max-width: 720px) {
+    .hero-inner { padding: 0 20px 40px; }
+    .cta-row { flex-wrap: wrap; }
+  }
+</style>

@@ -1,0 +1,107 @@
+/*
+  ScaleKit brand tokens — ported directly from
+  funnel-library/scalekit-main-landing-page/styles.css (the master GHL brand CSS).
+  Values are real, locked ScaleKit brand values, not placeholders.
+  Token NAMES follow the starter kit's contract so components/BaseLayout
+  keep working unmodified; VALUES are ScaleKit's.
+
+  FLAG: the actual homepage section files (funnel-library/clients/scale-kit-home-page/)
+  diverge from the master styles.css in two ways:
+    1. Typography — nav uses Plus Jakarta Sans, noted in-file as a
+       "homepage-only typography override," not Inter. Reflected below.
+    2. Nav container width is 1200px, not the master's 1000px --max-w.
+       Kept as a separate --container-max-nav token rather than
+       overriding --container-max globally, since it's unclear whether
+       that's intentional or drift — flag for user to reconcile.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Core surfaces */
+  --color-bg: #f5f5f2;        /* cream — primary page background */
+  --color-bg-alt: #efefeb;    /* alternate section background (adjacent sections alternate bg/bg-alt) */
+  --color-fg: #0a0a0a;        /* near-black — primary text */
+  --color-border: #e0e0da;
+
+  /* Brand accent */
+  --color-primary: #d7ff00;      /* lime — primary CTA fill, checkmarks, highlights */
+  --color-primary-fg: #0a0a0a;   /* text color ON primary (black on lime) */
+  --color-primary-hover: #c8f000;
+  --color-primary-outline: #b0cc00; /* darker lime — dot/pill outline accents, distinct from hover */
+  --color-accent: #d7ff00;       /* same as primary — lime is ScaleKit's single signature accent */
+
+  --color-muted: #efefeb;     /* same as bg-alt — used for subtle fills/cards */
+
+  /* Text tones (beyond base --color-fg) */
+  --color-text-mid: #444444;
+  --color-text-light: #888888;
+
+  /* Dark sections (quote block, final CTA, footer) — NOT a toggleable dark
+     theme, just fixed dark-background sections within an otherwise light
+     page. Use these directly on those sections; do not rely on
+     [data-theme='dark'] for this (see note below). */
+  --color-dark-bg: #0a0a0a;
+  --color-dark-fg: #ffffff;
+  --color-dark-text-mid: #888888;
+  --color-dark-border: #1a1a1a;
+
+  /* Semantic status (who-it's-for yes/no list) */
+  --color-success: #1a8a1a;
+  --color-success-bg: #d4f5d4;
+  --color-danger: #cc2222;
+  --color-danger-bg: #fde8e8;
+
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-weight-max: 800;
+  --font-weight-button: 600;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Spacing scale — derived from the real recurring values in styles.css
+     (32px section/container horizontal padding and 80px section vertical
+     padding are the two most-repeated values in the source file; scale
+     built around them rather than an arbitrary progression). */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 20px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 80px;
+
+  /* Two real one-off values from the source that don't fit the 8-step
+     scale cleanly — components should reference these directly rather
+     than force them into --space-*: */
+  --space-hero-top: 144px;   /* .sk-hero top padding — offsets the fixed nav */
+  --space-cta: 96px;         /* .sk-final-cta vertical padding */
+
+  --container-max: 1000px;   /* ScaleKit's real max-width (.sk-container / .sk-nav-inner) — narrower than a typical marketing site */
+  --container-max-nav: 1200px; /* actual homepage nav's container width — see FLAG above */
+
+  /* Lime grid texture background — used on Nav/Hero/VSL per copy.md
+     ("Nav, Hero, and VSL now share the same cream + lime-grid treatment") */
+  --bg-lime-grid:
+    linear-gradient(rgba(215, 255, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(215, 255, 0, 0.08) 1px, transparent 1px);
+  --bg-lime-grid-size: 48px 48px;
+}
+
+/*
+  NOTE on dark mode: ScaleKit's site has no user-facing theme toggle.
+  The starter kit's [data-theme='dark'] block is left in place below for
+  starter-kit consistency, but this project doesn't wire up a toggle —
+  "dark" sections (quote block, final CTA, footer) are fixed-dark
+  components using --color-dark-* tokens above, not a global theme swap.
+  Delete this block if astro-build confirms it's genuinely unused.
+*/
+[data-theme='dark'] {
+  --color-bg: #0d0d0d;
+  --color-fg: #f4f4f4;
+  --color-muted: #1a1a1a;
+  --color-border: #2a2a2a;
+}

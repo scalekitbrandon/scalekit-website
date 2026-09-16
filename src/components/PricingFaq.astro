@@ -1,0 +1,142 @@
+---
+// FAQ for /pricing. Same zero-JS <details>/<summary> accordion pattern as
+// ScoutFaq.astro. Only includes answers built from confirmed facts
+// (month-to-month/no-contract billing, the "combine services" framing
+// already in the hero) — no answers about specific tier pricing yet,
+// since those numbers are still pending per decisions.md Section 9.
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
+  items?: FaqItem[];
+}
+
+const {
+  eyebrow = 'Good to Know',
+  headline = 'Straight Answers, No Fine Print',
+  subheadline = "Still deciding? Here's what most people ask before their first call.",
+  items = [
+    {
+      question: 'Do I need to sign a contract?',
+      answer: "No. Every ScaleKit service is billed month-to-month. Cancel anytime.",
+    },
+    {
+      question: 'Can I combine multiple services?',
+      answer: "Yes. You can combine any of these services into one connected system, or start with just one and add more later as your business grows.",
+    },
+    {
+      question: "What if I only need one service, not a full system?",
+      answer: "That's exactly how ScaleKit is built. Pick what you need now — a website, Local SEO, ads, CRM & automation, or AI agents — and add more only when it makes sense for your business.",
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="pricing-faq" id="faq">
+  <div class="inner">
+
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="sub">{subheadline}</p>
+    </div>
+
+    <div class="faq-list">
+      {items.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            {item.question}
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="faq-answer">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .pricing-faq {
+    background: var(--color-bg);
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 780px; margin: 0 auto; }
+
+  .header { text-align: center; margin: 0 auto var(--space-7); }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 18px;
+  }
+  .headline {
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-3);
+  }
+  .sub {
+    font-size: 16px;
+    color: var(--color-text-mid);
+    margin: 0;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+  }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-fg);
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .chevron {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--color-text-light);
+    transition: transform 0.2s;
+  }
+  .faq-item[open] .chevron { transform: rotate(180deg); }
+  .faq-item[open] .faq-question { color: var(--color-fg); }
+
+  .faq-answer {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-text-mid);
+    margin: var(--space-3) 0 0;
+    padding-right: 34px;
+  }
+
+  @media (max-width: 560px) {
+    .pricing-faq { padding: var(--space-7) var(--space-5); }
+    .faq-item { padding: var(--space-4); }
+    .faq-question { font-size: 15px; }
+  }
+</style>

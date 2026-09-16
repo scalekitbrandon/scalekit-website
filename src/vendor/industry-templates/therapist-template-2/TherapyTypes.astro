@@ -1,0 +1,144 @@
+---
+// Therapist Template 2 (group practice) — Therapy Types.
+// Structure cloned from the same reference site (full-width photo-overlay
+// band, eyebrow + headline/body pair, 2x3 grid of semi-transparent
+// service cards) — colors and copy reskinned to the Willowmere
+// aubergine/amber/ivory palette, not carried over from the reference.
+// PLACEHOLDER: [THERAPY_TYPES_BG_URL] needs a real photo before use — no
+// fabricated/stock image is baked in here.
+interface TherapyType {
+  name: string;
+  description: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  body?: string;
+  bgImageUrl?: string;
+  therapyTypes?: TherapyType[];
+}
+
+const {
+  eyebrow = 'IN-PERSON & VIRTUAL THERAPY',
+  headline = 'Care that adapts to different kinds of needs.',
+  body = "However you come to therapy — on your own or alongside someone important to you — the work here stays grounded and intentional. We won't rush the process or overcomplicate what's actually happening in your life. Our focus is helping you respond to it with more clarity and steadiness.",
+  bgImageUrl = '[THERAPY_TYPES_BG_URL]',
+  therapyTypes = [
+    { name: 'Individual Therapy', description: 'One-on-one support for patterns, emotional regulation, identity, and long-standing concerns.' },
+    { name: 'Couples Therapy', description: 'Support for communication, trust, intimacy, conflict, and relational repair.' },
+    { name: 'Family Therapy', description: 'Focused work between family members — often a parent and adult child, or two siblings.' },
+    { name: 'Group Therapy', description: 'Process and skills-based groups that support connection, emotional growth, and shared learning.' },
+    { name: 'Young Adults 18+', description: 'Therapy tailored to emerging adulthood: identity, relationships, and life transitions.' },
+    { name: 'Teletherapy', description: 'Secure virtual sessions for clients located anywhere in [SERVICE_REGION].' },
+  ],
+} = Astro.props;
+---
+
+<section class="therapy-types">
+  <!-- PLACEHOLDER: replace bgImageUrl with a real photo before use -->
+  <div class="types-bg" style={`background-image: linear-gradient(rgba(43,27,41,0.72), rgba(43,27,41,0.8)), url('${bgImageUrl}');`}></div>
+
+  <div class="types-inner">
+    <div class="types-header">
+      <div class="types-copy">
+        <p class="eyebrow">{eyebrow}</p>
+        <h2 class="headline">{headline}</h2>
+      </div>
+      <p class="body">{body}</p>
+    </div>
+
+    <div class="types-grid">
+      {therapyTypes.map((type) => (
+        <div class="type-card">
+          <h3 class="type-name">{type.name}</h3>
+          <p class="type-desc">{type.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .therapy-types {
+    position: relative;
+    font-family: 'Karla', -apple-system, sans-serif;
+    padding: 100px 40px;
+    overflow: hidden;
+  }
+  .types-bg {
+    position: absolute;
+    inset: 0;
+    background-color: #2B1B29;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .types-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  .types-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 56px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #C98A3E;
+    margin: 0 0 16px;
+  }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(26px, 2.8vw, 36px);
+    line-height: 1.3;
+    color: #FFFFFF;
+    margin: 0;
+  }
+  .body {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    align-self: end;
+  }
+
+  .types-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+  .type-card {
+    background: rgba(250, 246, 239, 0.08);
+    padding: 32px 28px;
+  }
+  .type-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFFFFF;
+    margin: 0 0 10px;
+  }
+  .type-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.72);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .types-header { grid-template-columns: 1fr; gap: 20px; }
+    .types-grid { grid-template-columns: 1fr; }
+    .therapy-types { padding: 72px 24px; }
+  }
+</style>

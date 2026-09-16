@@ -1,0 +1,286 @@
+---
+// 3-visible-column thumbnail carousel showing real website templates,
+// for the Websites & Funnels ServiceSection on the multi-service
+// vertical hub pages (public-adjusters.astro first). No public-adjuster-
+// specific template exists yet, so per explicit direction this shows
+// our existing real "home services" category templates as a stand-in
+// ("use the home services templates for now") — Home Services/Anchor,
+// Roofing, Landscaping, Restoration, and the real Brush Hour Painting
+// client build. Same live-scaled-render technique as
+// WebsitesFunnels.astro's homepage cards (.mini-page: render the real
+// component at 400% width, scale(0.25)) — not a fabricated screenshot.
+// Left/right arrows scroll the row; only 3 of the 5 are visible at once
+// on desktop.
+import HomeServicesHeader from '../vendor/anchor-home-services/Header.astro';
+import HomeServicesHero from '../vendor/anchor-home-services/Hero.astro';
+import HomeServicesServices from '../vendor/anchor-home-services/Services.astro';
+import RoofingHeader from '../vendor/industry-templates/roofing/Header.astro';
+import RoofingHero from '../vendor/industry-templates/roofing/Hero.astro';
+import RoofingServices from '../vendor/industry-templates/roofing/Services.astro';
+import LandscapingHeader from '../vendor/industry-templates/landscaping/Header.astro';
+import LandscapingHero from '../vendor/industry-templates/landscaping/Hero.astro';
+import LandscapingGallery from '../vendor/industry-templates/landscaping/Gallery.astro';
+import RestorationHeader from '../vendor/industry-templates/restoration/Header.astro';
+import RestorationHero from '../vendor/industry-templates/restoration/Hero.astro';
+import RestorationServices from '../vendor/industry-templates/restoration/Services.astro';
+import PaintingHeader from '../vendor/brush-hour-painting/Header.astro';
+import PaintingHero from '../vendor/brush-hour-painting/Hero.astro';
+import PaintingFeatureGrid from '../vendor/brush-hour-painting/FeatureGrid.astro';
+---
+
+<div class="thumb-carousel">
+  <button type="button" class="thumb-arrow prev" data-thumb-prev aria-label="Previous">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+
+  <div class="thumb-track" data-thumb-track>
+    <div class="thumb">
+      <div class="thumb-preview home-services-preview" aria-hidden="true">
+        <div class="mini-page-wrap">
+          <div class="mini-page">
+            <HomeServicesHeader />
+            <HomeServicesHero />
+            <HomeServicesServices />
+          </div>
+        </div>
+      </div>
+      <p class="thumb-label">Home Services</p>
+    </div>
+
+    <div class="thumb">
+      <div class="thumb-preview roofing-preview" aria-hidden="true">
+        <div class="mini-page-wrap">
+          <div class="mini-page">
+            <RoofingHeader />
+            <RoofingHero />
+            <RoofingServices />
+          </div>
+        </div>
+      </div>
+      <p class="thumb-label">Roofing</p>
+    </div>
+
+    <div class="thumb">
+      <div class="thumb-preview landscaping-preview" aria-hidden="true">
+        <div class="mini-page-wrap">
+          <div class="mini-page">
+            <LandscapingHeader />
+            <LandscapingHero />
+            <LandscapingGallery />
+          </div>
+        </div>
+      </div>
+      <p class="thumb-label">Landscaping</p>
+    </div>
+
+    <div class="thumb">
+      <div class="thumb-preview restoration-preview" aria-hidden="true">
+        <div class="mini-page-wrap">
+          <div class="mini-page">
+            <RestorationHeader />
+            <RestorationHero />
+            <RestorationServices />
+          </div>
+        </div>
+      </div>
+      <p class="thumb-label">Restoration</p>
+    </div>
+
+    <div class="thumb">
+      <div class="thumb-preview painting-preview" aria-hidden="true">
+        <div class="mini-page-wrap">
+          <div class="mini-page">
+            <PaintingHeader
+              logoText="Brush Hour Painting"
+              links={[{ label: 'Services', href: '/#services' }]}
+              ctaLabel="512-552-7519"
+              ctaHref="tel:5125527519"
+            />
+            <PaintingHero
+              backgroundSrc="/images/hero-bg-premium-home.jpg"
+              headline="Your Expert Painting Company in Austin, TX Since 2008"
+              subheadline="Interior, exterior, and commercial painting for Austin-area homes and businesses."
+              primaryLabel="Get Free Quote"
+              primaryHref="#quote"
+              badges={[{ icon: 'star', title: 'Licensed & Insured', subtitle: 'On every job' }]}
+            />
+            <PaintingFeatureGrid
+              heading="Why Choose Brush Hour Painting"
+              columns={4}
+              items={[
+                { icon: 'shield', title: 'Licensed & Insured', description: 'Full coverage on every job, no exceptions.' },
+                { icon: 'pin', title: 'Austin Local', description: 'Serving the greater Austin area since 2008.' },
+                { icon: 'award', title: 'Expert Craftsmanship', description: 'Proper prep work on every job, big or small.' },
+                { icon: 'tag', title: 'Free, No-Pressure Quotes', description: 'No obligation, just an honest estimate.' },
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+      <p class="thumb-label">Painting</p>
+    </div>
+  </div>
+
+  <button type="button" class="thumb-arrow next" data-thumb-next aria-label="Next">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+
+<style>
+  .thumb-carousel {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin: 0 0 var(--space-6);
+  }
+  .thumb-arrow {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border);
+    background: #ffffff;
+    color: var(--color-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .thumb-arrow svg { width: 18px; height: 18px; }
+  .thumb-arrow:hover { background: var(--color-primary); border-color: var(--color-primary); }
+  .thumb-arrow:disabled { opacity: 0.35; cursor: default; }
+  .thumb-arrow:disabled:hover { background: #ffffff; border-color: var(--color-border); }
+
+  .thumb-track {
+    flex: 1;
+    display: flex;
+    gap: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .thumb-track::-webkit-scrollbar { display: none; }
+
+  .thumb {
+    flex: 0 0 calc(33.333% - var(--space-4) * 2 / 3);
+    scroll-snap-align: start;
+    min-width: 260px;
+  }
+  .thumb-preview {
+    aspect-ratio: 4 / 3;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    margin: 0 0 var(--space-3);
+  }
+  .thumb-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--color-fg);
+    text-align: center;
+    margin: 0;
+  }
+
+  .mini-page-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .mini-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400%;
+    transform: scale(0.25);
+    transform-origin: top left;
+    pointer-events: none;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mini-page :global(.nav-links) { display: none !important; }
+  .mini-page :global(.headline) { font-size: 34px !important; }
+  .mini-page :global(.sub) { font-size: 15px !important; }
+
+  /* Painting thumb needs its own real brand tokens, same fix as
+     WebsitesFunnels.astro's .painting-preview — its components read
+     CSS custom properties from a tokens.css this build never loads. */
+  .painting-preview {
+    --color-bg: #ffffff;
+    --color-fg: #2b2b2a;
+    --color-primary: #962107;
+    --color-primary-fg: #ffffff;
+    --color-accent: #f6520e;
+    --color-muted: #f5f0ee;
+    --color-border: #e6e0dd;
+    --font-heading: 'Roboto Slab', serif;
+    --font-body: 'Poppins', sans-serif;
+    --font-weight-max: 700;
+    --font-weight-button: 600;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.563rem;
+    --text-2xl: 1.953rem;
+    --text-3xl: 2.441rem;
+    --text-4xl: 3.052rem;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --space-6: 48px;
+    --space-7: 64px;
+    --space-8: 96px;
+    --container-max: 1440px;
+  }
+  .painting-preview :global(h1),
+  .painting-preview :global(h2),
+  .painting-preview :global(h3) {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-max);
+    margin: 0;
+  }
+  .painting-preview :global(nav) { display: none !important; }
+  .painting-preview :global(h1) { font-size: 34px !important; }
+  .painting-preview :global(.subheadline) { font-size: 15px !important; }
+
+  @media (max-width: 900px) {
+    .thumb { flex-basis: calc(50% - var(--space-4) / 2); }
+  }
+  @media (max-width: 560px) {
+    .thumb { flex-basis: 82%; min-width: 0; }
+    .thumb-arrow { width: 36px; height: 36px; }
+  }
+</style>
+
+<script>
+  const track = document.querySelector('[data-thumb-track]');
+  const prevBtn = document.querySelector('[data-thumb-prev]');
+  const nextBtn = document.querySelector('[data-thumb-next]');
+
+  function scrollStep() {
+    const thumb = track?.querySelector('.thumb');
+    const gap = 24;
+    return thumb ? thumb.getBoundingClientRect().width + gap : 280;
+  }
+
+  function updateArrows() {
+    if (!track || !(prevBtn instanceof HTMLButtonElement) || !(nextBtn instanceof HTMLButtonElement)) return;
+    const maxScroll = track.scrollWidth - track.clientWidth - 2;
+    prevBtn.disabled = track.scrollLeft <= 0;
+    nextBtn.disabled = track.scrollLeft >= maxScroll;
+  }
+
+  prevBtn?.addEventListener('click', () => track?.scrollBy({ left: -scrollStep(), behavior: 'smooth' }));
+  nextBtn?.addEventListener('click', () => track?.scrollBy({ left: scrollStep(), behavior: 'smooth' }));
+  track?.addEventListener('scroll', updateArrows, { passive: true });
+  window.addEventListener('resize', updateArrows);
+  updateArrows();
+</script>

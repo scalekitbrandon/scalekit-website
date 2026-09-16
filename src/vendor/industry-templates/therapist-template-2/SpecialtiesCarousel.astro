@@ -1,0 +1,187 @@
+---
+// Therapist Template 2 (group practice) — Specialties Carousel.
+// Structure cloned from the same reference site (centered eyebrow +
+// headline, then an image/text carousel row with prev/next arrow
+// controls) — colors and copy reskinned to Willowmere's palette. Uses
+// plain vanilla JS to cycle slides, no dependencies, matching the
+// no-JS-framework convention used elsewhere in this template set.
+// PLACEHOLDER: each specialty's imageUrl needs a real photo before use —
+// no fabricated/stock images are baked in here.
+interface Specialty {
+  title: string;
+  description: string;
+  imageUrl: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  subtext?: string;
+  specialties?: Specialty[];
+}
+
+const {
+  eyebrow = 'OUR SPECIALTIES',
+  headline = 'What we can help with',
+  subtext = 'People come to Willowmere for many different reasons. Here are some of the experiences we most often help clients work through.',
+  specialties = [
+    { title: 'Relationship Issues', description: 'Explore communication patterns, boundaries, attachment, and recurring dynamics in close relationships.', imageUrl: '[SPECIALTY_IMAGE_RELATIONSHIP_URL]' },
+    { title: 'Anxiety & Stress', description: 'Learn to recognize what drives your anxiety and build tools that help you feel steadier day to day.', imageUrl: '[SPECIALTY_IMAGE_ANXIETY_URL]' },
+    { title: 'Life Transitions', description: 'Work through the uncertainty of a career change, move, breakup, or any shift that reshapes daily life.', imageUrl: '[SPECIALTY_IMAGE_TRANSITIONS_URL]' },
+    { title: 'Family Conflict', description: 'Address longstanding tension, communication breakdowns, and unresolved dynamics within the family system.', imageUrl: '[SPECIALTY_IMAGE_FAMILY_URL]' },
+    { title: 'Burnout', description: 'Understand the gap between how you look on paper and how depleted you actually feel — and what to do about it.', imageUrl: '[SPECIALTY_IMAGE_BURNOUT_URL]' },
+  ],
+} = Astro.props;
+---
+
+<section class="specialties">
+  <div class="specialties-inner">
+    <div class="specialties-header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="subtext">{subtext}</p>
+    </div>
+
+    <div class="carousel" data-carousel>
+      {specialties.map((item, i) => (
+        <div class="slide" data-slide style={i === 0 ? '' : 'display:none;'}>
+          <!-- PLACEHOLDER: replace imageUrl with a real photo before use -->
+          <div class="slide-image" style={`background-image: url('${item.imageUrl}');`}></div>
+          <div class="slide-content">
+            <button class="arrow arrow-prev" data-prev aria-label="Previous specialty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="slide-text">
+              <h3 class="slide-title">{item.title}</h3>
+              <p class="slide-desc">{item.description}</p>
+            </div>
+            <button class="arrow arrow-next" data-next aria-label="Next specialty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll('[data-slide]'));
+    let current = 0;
+
+    const show = (index: number) => {
+      slides.forEach((slide, i) => {
+        (slide as HTMLElement).style.display = i === index ? '' : 'none';
+      });
+    };
+
+    carousel.querySelectorAll('[data-prev]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        current = (current - 1 + slides.length) % slides.length;
+        show(current);
+      });
+    });
+    carousel.querySelectorAll('[data-next]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        current = (current + 1) % slides.length;
+        show(current);
+      });
+    });
+  });
+</script>
+
+<style>
+  .specialties {
+    font-family: 'Karla', -apple-system, sans-serif;
+    background: #FAF6EF;
+    padding: 100px 40px;
+  }
+  .specialties-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  .specialties-header {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 56px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #C98A3E;
+    margin: 0 0 14px;
+  }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(26px, 3vw, 36px);
+    color: #2B1B29;
+    margin: 0 0 16px;
+  }
+  .subtext {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: #5A4A55;
+    margin: 0;
+  }
+
+  .slide {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    align-items: center;
+    border-top: 1px solid #E3D6DE;
+    padding-top: 48px;
+  }
+  .slide-image {
+    aspect-ratio: 4 / 3;
+    border-radius: 6px;
+    background-color: #E3D6DE;
+    background-size: cover;
+    background-position: center;
+  }
+  .slide-content {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .slide-text { flex: 1; }
+  .slide-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: #4A2545;
+    margin: 0 0 14px;
+  }
+  .slide-desc {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: #5A4A55;
+    margin: 0;
+  }
+  .arrow {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid #C98A3E;
+    background: transparent;
+    color: #C98A3E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .arrow svg { width: 16px; height: 16px; }
+  .arrow:hover { background: #C98A3E; color: #FAF6EF; }
+
+  @media (max-width: 800px) {
+    .slide { grid-template-columns: 1fr; gap: 24px; }
+    .specialties { padding: 72px 24px; }
+  }
+</style>

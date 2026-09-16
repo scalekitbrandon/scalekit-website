@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import TemplateShowcase from '../../components/TemplateShowcase.astro';
+import ProcessCircles from '../../components/ProcessCircles.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+import RestorationSample from '../../components/samples/RestorationSample.astro';
+import AnchorSample from '../../components/samples/AnchorSample.astro';
+import PaintingSample from '../../components/samples/PaintingSample.astro';
+import RoofingSample from '../../components/samples/RoofingSample.astro';
+import LandscapingSample from '../../components/samples/LandscapingSample.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Restoration & Remodeling Websites & Funnels',
+    name: 'Website Design for Restoration & Remodeling Companies',
+    description: 'ScaleKit builds restoration and remodeling companies a site and lead system built for the moment it matters most.',
+    url: `${siteUrl}/services/restoration`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Book Your Free Strategy Call', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Website Design for Restoration & Remodeling Companies | ScaleKit"
+  description="ScaleKit builds restoration and remodeling companies a site and lead-response system built for the moment it matters most."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="Website Design for Restoration & Remodeling Companies"
+    headline="Be The First Call When Disaster Strikes"
+    subheadline="When a pipe bursts, homeowners call whoever answers first and looks the most trustworthy online. We build restoration companies a site and lead system built for the moment it matters most."
+    checklist={[
+      'Lightning-fast load times',
+      'Mobile-first on every device',
+      'Technical SEO from day one',
+      'Ranks in Google & AI search',
+      'Live in days, not months',
+      'High-conversion copywriting',
+      'Built to convert, not just look good',
+      'Unlimited review requests',
+      'Connected straight to your CRM',
+      'Instant lead form engagement',
+    ]}
+  />
+
+  <TemplateShowcase
+    addressLabel="yourrestorationco.com"
+    sampleLabels={[
+      'yourhomeservicesco.com',
+      'brushhourpaintingtexas.com',
+      'yourroofingcompany.com',
+      'yourlandscapingco.com',
+    ]}
+  >
+    <RestorationSample />
+    <Fragment slot="sample-1"><AnchorSample /></Fragment>
+    <Fragment slot="sample-2"><PaintingSample /></Fragment>
+    <Fragment slot="sample-3"><RoofingSample /></Fragment>
+    <Fragment slot="sample-4"><LandscapingSample /></Fragment>
+  </TemplateShowcase>
+
+  <ProcessCircles />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Emergency Call Actually Worth?"
+    subheadline="Every minute a panicked homeowner waits for a callback is a minute your competitor has to answer first. ScaleKit makes sure that's you."
+  />
+
+  <BookCall />
+
+  <Footer slot="footer" logoText="ScaleKit" groups={footerGroups} />
+</BaseLayout>

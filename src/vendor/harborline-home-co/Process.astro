@@ -1,0 +1,112 @@
+---
+// Harborline Home Co. — Process. Same 4-step numbered band shape as
+// Anchor's Process.astro, but steps are reframed around the Hero
+// calculator instead of a generic "instant quote" step.
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  steps?: Step[];
+}
+
+const {
+  eyebrow = 'How It Works',
+  headline = 'From Estimate to Finished Project',
+  steps = [
+    { number: '01', title: 'Get Your Range', description: 'Use the calculator above — takes under a minute, no account needed.' },
+    { number: '02', title: 'Free In-Home Visit', description: 'We confirm scope in person and lock in a firm, written price.' },
+    { number: '03', title: 'We Get to Work', description: 'Our own crew shows up on the date we agreed to — not a subcontractor.' },
+    { number: '04', title: 'Final Walkthrough', description: 'You sign off in person before we consider the job done.' },
+  ],
+} = Astro.props;
+---
+
+<section class="process">
+  <div class="process-inner">
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+    </div>
+
+    <div class="step-row">
+      {steps.map((s) => (
+        <div class="step">
+          <span class="step-number">{s.number}</span>
+          <h3 class="step-title">{s.title}</h3>
+          <p class="step-desc">{s.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .process {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #ffffff;
+    padding: 84px 40px;
+  }
+  .process-inner { max-width: 1400px; margin: 0 auto; }
+
+  .header { text-align: center; margin: 0 0 48px; }
+  .eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #DE9A5C;
+    margin: 0 0 12px;
+  }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(26px, 3.2vw, 34px);
+    font-weight: 600;
+    color: #0E5E5E;
+    margin: 0;
+  }
+
+  .step-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  .step {
+    position: relative;
+    padding: 24px 0 0;
+    border-top: 3px solid #DE9A5C;
+  }
+  .step-number {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: #0E5E5E;
+    margin: 0 0 10px;
+  }
+  .step-title {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #0E5E5E;
+    margin: 0 0 8px;
+  }
+  .step-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #6B7D78;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .step-row { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  }
+  @media (max-width: 560px) {
+    .process { padding: 56px 20px; }
+    .step-row { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>

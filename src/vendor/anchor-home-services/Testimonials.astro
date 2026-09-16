@@ -1,0 +1,165 @@
+---
+// Home Services industry template — Testimonials. Paired with About.astro
+// per README.md's deferred plan. Decorative prev/next arrows match the
+// same (non-wired) pattern already used in Services.astro's carousel
+// header — real carousel JS can be added later if this template moves
+// into an actual client build.
+// NO REAL REVIEWS: names and quotes are obviously generic placeholders
+// (single first name + last initial, no specific numbers/claims) — swap
+// for real client reviews before this ever goes live for an actual
+// business, never invent specific results/numbers here.
+interface Review {
+  name: string;
+  location: string;
+  quote: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  reviews?: Review[];
+}
+
+const {
+  eyebrow = 'What Homeowners Say',
+  headline = 'Real Reviews From Real Jobs',
+  reviews = [
+    {
+      name: 'Alex R.',
+      location: 'Verified Customer',
+      quote: "Showed up exactly when they said they would and the price didn't change once the work started. That alone put them above everyone else I called.",
+    },
+    {
+      name: 'Jamie T.',
+      location: 'Verified Customer',
+      quote: 'Explained everything in plain English before starting anything. No pressure to upgrade to something I didn\'t need.',
+    },
+    {
+      name: 'Morgan D.',
+      location: 'Verified Customer',
+      quote: 'Had a small issue after the job was done and they came back out within the week to fix it, no argument, no extra bill.',
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonials-header">
+      <div>
+        <p class="eyebrow">{eyebrow}</p>
+        <h2 class="headline">{headline}</h2>
+      </div>
+      <div class="carousel-arrows">
+        <button type="button" class="arrow-btn" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="arrow-btn" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="review-grid">
+      {reviews.map((r) => (
+        <div class="review-card">
+          <div class="stars">
+            {Array.from({ length: 5 }).map(() => (
+              <svg viewBox="0 0 24 24" fill="#F0A93B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            ))}
+          </div>
+          <p class="quote">"{r.quote}"</p>
+          <p class="reviewer-name">{r.name}</p>
+          <p class="reviewer-location">{r.location}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #F6F7FA;
+    padding: 84px 40px;
+  }
+  .testimonials-inner { max-width: 1400px; margin: 0 auto; }
+
+  .testimonials-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 0 0 40px;
+  }
+  .eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F0A93B;
+    margin: 0 0 12px;
+  }
+  .headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 700;
+    color: #12294F;
+    margin: 0;
+  }
+  .carousel-arrows { display: flex; gap: 8px; flex-shrink: 0; }
+  .arrow-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid #D8DEE8;
+    background: #ffffff;
+    color: #12294F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .arrow-btn svg { width: 15px; height: 15px; }
+  .arrow-btn:hover { background: #F0A93B; border-color: #F0A93B; color: #12294F; }
+
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .review-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid #E6E9EF;
+  }
+  .stars { display: flex; gap: 3px; margin: 0 0 16px; }
+  .stars svg { width: 16px; height: 16px; }
+  .quote {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #2A3648;
+    margin: 0 0 20px;
+  }
+  .reviewer-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #12294F;
+    margin: 0;
+  }
+  .reviewer-location {
+    font-size: 12.5px;
+    color: #8B96A5;
+    margin: 2px 0 0;
+  }
+
+  @media (max-width: 900px) {
+    .review-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .testimonials { padding: 56px 20px; }
+    .testimonials-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>

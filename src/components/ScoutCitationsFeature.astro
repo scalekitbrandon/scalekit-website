@@ -1,0 +1,302 @@
+---
+// "Build & Manage Citations Everywhere Important" — feature row 3 of
+// "How Scout Works" on /scout. Structure cloned from the reference's
+// distribution diagram (Your Business → Scout → branches out to the
+// directories/platforms it publishes to) — colors, copy, and the
+// destination icons are ScaleKit's own, not carried over from the
+// reference. The reference used real trademarked logos (Google Maps,
+// Siri, Bing, OpenAI); those are replaced with generic, labeled line
+// icons (Maps / Voice AI / Search / Directories / AI Chat) instead of
+// implying an official partnership or integration that doesn't exist.
+// Also drops the reference's plan/pricing aside ("add-on module not
+// included in the base plan") since that's Paige's business model, not
+// ScaleKit's, and the "flipped the model on its head" marketing
+// hyperbole in favor of a plain, honest description.
+// Orientation: copy left, graphic right — alternates back from
+// ScoutReviewsFeature (graphic left) per direction, continuing the
+// left/right zigzag down the page.
+interface Destination {
+  icon: string;
+  label: string;
+}
+
+interface Props {
+  headline?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  paragraph3?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  businessLabel?: string;
+  destinations?: Destination[];
+}
+
+const {
+  headline = 'Get Your Business Listed Everywhere That Matters',
+  paragraph1 = 'Search is changing. Scout helps your business get discovered not only on Google and Google Maps, but across AI-powered search platforms like ChatGPT, Gemini, Perplexity, and more.',
+  paragraph2 = "Scout automates the AI SEO work behind the scenes, strengthening your business's online presence and helping AI platforms understand who you are, what you do, and where you serve.",
+  paragraph3 = 'More visibility on Google. More visibility in AI search. More opportunities for customers to find you.',
+  ctaLabel = 'Get Started',
+  ctaHref = '#book-call',
+  businessLabel = 'Your Business',
+  // Recognizable real directories/platforms (per direction), rendered as
+  // simplified icon approximations with clear text labels rather than
+  // exact reproductions of each company's official logo artwork.
+  destinations = [
+    { icon: 'maps', label: 'Google Maps' },
+    { icon: 'ypages', label: 'Yellow Pages' },
+    { icon: 'chatgpt', label: 'ChatGPT' },
+    { icon: 'bing', label: 'Bing' },
+    { icon: 'yelp', label: 'Yelp' },
+  ],
+} = Astro.props;
+
+const iconMeta: Record<string, { svg?: string; text?: string; bg: string; fg: string; filled?: boolean }> = {
+  maps: {
+    svg: '<path d="M12 21C12 21 19 15.5 19 10C19 5.58 15.87 2 12 2C8.13 2 5 5.58 5 10C5 15.5 12 21 12 21Z"/>',
+    bg: '#ffffff',
+    fg: '#EA4335',
+    filled: true,
+  },
+  ypages: {
+    svg: '<path d="M4 4h7a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4z"/><path d="M20 4h-7a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h7z"/>',
+    bg: '#FFC72C',
+    fg: '#1B1B1B',
+  },
+  chatgpt: {
+    svg: '<path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/>',
+    bg: '#ffffff',
+    fg: '#0B0B0B',
+    filled: true,
+  },
+  bing: {
+    text: 'b',
+    bg: '#ffffff',
+    fg: '#008373',
+  },
+  yelp: {
+    svg: '<path d="M12 2l1.5 3.5L17 4l-1 3.8L20 9l-3 2.3L20 15l-3.9-.8L17 18l-3.5-1.5L12 20l-1.5-3.5L7 18l1-3.8L4 13l3-2.3L4 8l3.9.8L7 4l3.5 1.5L12 2z"/>',
+    bg: '#D32323',
+    fg: '#ffffff',
+    filled: true,
+  },
+};
+---
+
+<div class="citations-feature">
+  <div class="citations-copy">
+    <h3 class="citations-headline">{headline}</h3>
+    <p class="citations-p">{paragraph1}</p>
+    <p class="citations-p">{paragraph2}</p>
+    <p class="citations-p">{paragraph3}</p>
+    <a href={ctaHref} class="citations-cta">
+      {ctaLabel}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+
+  <div class="citations-graphic">
+    <div class="diagram">
+      <span class="biz-pill">{businessLabel}</span>
+      <span class="stem"></span>
+      <span class="scout-pill">
+        <span class="scout-pill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+        </span>
+        Scout
+      </span>
+      <span class="stem stem-to-branch"></span>
+
+      <div class="branch-row">
+        <span class="branch-line"></span>
+        {destinations.map((d) => {
+          const meta = iconMeta[d.icon];
+          return (
+            <div class="branch-item">
+              <span class="branch-icon" style={`background:${meta.bg};`}>
+                {meta.text ? (
+                  <span class="branch-icon-text" style={`color:${meta.fg};`}>{meta.text}</span>
+                ) : (
+                  <svg viewBox="0 0 24 24" fill={meta.filled ? meta.fg : 'none'} stroke={meta.fg} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={meta.svg} />
+                )}
+              </span>
+              <span class="branch-label">{d.label}</span>
+            </div>
+          );
+        })}
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .citations-feature {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--space-8);
+    align-items: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .citations-headline {
+    font-size: clamp(28px, 3.4vw, 38px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4);
+  }
+  .citations-p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-4);
+    max-width: 480px;
+  }
+  .citations-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 16px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    margin-top: var(--space-2);
+    transition: background 0.15s;
+  }
+  .citations-cta:hover { background: var(--color-primary-hover); }
+  .citations-cta svg { width: 15px; height: 15px; }
+
+  .citations-graphic {
+    background-color: var(--color-bg-alt);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7) var(--space-6) var(--space-6);
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+  }
+
+  .diagram {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .biz-pill {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 9px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-fg);
+    box-shadow: 0 8px 18px rgba(10, 10, 10, 0.08);
+  }
+  .stem {
+    width: 1px;
+    height: 26px;
+    background: var(--color-border);
+  }
+
+  .scout-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    border-radius: var(--radius-pill);
+    padding: 10px 24px 10px 12px;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--color-fg);
+    box-shadow: 0 12px 26px rgba(10, 10, 10, 0.12);
+  }
+  .scout-pill-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .scout-pill-icon svg { width: 14px; height: 14px; }
+
+  .branch-row {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 28px;
+    margin-top: 4px;
+  }
+  .branch-line {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: var(--color-border);
+  }
+  .branch-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .branch-item::before {
+    content: '';
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    width: 1px;
+    height: 28px;
+    background: var(--color-border);
+  }
+  .branch-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 8px 18px rgba(10, 10, 10, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .branch-icon svg { width: 21px; height: 21px; }
+  .branch-icon-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 24px;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1;
+  }
+  .branch-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--color-text-mid);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .citations-feature { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .citations-graphic { padding: var(--space-6) var(--space-4); min-height: 380px; }
+    .branch-row { max-width: 100%; }
+    .branch-icon { width: 40px; height: 40px; }
+    .branch-icon svg { width: 18px; height: 18px; }
+  }
+</style>

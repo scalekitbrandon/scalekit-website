@@ -1,0 +1,154 @@
+---
+// Therapists & Advisors industry template — HowItHelps. "Getting help
+// made simple" 3-step section + press/partner logo strip, per
+// README.md's deferred plan. The press strip uses generic bracket
+// placeholders rather than real outlet names/logos (NYT, Forbes, etc.)
+// — "Margot Hale" is an invented placeholder practitioner, so claiming
+// real press coverage would be a fabricated claim, not just placeholder
+// copy.
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  steps?: Step[];
+  pressLabel?: string;
+  pressLogos?: string[];
+}
+
+const {
+  eyebrow = 'Getting Started',
+  headline = 'Getting Help, Made Simple',
+  steps = [
+    { number: '01', title: 'Reach Out', description: 'Send a message or call — no lengthy intake form standing between you and a real answer.' },
+    { number: '02', title: 'Free Consultation', description: "A short call to talk through what you're looking for and see if it's the right fit." },
+    { number: '03', title: 'Begin Your Sessions', description: 'In-person or telehealth, on a schedule that actually works for your life.' },
+  ],
+  pressLabel = 'As Featured In',
+  pressLogos = ['[PRESS LOGO]', '[PRESS LOGO]', '[PRESS LOGO]', '[PRESS LOGO]'],
+} = Astro.props;
+---
+
+<section class="how-it-helps">
+  <div class="how-it-helps-inner">
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <span class="underline"></span>
+    </div>
+
+    <div class="step-row">
+      {steps.map((s) => (
+        <div class="step">
+          <span class="step-number">{s.number}</span>
+          <h3 class="step-title">{s.title}</h3>
+          <p class="step-desc">{s.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="press-strip">
+      <p class="press-label">{pressLabel}</p>
+      <div class="press-logos">
+        {pressLogos.map((p) => <span class="press-logo">{p}</span>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-it-helps {
+    font-family: 'Karla', -apple-system, sans-serif;
+    background: #FDFBF7;
+    padding: 84px 40px;
+  }
+  .how-it-helps-inner { max-width: 1100px; margin: 0 auto; }
+
+  .header { text-align: center; margin: 0 0 52px; }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #3B5A4E;
+    margin: 0 0 14px;
+  }
+  .headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.6vw, 38px);
+    font-weight: 600;
+    color: #2C3B35;
+    margin: 0 0 16px;
+  }
+  .underline { display: block; width: 48px; height: 2px; background: #3B5A4E; margin: 0 auto; }
+
+  .step-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin: 0 0 64px;
+  }
+  .step { text-align: center; }
+  .step-number {
+    display: inline-block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 600;
+    color: #C9A98F;
+    margin: 0 0 10px;
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2C3B35;
+    margin: 0 0 10px;
+  }
+  .step-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #6B7D75;
+    margin: 0;
+    max-width: 280px;
+    margin-inline: auto;
+  }
+
+  .press-strip {
+    text-align: center;
+    padding-top: 44px;
+    border-top: 1px solid #E9EFED;
+  }
+  .press-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #A9B5AE;
+    margin: 0 0 22px;
+  }
+  .press-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .press-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #C9CFCB;
+  }
+
+  @media (max-width: 760px) {
+    .step-row { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 560px) {
+    .how-it-helps { padding: 56px 20px; }
+  }
+</style>

@@ -1,0 +1,261 @@
+---
+// Restoration/Remodeling industry template — Services. Follows Header +
+// Hero, same placeholder brand (navy #142E4D / orange #F4791F, Manrope +
+// Inter). Richer card style than the other two templates on purpose —
+// icon + title + description + a 3-item checklist + a "Learn More"
+// button per card — matching the reference site's denser, more
+// corporate service-card pattern (this business does both damage
+// restoration AND remodeling, so each card needs to earn more trust on
+// its own).
+interface Service {
+  title: string;
+  description: string;
+  bullets: string[];
+  icon: 'droplet' | 'flame' | 'home' | 'utensils' | 'bath' | 'building';
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  services?: Service[];
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = 'What We Do',
+  headline = 'Comprehensive Restoration Services',
+  services = [
+    {
+      icon: 'droplet',
+      title: 'Water Damage Restoration',
+      description: 'Emergency water extraction, structural drying, and moisture control for floods, leaks, and burst pipes.',
+      bullets: ['24/7 Emergency Response', 'Advanced Moisture Detection', 'Rapid Drying & Dehumidification'],
+    },
+    {
+      icon: 'flame',
+      title: 'Fire Damage Restoration',
+      description: 'Complete fire damage restoration including smoke odor removal and structural repairs.',
+      bullets: ['Full Service Fire Rebuilds', 'Smoke & Soot Removal', 'Insurance Claim Support'],
+    },
+    {
+      icon: 'home',
+      title: 'Whole Home Remodeling',
+      description: 'From new flooring and cabinetry to full interior overhauls, we make your home feel new again.',
+      bullets: ['Full Interior Renovations', 'Licensed General Contractor', 'Complete Design-to-Finish'],
+    },
+    {
+      icon: 'utensils',
+      title: 'Kitchen Remodeling',
+      description: 'Full kitchen repair and reconstruction to return your property to pre-loss condition.',
+      bullets: ['Full Kitchen Remodels', 'Licensed, Bonded & Insured', '15+ Years of Experience'],
+    },
+    {
+      icon: 'bath',
+      title: 'Bathroom Remodeling',
+      description: "Whether you're upgrading after damage or modernizing your home, we deliver high-quality craftsmanship and designs that hold up.",
+      bullets: ['Custom Showers, Vanities & Cabinets', 'Full Bathroom Renovations', '15+ Years of Experience'],
+    },
+    {
+      icon: 'building',
+      title: 'Casita & ADU Construction',
+      description: 'Build the perfect backyard guest house, rental unit, or accessory dwelling for added value.',
+      bullets: ['Custom-Built Casitas & ADUs', 'Design & Permitting Support', 'Trusted Local Builder'],
+    },
+  ],
+  ctaLabel = 'Get Free Estimate',
+  ctaHref = '#free-estimate',
+} = Astro.props;
+
+const icons: Record<string, string> = {
+  droplet: '<path d="M12 2.69s-6 6.5-6 10.5a6 6 0 0 0 12 0c0-4-6-10.5-6-10.5z"/>',
+  flame: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 17a2.5 2.5 0 0 0 2.5-2.5c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7.5 7.5 0 1 1-15 0c0-1.153.433-2.294 1-3 1.5-2 3.5-1.5 3.5-1.5z"/>',
+  home: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
+  utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h2a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M17 2v20"/><path d="M21 2c-1.5 0-4 1-4 6v14"/>',
+  bath: '<path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-2.5 1V9"/><path d="M4 9h18v3a7 7 0 0 1-7 7H9a7 7 0 0 1-7-7V9z" transform="translate(0 -0.5)"/><path d="M6 21v-1M18 21v-1"/>',
+  building: '<rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4M9 8h1M14 8h1M9 12h1M14 12h1"/>',
+};
+---
+
+<section class="rest-services" id="services">
+  <div class="services-inner">
+
+    <div class="services-header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+    </div>
+
+    <div class="service-grid">
+      {services.map((s) => (
+        <div class="service-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#142E4D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={icons[s.icon]} />
+          </div>
+          <h3 class="service-title">{s.title}</h3>
+          <p class="service-desc">{s.description}</p>
+          <ul class="service-bullets">
+            {s.bullets.map((b) => (
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#F4791F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                {b}
+              </li>
+            ))}
+          </ul>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+      ))}
+    </div>
+
+    <div class="services-cta-row">
+      <a href={ctaHref} class="services-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V19.92C22.0011 20.4853 21.7669 21.0251 21.3533 21.4132C20.9397 21.8013 20.3871 22.0067 19.823 21.98C16.7428 21.6227 13.7893 20.5805 11.19 18.93C8.77383 17.4233 6.72534 15.3748 5.21801 12.96C3.56226 10.3484 2.51997 7.3801 2.17001 4.28C2.1437 3.71754 2.34727 3.16776 2.73386 2.75523C3.12045 2.34269 3.65653 2.10713 4.22001 2.11H7.22001C8.10561 2.10083 8.86143 2.73545 9.00001 3.61C9.12662 4.48 9.34688 5.33422 9.65001 6.16C9.89284 6.78937 9.7418 7.50207 9.26001 7.98L8.09001 9.15C9.51356 11.6488 11.5712 13.7065 14.07 15.13L15.24 13.96C15.7179 13.4782 16.4306 13.3272 17.06 13.57C17.8858 13.8731 18.74 14.0934 19.61 14.22C20.4969 14.3598 21.1345 15.1302 21.12 16.02L22 16.92Z"/></svg>
+        Call Us (555) 907-9292
+      </a>
+      <a href={ctaHref} class="services-cta-outline">{ctaLabel}</a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .rest-services {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #F5F7FA;
+    padding: 80px 40px;
+  }
+  .services-inner { max-width: 1400px; margin: 0 auto; }
+
+  .services-header { text-align: center; max-width: 600px; margin: 0 auto 50px; }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F4791F;
+    margin: 0 0 14px;
+  }
+  .headline {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(26px, 3.2vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #142E4D;
+    margin: 0;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    background: #ffffff;
+    border: 1px solid #E7ECF2;
+    border-radius: 10px;
+    padding: 28px 26px;
+    display: flex;
+    flex-direction: column;
+  }
+  .icon-wrap {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    background: rgba(20, 46, 77, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .icon-wrap svg { width: 22px; height: 22px; }
+  .service-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #142E4D;
+    margin: 0 0 8px;
+  }
+  .service-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #5C6B7A;
+    margin: 0 0 16px;
+  }
+  .service-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .service-bullets li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #3D4A5C;
+  }
+  .service-bullets svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .learn-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px;
+    background: transparent;
+    border: 1.5px solid #142E4D;
+    color: #142E4D;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-top: auto;
+    transition: background 0.15s, color 0.15s;
+  }
+  .learn-more:hover { background: #142E4D; color: #ffffff; }
+
+  .services-cta-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 44px;
+  }
+  .services-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 15px 28px;
+    background: #F4791F;
+    color: #ffffff;
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background 0.15s;
+  }
+  .services-cta svg { width: 16px; height: 16px; }
+  .services-cta:hover { background: #dd6712; }
+  .services-cta-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 28px;
+    background: transparent;
+    color: #142E4D;
+    border: 1.5px solid #142E4D;
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .services-cta-outline:hover { background: #142E4D; color: #ffffff; }
+
+  @media (max-width: 900px) {
+    .service-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .rest-services { padding: 56px 20px; }
+    .service-grid { grid-template-columns: 1fr; }
+  }
+</style>

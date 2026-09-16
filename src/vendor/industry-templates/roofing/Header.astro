@@ -1,0 +1,180 @@
+---
+// Roofing industry template — Header/Nav.
+// Structure cloned from a reference roofing-company site (nav layout,
+// dropdown pattern, phone + CTA arrangement) — colors, logo, business
+// name, and copy are ScaleKit's own placeholder brand for this template,
+// not carried over from the reference.
+// PLACEHOLDER: business name, phone number, and nav link targets — swap
+// for a real client's info when this template is used for an actual
+// roofing client build.
+interface NavLink {
+  label: string;
+  href: string;
+  hasDropdown?: boolean;
+}
+
+interface Props {
+  businessName?: string;
+  businessTagline?: string;
+  links?: NavLink[];
+  phone?: string;
+  phoneHref?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  businessName = 'Crestline Roofing',
+  businessTagline = 'Co.',
+  links = [
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about', hasDropdown: true },
+    { label: 'Residential', href: '#residential', hasDropdown: true },
+    { label: 'Commercial', href: '#commercial' },
+    { label: 'Roof Repair', href: '#roof-repair', hasDropdown: true },
+    { label: 'Service Areas', href: '#service-areas' },
+  ],
+  phone = '(555) 470-7181',
+  phoneHref = 'tel:5554707181',
+  ctaLabel = 'Free Estimate',
+  ctaHref = '#free-estimate',
+} = Astro.props;
+---
+
+<header class="roof-header">
+  <div class="header-inner">
+    <a href="#home" class="logo">
+      <span class="logo-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#17171A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11L12 4L21 11"/>
+          <path d="M5 10V20H19V10"/>
+        </svg>
+      </span>
+      <span class="logo-text">
+        <span class="logo-name">{businessName}</span>
+        <span class="logo-tagline">{businessTagline}</span>
+      </span>
+    </a>
+
+    <nav class="nav-links">
+      {links.map((link, i) => (
+        <a href={link.href} class={`nav-link ${i === 0 ? 'active' : ''}`}>
+          {link.label}
+          {link.hasDropdown && (
+            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          )}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-right">
+      <a href={phoneHref} class="phone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V19.92C22.0011 20.4853 21.7669 21.0251 21.3533 21.4132C20.9397 21.8013 20.3871 22.0067 19.823 21.98C16.7428 21.6227 13.7893 20.5805 11.19 18.93C8.77383 17.4233 6.72534 15.3748 5.21801 12.96C3.56226 10.3484 2.51997 7.3801 2.17001 4.28C2.1437 3.71754 2.34727 3.16776 2.73386 2.75523C3.12045 2.34269 3.65653 2.10713 4.22001 2.11H7.22001C8.10561 2.10083 8.86143 2.73545 9.00001 3.61C9.12662 4.48 9.34688 5.33422 9.65001 6.16C9.89284 6.78937 9.7418 7.50207 9.26001 7.98L8.09001 9.15C9.51356 11.6488 11.5712 13.7065 14.07 15.13L15.24 13.96C15.7179 13.4782 16.4306 13.3272 17.06 13.57C17.8858 13.8731 18.74 14.0934 19.61 14.22C20.4969 14.3598 21.1345 15.1302 21.12 16.02L22 16.92Z"/></svg>
+        {phone}
+      </a>
+      <a href={ctaHref} class="cta">{ctaLabel}</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .roof-header {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #ffffff;
+    border-bottom: 1px solid #ececec;
+  }
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 104px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #d9a62e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-badge svg { width: 24px; height: 24px; }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #17171a;
+  }
+  .logo-tagline {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-top: 2px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 34px; flex-wrap: nowrap; }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #33333a;
+    text-decoration: none;
+  }
+  .nav-link svg { width: 9px; height: 9px; }
+  .nav-link.active { color: #d9a62e; }
+  .header-right { display: flex; align-items: center; gap: 32px; flex-shrink: 0; }
+  .phone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #d9a62e;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .phone svg { width: 17px; height: 17px; }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 17px 32px;
+    background: #d9a62e;
+    color: #17171a;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .cta:hover { background: #c2941f; }
+
+  @media (max-width: 980px) {
+    .nav-links { display: none; }
+    .header-inner { padding: 0 20px; }
+  }
+</style>

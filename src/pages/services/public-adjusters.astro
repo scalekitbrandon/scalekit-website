@@ -1,0 +1,232 @@
+---
+// First of the new multi-service vertical hub pages (per Brandon's
+// direction: pages for the "Who We Work With" pill verticals that
+// don't have a page yet, covering ALL of ScaleKit's services for that
+// industry — not just Websites & Funnels like the 6 existing industry
+// pages). Public Adjusters was already a named target ICP in
+// decisions.md Section 1 (Individuals segment: "solopreneurs, 1099
+// sales professionals — public adjusters, real estate agents,
+// attorneys, roofers"), so this isn't a new market, just its first
+// dedicated page. No TemplateShowcase here — there's no public-adjuster
+// website template built, and this page's job is the full-service
+// overview, not a single-service sales page.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import IntroHeadline from '../../components/IntroHeadline.astro';
+import ServiceSection from '../../components/ServiceSection.astro';
+import WebsiteThumbnailCarousel from '../../components/WebsiteThumbnailCarousel.astro';
+import ProcessCircles from '../../components/ProcessCircles.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Marketing & Automation for Public Adjusters',
+    name: 'ScaleKit for Public Adjusters',
+    description: 'ScaleKit builds public adjusters a website, local SEO, ads, CRM automation, and AI agents built around how policyholders actually choose who to trust with a claim.',
+    url: `${siteUrl}/services/public-adjusters`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/scout' },
+      { label: 'Google & Meta Ads', href: '/services/ads' },
+      { label: 'CRM & Automation', href: '/services/automation' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Book Your Free Strategy Call', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Marketing & Automation for Public Adjusters | ScaleKit"
+  description="ScaleKit builds public adjusters a website, local SEO, ads, CRM automation, and AI agents built around how policyholders actually choose who to trust with a claim."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="For Public Adjusters"
+    headline="More Claims. Faster Follow-Up. Less Busywork."
+    subheadline="Policyholders decide whether to trust you with their claim before they ever talk to you. We build the website, marketing, and follow-up system that wins that decision — and keeps every claim moving once you're hired."
+    checklist={[
+      'Website built to earn trust fast',
+      'Show up when storm-damage searches spike',
+      'Ads that reach open claims, not closed ones',
+      'Instant response to every new inquiry',
+      'Automated follow-up so no claim goes cold',
+      'AI handles intake and scheduling',
+      'One CRM for every case, start to finish',
+      'Live in days, not months',
+    ]}
+  />
+
+  <IntroHeadline
+    eyebrow="What's Included"
+    headline="Everything We Build For Public Adjusters"
+    subheadline="Start with one service or the whole system — every piece is built around how your business actually wins claims."
+  />
+
+  <ServiceSection
+    eyebrow="Websites & Funnels"
+    headlineLine1="Your Website Is Either"
+    headlineLine2="Winning Claims Or Losing Them"
+    subheadline="Policyholders are deciding whether to trust you with a high-stakes claim before they've spoken to you once — your website is doing that job whether you've thought about it or not."
+    body="We build fast, mobile-first sites with technical SEO baked in from day one, connected straight into your CRM so every inquiry gets captured, organized, and followed up automatically. No templates, no generic stock copy — every site is built around your business, not a one-size-fits-all layout."
+    secondaryCtaHref="/pricing#websites-funnels"
+  >
+    <WebsiteThumbnailCarousel />
+  </ServiceSection>
+
+  <ServiceSection
+    eyebrow="Your AI Local SEO Agent"
+    headlineLine1="Rank #1 On Google Maps"
+    headlineLine2="Automatically"
+    subheadline="Scout, our AI Local SEO Agent, continuously optimizes your Google Business Profile, strengthens your local search presence, monitors ranking opportunities, and helps your business get discovered by more customers in your service area."
+    checklist={[
+      'Optimize Your Google Business Profile',
+      'Generate Reviews That Help You Rank',
+      'Get Your Business Listed Everywhere That Matters',
+      'Publish Posts To Social Media Profiles',
+      'Leverage AI SEO Strategies For ChatGPT & Gemini',
+      'Optimize Your Website SEO To Match Your GBP',
+      'Publish YouTube Videos Showcasing Your Business',
+    ]}
+    secondaryCtaHref="/scout"
+    background="bg-alt"
+    layout="side-by-side"
+  />
+
+  <ServiceSection
+    eyebrow="CRM & Automation"
+    headlineLine1="A Missed Call Is"
+    headlineLine2="A Missed Case"
+    subheadline="Policyholders don't wait around for a callback — if you don't respond fast, they call the next name on the list. We build the system that never lets that happen."
+    body="Every inquiry gets an instant text or call within minutes, automatically. A missed call triggers an instant text-back before they dial someone else. And every lead, case, and conversation lives in one centralized CRM instead of scattered across apps and sticky notes."
+    checklist={[
+      'Instant Lead Response',
+      'Missed Call Text-Back',
+      'Automated Follow-Up Sequences',
+      'Centralized CRM',
+      'Appointment Reminders',
+      'Pipeline & Deal Tracking',
+    ]}
+    secondaryCtaHref="/services/automation"
+  />
+
+  <ServiceSection
+    eyebrow="Google & Meta Ads"
+    headlineLine1="Reach Policyholders"
+    headlineLine2="While Their Claim Is Still Open"
+    subheadline="Once a claim closes, that policyholder isn't searching anymore. We build campaigns that reach them while they're still deciding who to trust — not after they've already settled."
+    body="We run Google Search, Local Services, and Meta ad campaigns built around people actively dealing with a claim, each with its own landing page and conversion tracking, so you know exactly which ads turn into booked cases, not just clicks."
+    checklist={[
+      'Google Search Ads',
+      'Local Services Ads',
+      'Meta Ads (Facebook & Instagram)',
+      'Landing Pages Built to Convert',
+      'Conversion Tracking',
+      'Budget & ROI Reporting',
+    ]}
+    secondaryCtaHref="/services/ads"
+    background="bg-alt"
+  />
+
+  <ServiceSection
+    eyebrow="AI Agents & Solutions"
+    headlineLine1="You Negotiate Claims."
+    headlineLine2="AI Handles The Rest"
+    subheadline="Every hour spent on intake, scheduling, and status updates is an hour not spent maximizing a settlement. We build AI that handles the busywork so you can focus on the claims themselves."
+    body="AI voice and chat agents handle intake and scheduling around the clock, answer common policyholder questions, and send status updates automatically — all connected to your CRM, so nothing falls through the cracks and nothing needs a human to keep it running."
+    checklist={[
+      'AI Voice Agents',
+      'AI Chat Agents',
+      'Internal AI Assistants',
+      'Agentic Workflows',
+      'Custom AI Development',
+      'Business Intelligence Dashboards',
+    ]}
+    secondaryCtaHref="/services/ai-agents"
+  />
+
+  <ProcessCircles
+    steps={[
+      {
+        number: '1',
+        title: 'Strategy Call',
+        description: "We learn your business, your claims process, and what's actually costing you leads. Then we map out the exact services and priorities that move the needle for you first.",
+      },
+      {
+        number: '2',
+        title: 'Share Your Vision',
+        description: "Have specific ideas, brand preferences, or systems you already use? Send them our way. If not, no problem — we'll guide the direction.",
+      },
+      {
+        number: '3',
+        title: 'We Build Your System',
+        description: "Give us the basics about your business and we'll take it from there — building out every piece you choose, website to AI agents, with minimal work on your end.",
+      },
+      {
+        number: '4',
+        title: 'Launch Call',
+        description: 'We walk you through everything, answer every question, and make sure you know exactly how it works.',
+      },
+    ]}
+  />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Signed Claim Actually Worth?"
+    subheadline="Every inquiry that sits unanswered is a policyholder who found someone else to trust with their claim. ScaleKit makes sure that doesn't happen."
+  />
+
+  <BookCall />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

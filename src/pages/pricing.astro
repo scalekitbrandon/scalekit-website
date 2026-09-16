@@ -1,0 +1,358 @@
+---
+// /pricing — built from the Get Found Local reference (hero + trust
+// badges -> per-service tiered card sections -> FAQ -> CTA -> footer),
+// restyled to ScaleKit's own brand tokens per clone-not-copy discipline.
+// Scout, Websites & Funnels, CRM & Automation (bundled w/ Reactivation),
+// and Ads are all fully priced and locked. AI Agents is intentionally
+// NOT a priced tier grid — it's permanently custom-quote, so it reuses
+// the real SaveTimeScale.astro showcase (same component as
+// /services/ai-agents) instead of PricingTierSection, driving to a
+// booked call rather than a price.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PricingHero from '../components/PricingHero.astro';
+import PricingTierSection from '../components/PricingTierSection.astro';
+import PricingFaq from '../components/PricingFaq.astro';
+import FinalCta from '../components/FinalCta.astro';
+import BookCall from '../components/BookCall.astro';
+import Footer from '../components/Footer.astro';
+
+const siteUrl = Astro.site.origin;
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/scout' },
+      { label: 'Google & Meta Ads', href: '/services/ads' },
+      { label: 'CRM & Automation', href: '/services/automation' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Get Started', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Pricing | ScaleKit"
+  description="Pricing built around what your business actually needs — pick one service or combine multiple systems. Month-to-month, no long-term contracts."
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <PricingHero />
+
+  <PricingTierSection
+    id="websites-funnels"
+    background="bg"
+    eyebrow="Websites & Funnels"
+    headline="Your Website Built To Rank, Convert, & Grow"
+    subheadline="Every page is custom-written with high-conversion copywriting, backed by unlimited review requests and lightning-fast load times built to rank — all connected straight into your ScaleKit CRM so every lead gets captured, organized, and followed up automatically."
+    cards={[
+      {
+        name: 'Starter',
+        price: '$297',
+        period: 'one-time setup',
+        secondaryPrice: '$97',
+        secondaryPeriod: '/month',
+        description: 'For solo operators who need a high-converting funnel, a CRM, and a full lead acquisition system.',
+        features: [
+          'One-page funnel built to convert cold traffic',
+          'Mobile-first, lightning-fast load times',
+          'Built with technical SEO from day one',
+          'Connected to your ScaleKit CRM — leads sync and organize automatically',
+          'Lead capture forms wired straight into your CRM',
+        ],
+        ctaLabel: 'Get Started',
+      },
+      {
+        name: 'Growth',
+        price: '$497',
+        period: 'one-time setup',
+        secondaryPrice: '$297',
+        secondaryPeriod: '/month',
+        description: 'For local service businesses that need a full site, plus the automations that keep leads from slipping through.',
+        features: [
+          '10+ custom pages built for your full service area',
+          'Mobile-first, lightning-fast load times',
+          'Built with technical SEO from day one',
+          'Connected to your ScaleKit CRM — leads sync and organize automatically',
+          'All-in-one inbox — every message, one place',
+          'Dedicated business phone number, separate from your personal line',
+          'Missed call text-back — never lose a lead to a missed call',
+          'Automated Google review requests',
+          'One-click email & text marketing campaigns',
+          'Automated lead follow-up via text — no lead goes cold',
+        ],
+        ctaLabel: 'Get Started',
+        featured: true,
+        badgeLabel: 'Most Popular',
+      },
+    ]}
+  />
+
+  <PricingTierSection
+    id="local-seo"
+    background="bg-alt"
+    eyebrow="Local SEO"
+    headline="Your AI Local SEO Agent, Working Every Day"
+    subheadline="Scout continuously optimizes your Google Business Profile, builds citations, and grows your visibility — for one flat price."
+    cards={[
+      {
+        name: 'Scout',
+        price: '$399',
+        period: '/month',
+        description: 'Standalone AI Local SEO agent — not bundled into anything else.',
+        features: [
+          'Optimizes Your Google Business Profile — Daily, Not Once',
+          'Builds & Maintains Citations Across the Web',
+          'Generates Reviews Automatically, On the Right Timing',
+          'Monitors Rankings & Flags Problems Before They Cost You Leads',
+        ],
+        ctaLabel: 'Get Started',
+        featured: true,
+      },
+    ]}
+    note="Citation building add-on: $40/month per GBP — $20/month per GBP for Agency Partner Program members. See the full walkthrough at /scout."
+  />
+
+  <PricingTierSection
+    id="ads"
+    background="bg"
+    eyebrow="Google & Meta Ads"
+    headline="Paid Ads, Optimized Every Month"
+    subheadline="Not a set-it-and-forget-it campaign. Every tier gets ongoing management across ad copy, bidding, targeting, and conversion tracking — plus a monthly call to review performance and make changes."
+    cards={[
+      {
+        name: 'Local',
+        price: '$950',
+        period: '/month',
+        description: 'For businesses focused on one local market — get found and generate leads close to home.',
+        features: [
+          'New Account Setup',
+          'Keyword Research & Negative Keyword Management',
+          'Ad Copy Development & Testing',
+          'Multi-Campaign Management (Search, Display, Video)',
+          'Bid Management & Optimization',
+          'Landing Page Recommendations',
+          'Quality Score & Impression Share Monitoring',
+          'CTR & Average Position Tracking',
+          'Source & Conversion Tracking Setup',
+          'CPC, CPA & ROAS Reporting',
+          'Conversion Rate Optimization',
+          'Monthly Strategy Call — 1 Hour to Review & Request Changes',
+        ],
+        footnote: 'Suggested ad spend: $1,000–$2,000/month (billed separately)',
+        ctaLabel: 'Get Started',
+      },
+      {
+        name: 'Regional',
+        price: '$1,800',
+        period: '/month',
+        description: 'For businesses expanding across a metro area or multiple nearby markets.',
+        features: [
+          'New Account Setup',
+          'Keyword Research & Negative Keyword Management',
+          'Ad Copy Development & Testing',
+          'Multi-Campaign Management (Search, Display, Video)',
+          'Bid Management & Optimization',
+          'Landing Page Recommendations',
+          'Quality Score & Impression Share Monitoring',
+          'CTR & Average Position Tracking',
+          'Source & Conversion Tracking Setup',
+          'CPC, CPA & ROAS Reporting',
+          'Conversion Rate Optimization',
+          'Monthly Strategy Call — 1 Hour to Review & Request Changes',
+        ],
+        footnote: 'Suggested ad spend: $2,000–$3,000/month (billed separately)',
+        ctaLabel: 'Get Started',
+        featured: true,
+        badgeLabel: 'Most Popular',
+      },
+      {
+        name: 'National',
+        price: '$2,900',
+        period: '/month',
+        description: 'For businesses ready to compete and generate leads nationwide.',
+        features: [
+          'New Account Setup',
+          'Keyword Research & Negative Keyword Management',
+          'Ad Copy Development & Testing',
+          'Multi-Campaign Management (Search, Display, Video)',
+          'Bid Management & Optimization',
+          'Landing Page Recommendations',
+          'Quality Score & Impression Share Monitoring',
+          'CTR & Average Position Tracking',
+          'Source & Conversion Tracking Setup',
+          'CPC, CPA & ROAS Reporting',
+          'Conversion Rate Optimization',
+          'Monthly Strategy Call — 1 Hour to Review & Request Changes',
+        ],
+        footnote: 'Suggested ad spend: $3,000+/month (billed separately)',
+        ctaLabel: 'Get Started',
+      },
+    ]}
+  />
+
+  <PricingTierSection
+    id="automation"
+    background="bg-alt"
+    eyebrow="CRM & Automation"
+    headline="Stop Losing Leads You Already Paid For"
+    subheadline="Automated follow-up for every new lead, plus win-back campaigns that bring old leads back to life — bundled into one connected system, not sold as separate line items."
+    cards={[
+      {
+        name: 'Solo Operator',
+        price: '$97',
+        period: '/month',
+        description: 'For businesses that need the core system — capture every lead, respond instantly, never miss a call.',
+        features: [
+          'Centralized CRM — every contact, lead, and conversation in one place',
+          'Automated instant lead response the moment a lead comes in',
+          'Missed call text-back — turn missed calls into booked jobs',
+          'All-in-one inbox — text, email & social messages in one thread',
+          'Online booking calendar with automated reminders',
+          'Visual pipeline — track every lead from first contact to closed deal',
+          'Task & follow-up reminders for you and your team',
+          'Mobile app — run your business from your phone',
+        ],
+        ctaLabel: 'Get Started',
+      },
+      {
+        name: 'Local Business',
+        price: '$297',
+        period: '/month',
+        description: 'For businesses ready to automate follow-up, win back old leads, and run the whole system on autopilot.',
+        features: [
+          'Centralized CRM — every contact, lead, and conversation in one place',
+          'Automated instant lead response the moment a lead comes in',
+          'Missed call text-back — turn missed calls into booked jobs',
+          'All-in-one inbox — text, email & social messages in one thread',
+          'Online booking calendar with automated reminders',
+          'Visual pipeline — track every lead from first contact to closed deal',
+          'Multi-step automated nurture sequences — email & text',
+          'Database Reactivation — automatically win back old, dormant leads',
+          'Automated review requests, timed to the right moment',
+          'Tag-based automation — the right follow-up triggered for every lead type',
+          'Invoicing & payment collection built in',
+          'Team performance reporting & analytics dashboard',
+          'Social media post scheduling across your business profiles',
+        ],
+        ctaLabel: 'Get Started',
+        featured: true,
+        badgeLabel: 'Most Popular',
+      },
+    ]}
+  />
+
+  <PricingTierSection
+    id="ai-agents"
+    background="bg"
+    eyebrow="AI Agents — Fully Custom"
+    headline="Tell Us What's Eating Your Time — We'll Build the Agent That Fixes It"
+    subheadline="From voice agents that answer every call to internal assistants that kill the busywork — every AI Agent we build is scoped to your business on a free strategy call, not picked off a shelf."
+    cards={[
+      {
+        name: 'AI Voice Agents',
+        features: [
+          'Answers every call, 24/7 — no hold music',
+          'Books appointments directly to your calendar',
+          'Qualifies leads before they reach your team',
+        ],
+        ctaLabel: 'Book a Call',
+      },
+      {
+        name: 'AI Chat Agents',
+        features: [
+          'Instant answers on your website, day or night',
+          'Responds across your social & messaging channels',
+          'Captures and qualifies leads in real time',
+        ],
+        ctaLabel: 'Book a Call',
+      },
+      {
+        name: 'Internal AI Assistants',
+        features: [
+          'Handles scheduling and calendar management',
+          'Automates data entry and record updates',
+          'Sends follow-ups so nothing falls through the cracks',
+        ],
+        ctaLabel: 'Book a Call',
+      },
+      {
+        name: 'Agentic Workflows',
+        features: [
+          'Multi-step processes that run themselves',
+          'Connects every stage — from lead to job to invoice',
+          'No manual hand-offs between steps',
+        ],
+        ctaLabel: 'Book a Call',
+      },
+      {
+        name: 'Custom AI Development',
+        features: [
+          'Built around your exact business, not a template',
+          "Solves the specific problem nobody else has solved for you",
+          'Scoped and mapped out on your strategy call',
+        ],
+        ctaLabel: 'Book a Call',
+      },
+      {
+        name: 'Business Intelligence Dashboards',
+        features: [
+          "Real-time insight into what's actually working",
+          'No more digging through spreadsheets',
+          'One dashboard for the metrics that matter',
+        ],
+        ctaLabel: 'Book a Call',
+      },
+    ]}
+  />
+
+  <PricingFaq />
+
+  <FinalCta
+    eyebrow="Ready to Get Started?"
+    headline="Which Service Does Your Business Need First?"
+    subheadline="Book a free strategy call and we'll map out exactly what to start with — and what to add later."
+  />
+
+  <BookCall />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

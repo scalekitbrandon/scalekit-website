@@ -1,0 +1,212 @@
+---
+// Hero for /scout — the dedicated landing page for ScaleKit Local SEO,
+// Powered by Scout™. Same structural language as the homepage's own
+// Hero.astro (pill eyebrow with dot, 2-line headline, subhead, checklist,
+// dual CTA, lime-grid background) so this page reads as part of the same
+// site, not a bolted-on microsite. Below the CTAs, ScoutHeroProof.astro
+// adds a product-proof collage (see that file's header comment for the
+// placeholder-content discipline it follows).
+import ScoutHeroProof from './ScoutHeroProof.astro';
+
+interface ChecklistItem {
+  text: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headlineLine1?: string;
+  headlineLine2?: string;
+  subheadline?: string;
+  checklist?: ChecklistItem[];
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+}
+
+const {
+  eyebrow = 'Powerful Local SEO. Without the High Cost or the Work.',
+  headlineLine1 = 'Meet Scout — Your AI Local SEO Agent,',
+  headlineLine2 = 'Working Every Day',
+  subheadline = 'Scout continuously optimizes your Google Business Profile, strengthens your local search presence, monitors ranking opportunities, and helps your business get discovered by more customers in your service area.',
+  checklist = [
+    { text: 'Optimizes Your Google Business Profile — Daily, Not Once' },
+    { text: 'Builds & Maintains Citations Across the Web' },
+    { text: 'Generates Reviews Automatically, On the Right Timing' },
+    { text: 'Monitors Rankings & Flags Problems Before They Cost You Leads' },
+  ],
+  primaryCtaLabel = 'Get Started',
+  primaryCtaHref = '#book-call',
+  secondaryCtaLabel = 'See How Scout Works',
+  secondaryCtaHref = '#how-it-works',
+} = Astro.props;
+---
+
+<section class="scout-hero" id="home">
+  <div class="hero-inner">
+
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">{eyebrow}</span>
+    </div>
+
+    <h1 class="hero-h1">
+      <span class="line">{headlineLine1}</span>
+      <span class="line">{headlineLine2}</span>
+    </h1>
+
+    <p class="hero-sub">{subheadline}</p>
+
+    <ul class="checklist">
+      {checklist.map((item) => (
+        <li>
+          <span class="check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </span>
+          {item.text}
+        </li>
+      ))}
+    </ul>
+
+    <div class="hero-ctas">
+      <a href={primaryCtaHref} class="btn btn-primary">
+        {primaryCtaLabel}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href={secondaryCtaHref} class="btn btn-outline">{secondaryCtaLabel}</a>
+    </div>
+
+  </div>
+
+  <ScoutHeroProof />
+</section>
+
+<style>
+  .scout-hero {
+    background-color: var(--color-bg);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    padding: 171.1px 24px 88.3px;
+    text-align: center;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .hero-inner {
+    max-width: var(--container-max-nav);
+    margin: 0 auto;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    max-width: 620px;
+    text-align: left;
+    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 10px 20px 10px 14px;
+    margin: 0 0 25.8px;
+  }
+  .eyebrow-dot {
+    width: 7px;
+    height: 7px;
+    margin-top: 6px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    outline: 2px solid var(--color-primary-outline);
+    flex-shrink: 0;
+  }
+  .eyebrow-text {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-fg);
+  }
+  .hero-h1 {
+    font-size: clamp(32px, 4.4vw, 52px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-5);
+  }
+  .hero-h1 .line { display: block; }
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--color-text-mid);
+    max-width: 620px;
+    margin: 0 auto var(--space-6);
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-7);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    text-align: left;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--color-fg);
+  }
+  .check {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .check svg { width: 11px; height: 11px; }
+
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 16px 32px;
+    font-size: 15.5px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-primary {
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+  }
+  .btn-primary:hover { background: var(--color-primary-hover); }
+  .btn-primary svg { width: 15px; height: 15px; }
+  .btn-outline {
+    color: var(--color-fg);
+    background: transparent;
+    border: 2px solid var(--color-fg);
+    padding: 14px 30px;
+  }
+  .btn-outline:hover { background: var(--color-fg); color: #ffffff; }
+
+  @media (max-width: 560px) {
+    .scout-hero { padding: 140px 20px 60px; }
+    .checklist { align-items: stretch; }
+  }
+</style>

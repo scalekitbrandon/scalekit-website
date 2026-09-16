@@ -1,0 +1,119 @@
+---
+// Home Services industry template — Guarantee. Handshake-photo + copy
+// section per README.md's deferred plan. Photo follows the same
+// bracket-placeholder convention as About.astro/Hero.astro.
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  photoUrl?: string;
+}
+
+const {
+  eyebrow = 'Our Promise',
+  headline = "If You're Not Happy, We're Not Done",
+  body = "Every job comes with a straightforward guarantee: if something isn't right, we come back and make it right. No fine print, no upcharge for our own mistake. That's the deal, every time.",
+  ctaLabel = 'Get Your Free Estimate',
+  ctaHref = '#estimate',
+  photoUrl = '[GUARANTEE_PHOTO_URL]',
+} = Astro.props;
+
+const hasPhoto = !photoUrl.startsWith('[');
+---
+
+<section class="guarantee">
+  <div class="guarantee-inner">
+    <div
+      class="guarantee-photo"
+      style={hasPhoto ? `background-image: url('${photoUrl}');` : ''}
+    >
+      {!hasPhoto && <span class="photo-fallback-label">[GUARANTEE_PHOTO_URL]</span>}
+    </div>
+
+    <div class="guarantee-copy">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="body">{body}</p>
+      <a href={ctaHref} class="cta">{ctaLabel}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .guarantee {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #12294F;
+    padding: 84px 40px;
+  }
+  .guarantee-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .guarantee-photo {
+    aspect-ratio: 4 / 3.2;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #2A4A82, #0B1B36);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-fallback-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F0A93B;
+    margin: 0 0 14px;
+  }
+  .headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0 0 22px;
+  }
+  .body {
+    font-size: 19.5px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 32px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background: #F0A93B;
+    color: #12294F;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .cta:hover { background: #dc971f; }
+
+  @media (max-width: 900px) {
+    .guarantee-inner { grid-template-columns: 1fr; gap: 36px; }
+  }
+  @media (max-width: 560px) {
+    .guarantee { padding: 56px 20px; }
+  }
+</style>

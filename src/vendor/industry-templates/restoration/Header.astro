@@ -1,0 +1,211 @@
+---
+// Restoration/Remodeling industry template — Header/Nav.
+// Structure cloned from a reference restoration company's homepage
+// (utility bar + main nav, dual-CTA arrangement: emergency call +
+// estimate) — colors, logo, business name, and copy are ScaleKit's own
+// placeholder brand, not carried over from the reference.
+// Third distinct identity in the set: navy `#142E4D` + orange `#F4791F`,
+// `Manrope` headline font + `Inter` body — different from both Roofing
+// (gold/near-black, Oswald) and Landscaping (forest green/terracotta,
+// Fraunces).
+// PLACEHOLDER: business name, phone, and nav link targets — swap for a
+// real client's info when this template is used for an actual
+// restoration/remodeling client build.
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  businessName?: string;
+  businessInitials?: string;
+  hours?: string;
+  serviceArea?: string;
+  links?: NavLink[];
+  phone?: string;
+  phoneHref?: string;
+  emergencyLabel?: string;
+  emergencyHref?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  businessName = 'Bluepoint Restoration',
+  businessInitials = 'BR',
+  hours = '24/7 Emergency Services Available',
+  serviceArea = 'Serving the Greater Metro Area',
+  links = [
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about' },
+    { label: 'Services', href: '#services' },
+    { label: 'Service Areas', href: '#service-areas' },
+    { label: 'Contact', href: '#contact' },
+  ],
+  phone = '(555) 907-9292',
+  phoneHref = 'tel:5559079292',
+  emergencyLabel = 'Emergency Call',
+  emergencyHref = 'tel:5559079292',
+  ctaLabel = 'Get Free Estimate',
+  ctaHref = '#free-estimate',
+} = Astro.props;
+---
+
+<header class="rest-header">
+  <div class="utility-bar">
+    <div class="utility-inner">
+      <span class="utility-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        {hours}
+      </span>
+      <span class="utility-item utility-area">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        {serviceArea}
+      </span>
+      <a href={phoneHref} class="utility-item utility-phone">{phone}</a>
+    </div>
+  </div>
+
+  <div class="main-nav">
+    <div class="nav-inner">
+      <a href="#home" class="logo">
+        <span class="logo-badge">{businessInitials}</span>
+        <span class="logo-name">{businessName}</span>
+      </a>
+
+      <nav class="nav-links">
+        {links.map((link, i) => (
+          <a href={link.href} class={`nav-link ${i === 0 ? 'active' : ''}`}>{link.label}</a>
+        ))}
+      </nav>
+
+      <div class="nav-right">
+        <a href={emergencyHref} class="cta-emergency">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V19.92C22.0011 20.4853 21.7669 21.0251 21.3533 21.4132C20.9397 21.8013 20.3871 22.0067 19.823 21.98C16.7428 21.6227 13.7893 20.5805 11.19 18.93C8.77383 17.4233 6.72534 15.3748 5.21801 12.96C3.56226 10.3484 2.51997 7.3801 2.17001 4.28C2.1437 3.71754 2.34727 3.16776 2.73386 2.75523C3.12045 2.34269 3.65653 2.10713 4.22001 2.11H7.22001C8.10561 2.10083 8.86143 2.73545 9.00001 3.61C9.12662 4.48 9.34688 5.33422 9.65001 6.16C9.89284 6.78937 9.7418 7.50207 9.26001 7.98L8.09001 9.15C9.51356 11.6488 11.5712 13.7065 14.07 15.13L15.24 13.96C15.7179 13.4782 16.4306 13.3272 17.06 13.57C17.8858 13.8731 18.74 14.0934 19.61 14.22C20.4969 14.3598 21.1345 15.1302 21.12 16.02L22 16.92Z"/></svg>
+          {emergencyLabel}
+        </a>
+        <a href={ctaHref} class="cta-estimate">{ctaLabel}</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .rest-header {
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+
+  .utility-bar { background: #0F2138; }
+  .utility-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 9px 40px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .utility-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+  }
+  .utility-item svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .utility-area { margin-right: auto; }
+  .utility-phone { color: #ffffff; font-weight: 600; }
+
+  .main-nav {
+    background: #ffffff;
+    border-bottom: 1px solid #E7ECF2;
+  }
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: #142E4D;
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #142E4D;
+  }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-link {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #3D4A5C;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-link:hover { color: #142E4D; }
+  .nav-link.active { color: #F4791F; }
+  .nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .cta-emergency {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #F4791F;
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .cta-emergency svg { width: 15px; height: 15px; }
+  .cta-emergency:hover { background: #dd6712; }
+  .cta-estimate {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    background: transparent;
+    color: #142E4D;
+    border: 1.5px solid #142E4D;
+    font-size: 13.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .cta-estimate:hover { background: #142E4D; color: #ffffff; }
+
+  @media (max-width: 980px) {
+    .nav-links { display: none; }
+    .nav-inner { padding: 0 20px; }
+    .utility-inner { padding: 9px 20px; gap: 18px; }
+    .utility-area { display: none; }
+  }
+</style>

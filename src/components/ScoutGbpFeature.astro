@@ -1,0 +1,320 @@
+---
+// "Optimize Your Google Business Profile" — feature row 1 of "How Scout
+// Works" on /scout. Structure cloned from a reference AI-SEO landing
+// page's opening feature (headline + copy + CTA on the left, a rich
+// product-visualization graphic on the right: a GBP-style profile card
+// with a floating "scorecard" gauge) — colors, copy, and the graphic's
+// specifics are ScaleKit's own, not carried over from the reference.
+// The graphic uses an invented, generic "Your Business Name" placeholder
+// and illustrative example numbers — same discipline as the industry
+// templates' invented placeholder brands — not a claimed real customer
+// result or a fabricated stat about ScaleKit/Scout itself.
+interface Props {
+  headline?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  paragraph3?: string;
+  businessName?: string;
+  gaugePercent?: number;
+  passCount?: number;
+  failCount?: number;
+  totalCount?: number;
+}
+
+const {
+  headline = 'Optimize Your Google Business Profile',
+  paragraph1 = "Scout continuously improves your local presence by learning what's working across thousands of Google Business Profiles and applying those strategies to your business.",
+  paragraph2 = "It fully optimizes your Google Business Profile—from services, descriptions, and business attributes to regularly publishing posts, offers, photos, and other ranking signals that help you show up higher in local search and Google Maps.",
+  paragraph3 = "No SEO expertise. No constant updates. No guessing what Google wants. Scout handles the ongoing optimization for you, so your business has a better chance of getting found when local customers are ready to buy.",
+  ctaLabel = 'Get Started',
+  ctaHref = '#book-call',
+  businessName = 'Your Business Name',
+  gaugePercent = 83,
+  passCount = 10,
+  failCount = 2,
+  totalCount = 12,
+} = Astro.props;
+---
+
+<div class="gbp-feature">
+  <div class="gbp-copy">
+    <h3 class="gbp-headline">{headline}</h3>
+    <p class="gbp-p">{paragraph1}</p>
+    <p class="gbp-p">{paragraph2}</p>
+    <p class="gbp-p">{paragraph3}</p>
+    <a href={ctaHref} class="gbp-cta">
+      {ctaLabel}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+
+  <div class="gbp-graphic">
+    <div class="badge-rail">
+      <span class="rail-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C12 21 19 15.5 19 10C19 5.58 15.87 2 12 2C8.13 2 5 5.58 5 10C5 15.5 12 21 12 21Z"/><circle cx="12" cy="10" r="3"/></svg>
+      </span>
+      <span class="rail-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v10h16V9"/><path d="M9 21v-6h6v6"/></svg>
+      </span>
+      <span class="rail-badge rail-badge-ai">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+      </span>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-top">
+        <div class="profile-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M3 9l1-5h16l1 5"/><path d="M9 21v-4h6v4"/></svg>
+        </div>
+        <div class="profile-info">
+          <p class="profile-name">{businessName}</p>
+          <div class="profile-stars">
+            <svg viewBox="0 0 24 24" fill="var(--color-fg)"><path d="M12 2L14.5 8.5L21.5 9L16 13.5L17.5 20.5L12 16.5L6.5 20.5L8 13.5L2.5 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--color-fg)"><path d="M12 2L14.5 8.5L21.5 9L16 13.5L17.5 20.5L12 16.5L6.5 20.5L8 13.5L2.5 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--color-fg)"><path d="M12 2L14.5 8.5L21.5 9L16 13.5L17.5 20.5L12 16.5L6.5 20.5L8 13.5L2.5 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--color-fg)"><path d="M12 2L14.5 8.5L21.5 9L16 13.5L17.5 20.5L12 16.5L6.5 20.5L8 13.5L2.5 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--color-fg)"><path d="M12 2L14.5 8.5L21.5 9L16 13.5L17.5 20.5L12 16.5L6.5 20.5L8 13.5L2.5 9L9.5 8.5L12 2Z"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="profile-photos">
+        <div class="photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="15" rx="2"/><circle cx="9" cy="12" r="3"/><path d="M15 9h.01"/></svg>
+        </div>
+        <div class="photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="15" rx="2"/><circle cx="9" cy="12" r="3"/><path d="M15 9h.01"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="scorecard">
+      <p class="scorecard-label">Profile Scorecard</p>
+      <p class="scorecard-sub">Illustrative example</p>
+      <div class="scorecard-body">
+        <div class="gauge-ring" style={`--pct: ${gaugePercent}`}>
+          <span class="gauge-value">{gaugePercent}%</span>
+        </div>
+        <div class="stat-boxes">
+          <div class="stat-box pass">
+            <span class="stat-num">{passCount}/{totalCount}</span>
+            <span class="stat-label">Optimized</span>
+          </div>
+          <div class="stat-box fail">
+            <span class="stat-num">{failCount}/{totalCount}</span>
+            <span class="stat-label">Needs Attention</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .gbp-feature {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--space-8);
+    align-items: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .gbp-headline {
+    font-size: clamp(28px, 3.4vw, 38px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4);
+  }
+  .gbp-p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-4);
+    max-width: 480px;
+  }
+  .gbp-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 16px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    margin-top: var(--space-2);
+    transition: background 0.15s;
+  }
+  .gbp-cta:hover { background: var(--color-primary-hover); }
+  .gbp-cta svg { width: 15px; height: 15px; }
+
+  .gbp-graphic {
+    position: relative;
+    background-color: var(--color-bg-alt);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6) var(--space-6) var(--space-7);
+    padding-left: 64px;
+    min-height: 420px;
+  }
+
+  .badge-rail {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 2;
+  }
+  .rail-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 8px 18px rgba(10, 10, 10, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rail-badge svg { width: 19px; height: 19px; }
+  .rail-badge-ai {
+    background: var(--color-fg);
+    border-color: var(--color-fg);
+  }
+
+  .profile-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    box-shadow: 0 20px 44px rgba(10, 10, 10, 0.14);
+    max-width: 380px;
+  }
+  .profile-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+  .profile-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .profile-logo svg { width: 24px; height: 24px; }
+  .profile-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--color-fg);
+    margin: 0 0 6px;
+  }
+  .profile-stars { display: flex; gap: 3px; }
+  .profile-stars svg { width: 14px; height: 14px; }
+
+  .profile-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .photo {
+    aspect-ratio: 4 / 3;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo svg { width: 28px; height: 28px; opacity: 0.6; }
+
+  .scorecard {
+    position: absolute;
+    right: 20px;
+    bottom: -20px;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    box-shadow: 0 20px 44px rgba(10, 10, 10, 0.16);
+    max-width: 280px;
+  }
+  .scorecard-label {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--color-fg);
+    margin: 0 0 2px;
+  }
+  .scorecard-sub {
+    font-size: 11.5px;
+    color: var(--color-text-light);
+    margin: 0 0 16px;
+  }
+  .scorecard-body {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .gauge-ring {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: conic-gradient(var(--color-primary) calc(var(--pct) * 1%), var(--color-border) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gauge-ring::before {
+    content: '';
+    position: absolute;
+    inset: 9px;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+  .gauge-value {
+    position: relative;
+    z-index: 1;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--color-fg);
+  }
+
+  .stat-boxes { display: flex; flex-direction: column; gap: 8px; }
+  .stat-box {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 7px 10px;
+    border-radius: var(--radius-sm);
+  }
+  .stat-box.pass { background: var(--color-success-bg); }
+  .stat-box.fail { background: var(--color-danger-bg); }
+  .stat-num { font-size: 13px; font-weight: 800; color: var(--color-fg); }
+  .stat-box.pass .stat-num { color: var(--color-success); }
+  .stat-box.fail .stat-num { color: var(--color-danger); }
+  .stat-label { font-size: 10.5px; font-weight: 600; color: var(--color-text-mid); }
+
+  @media (max-width: 900px) {
+    .gbp-feature { grid-template-columns: 1fr; }
+    .gbp-graphic { padding-left: 64px; min-height: 380px; }
+  }
+  @media (max-width: 560px) {
+    .gbp-graphic { padding: var(--space-5) var(--space-5) var(--space-8) 60px; min-height: 340px; }
+    .badge-rail { left: 14px; gap: 10px; }
+    .rail-badge { width: 36px; height: 36px; }
+    .scorecard { right: 10px; bottom: -16px; padding: var(--space-4); max-width: 220px; }
+    .profile-card { padding: var(--space-4); }
+  }
+</style>

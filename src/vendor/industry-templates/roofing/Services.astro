@@ -1,0 +1,137 @@
+---
+// Roofing industry template — Services grid. Follows the Header + Hero,
+// same placeholder brand (gold #d9a62e / near-black #17171a), no reference
+// screenshot for this one — designed to match common roofing-company site
+// patterns (repair, replacement, storm claims, inspections, gutters,
+// commercial) since none was supplied.
+interface Service {
+  title: string;
+  description: string;
+  icon: 'wrench' | 'layers' | 'cloud' | 'search' | 'droplet' | 'building';
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  services?: Service[];
+}
+
+const {
+  eyebrow = 'What We Do',
+  headline = 'Roofing Services',
+  services = [
+    { icon: 'wrench', title: 'Roof Repair', description: 'Leaks, missing shingles, and storm damage — fixed fast, done right.' },
+    { icon: 'layers', title: 'Roof Replacement', description: 'Full tear-off and replacement, backed by a real workmanship warranty.' },
+    { icon: 'cloud', title: 'Storm & Insurance Claims', description: "We document the damage and work directly with your adjuster." },
+    { icon: 'search', title: 'Roof Inspections', description: 'Free, no-pressure inspections with a written report every time.' },
+    { icon: 'droplet', title: 'Gutter Services', description: 'Cleaning, repair, and replacement to keep water away from your home.' },
+    { icon: 'building', title: 'Commercial Roofing', description: 'Flat and low-slope roofing for businesses, with minimal downtime.' },
+  ],
+} = Astro.props;
+
+const icons: Record<string, string> = {
+  wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  layers: '<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>',
+  cloud: '<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>',
+  search: '<circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>',
+  droplet: '<path d="M12 2.69s-6 6.5-6 10.5a6 6 0 0 0 12 0c0-4-6-10.5-6-10.5z"/>',
+  building: '<rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4M9 8h1M14 8h1M9 12h1M14 12h1"/>',
+};
+---
+
+<section class="roof-services" id="services">
+  <div class="services-inner">
+
+    <div class="services-header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+    </div>
+
+    <div class="service-grid">
+      {services.map((s) => (
+        <div class="service-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#d9a62e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={icons[s.icon]} />
+          </div>
+          <h3 class="service-title">{s.title}</h3>
+          <p class="service-desc">{s.description}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .roof-services {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f7f6f3;
+    padding: 80px 40px;
+  }
+  .services-inner { max-width: 1400px; margin: 0 auto; }
+
+  .services-header { text-align: center; max-width: 600px; margin: 0 auto 56px; }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d9a62e;
+    margin: 0 0 14px;
+  }
+  .headline {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #17171a;
+    margin: 0;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .service-card {
+    background: #ffffff;
+    border: 1px solid #e8e6e0;
+    border-radius: 10px;
+    padding: 30px 26px;
+  }
+  .icon-wrap {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    background: rgba(217, 166, 46, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .icon-wrap svg { width: 22px; height: 22px; }
+  .service-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #17171a;
+    margin: 0 0 8px;
+  }
+  .service-desc {
+    font-size: 15px;
+    line-height: 1.55;
+    color: #5a5a5a;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .service-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .roof-services { padding: 56px 20px; }
+    .service-grid { grid-template-columns: 1fr; }
+  }
+</style>

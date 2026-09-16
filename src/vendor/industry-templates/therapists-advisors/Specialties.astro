@@ -1,0 +1,114 @@
+---
+// Therapists & Advisors industry template — Specialties. Follows
+// Header + Hero, same placeholder brand (sage green #3B5A4E / cream /
+// blush, Cormorant Garamond + Karla). Structure cloned from the
+// reference's pale-background pill-tag section — copy is generic and
+// deliberately mixes therapy-style and advisory-style tags (this trade
+// slot covers both therapists and advisors, unlike the reference which
+// was mental-health-specific).
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  tags?: string[];
+  seeMoreLabel?: string;
+  seeMoreHref?: string;
+}
+
+const {
+  headline = 'What I Support',
+  tags = [
+    'Stress & Anxiety',
+    'Life Transitions',
+    'Relationship Guidance',
+    'Career Direction',
+    'Personal Growth',
+    'Financial Clarity',
+  ],
+  seeMoreLabel = 'See More',
+  seeMoreHref = '#services',
+} = Astro.props;
+---
+
+<section class="ther-specialties">
+  <div class="specialties-inner">
+    <h2 class="headline">{headline}</h2>
+    <span class="underline"></span>
+
+    <div class="tag-grid">
+      {tags.map((tag) => (
+        <span class="tag">{tag}</span>
+      ))}
+    </div>
+
+    <a href={seeMoreHref} class="see-more">
+      {seeMoreLabel}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .ther-specialties {
+    position: relative;
+    font-family: 'Karla', -apple-system, sans-serif;
+    background: #E9EFED;
+    padding: 76px 40px;
+    overflow: hidden;
+  }
+  .specialties-inner {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 3.2vw, 34px);
+    font-weight: 600;
+    color: #2C3B35;
+    margin: 0 0 12px;
+  }
+  .underline {
+    display: block;
+    width: 48px;
+    height: 2px;
+    background: #3B5A4E;
+    margin: 0 auto 32px;
+  }
+
+  .tag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 22px;
+    background: #ffffff;
+    color: #3B5A4E;
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 100px;
+    box-shadow: 0 4px 14px rgba(44, 59, 53, 0.08);
+  }
+
+  .see-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2C3B35;
+    text-decoration: none;
+  }
+  .see-more svg { width: 13px; height: 13px; }
+
+  @media (max-width: 560px) {
+    .ther-specialties { padding: 56px 20px; }
+  }
+</style>

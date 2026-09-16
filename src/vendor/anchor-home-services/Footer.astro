@@ -1,0 +1,160 @@
+---
+// Home Services industry template — Footer. "Standard footer, following
+// the starter kit's existing pattern" per README.md's deferred plan —
+// same shape as ScaleKit's own Footer.astro (brand column + link groups
+// + copyright row), reskinned to this template's navy/gold placeholder
+// brand instead of ScaleKit's own lime/black.
+interface LinkGroup {
+  heading: string;
+  links: { label: string; href: string }[];
+}
+
+interface Props {
+  businessName?: string;
+  tagline?: string;
+  phone?: string;
+  phoneHref?: string;
+  groups?: LinkGroup[];
+}
+
+const {
+  businessName = 'Anchor',
+  tagline = 'Home Services, The Easy Way — licensed, insured, and locally owned.',
+  phone = '(555) 123-4567',
+  phoneHref = 'tel:5551234567',
+  groups = [
+    {
+      heading: 'Company',
+      links: [
+        { label: 'Home', href: '#home' },
+        { label: 'About Us', href: '#about' },
+        { label: 'Service Areas', href: '#service-areas' },
+      ],
+    },
+    {
+      heading: 'Services',
+      links: [
+        { label: 'Exterior Upgrades', href: '#services' },
+        { label: 'Maintenance Plans', href: '#services' },
+        { label: 'Repairs & Fixes', href: '#services' },
+      ],
+    },
+    {
+      heading: 'Get Started',
+      links: [{ label: 'Get Estimate', href: '#estimate' }],
+    },
+  ],
+} = Astro.props;
+
+const year = new Date().getFullYear();
+---
+
+<footer class="home-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-logo">{businessName}</p>
+        <p class="footer-tagline">{tagline}</p>
+        <a href={phoneHref} class="footer-phone">{phone}</a>
+      </div>
+
+      <div class="footer-groups">
+        {groups.map((group) => (
+          <div class="footer-group">
+            <h4>{group.heading}</h4>
+            <ul>
+              {group.links.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; {year} {businessName}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .home-footer {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0B1B36;
+    color: #ffffff;
+    padding: 64px 40px 32px;
+  }
+  .footer-inner { max-width: 1400px; margin: 0 auto; }
+
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .footer-brand { max-width: 300px; flex-shrink: 0; }
+  .footer-logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 12px;
+  }
+  .footer-tagline {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 14px;
+  }
+  .footer-phone {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 700;
+    color: #F0A93B;
+    text-decoration: none;
+  }
+
+  .footer-groups { display: flex; flex-wrap: wrap; gap: 48px; }
+  .footer-group { min-width: 130px; }
+  .footer-group h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0 0 16px;
+  }
+  .footer-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-group a {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+  }
+  .footer-group a:hover { color: #F0A93B; }
+
+  .footer-bottom {
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .footer-copyright {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+  }
+
+  @media (max-width: 560px) {
+    .home-footer { padding: 48px 20px 24px; }
+    .footer-brand { max-width: none; width: 100%; }
+  }
+</style>

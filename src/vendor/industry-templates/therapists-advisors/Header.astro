@@ -1,0 +1,112 @@
+---
+// Therapists & Advisors industry template — Header/Nav.
+// Structure cloned from a reference therapy-practice homepage (a
+// transparent nav that floats directly over the hero photo, rather than
+// a separate opaque bar) — colors, logo, business name, and copy are
+// ScaleKit's own placeholder brand, not carried over from the reference.
+// Sixth distinct identity in the set, and the first "elegant/feminine"
+// one per direction: sage green `#3B5A4E` + cream `#FDFBF7` + blush
+// `#F3E1D3`, `Cormorant Garamond` headline font + `Karla` body —
+// different from every trade template and from Agency's SaaS gradient.
+// Positioned absolute so it overlays Hero.astro's photo when the two
+// are rendered back-to-back (matches the reference's floating-nav look
+// without needing the components merged into one file).
+// PLACEHOLDER: business name and nav link targets — swap for a real
+// client's info when this template is used for an actual
+// therapist/advisor client build.
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  businessName?: string;
+  links?: NavLink[];
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  businessName = 'Margot Hale',
+  links = [
+    { label: 'About Me', href: '#about' },
+    { label: 'Services', href: '#services' },
+    { label: 'FAQs', href: '#faqs' },
+    { label: 'Resources', href: '#resources' },
+  ],
+  ctaLabel = 'Book a Consultation',
+  ctaHref = '#contact',
+} = Astro.props;
+---
+
+<header class="ther-header">
+  <div class="header-inner">
+    <a href="#home" class="logo">{businessName}</a>
+
+    <nav class="nav-links">
+      {links.map((link) => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+    </nav>
+
+    <a href={ctaHref} class="cta">{ctaLabel}</a>
+  </div>
+</header>
+
+<style>
+  .ther-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    font-family: 'Karla', -apple-system, sans-serif;
+  }
+  .header-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 26px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: 26px; }
+  .nav-link {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .nav-link:hover { opacity: 0.75; }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 22px;
+    background: #3B5A4E;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 5px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .cta:hover { background: #2C453B; }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .header-inner { padding: 22px 20px; }
+  }
+</style>

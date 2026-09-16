@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import TemplateShowcase from '../../components/TemplateShowcase.astro';
+import ProcessCircles from '../../components/ProcessCircles.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+import AgencySample from '../../components/samples/AgencySample.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Agency & Consultant Websites & Funnels',
+    name: 'Website Design for Agencies & Consultants',
+    description: 'ScaleKit builds agencies and consultants a site that sells the outcome, not just the service list.',
+    url: `${siteUrl}/services/agency-consultant`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Book Your Free Strategy Call', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Website Design for Agencies & Consultants | ScaleKit"
+  description="ScaleKit builds agencies and consultants a site that sells the outcome, not just the service list."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="Website Design for Agencies & Consultants"
+    headline="Look Like The Authority You Actually Are"
+    subheadline="Prospects judge your expertise by your website before they ever book a call. We build agencies and consultants a site that sells the outcome, not just the service list."
+    checklist={[
+      'Lightning-fast load times',
+      'Mobile-first on every device',
+      'Technical SEO from day one',
+      'Ranks in Google & AI search',
+      'Live in days, not months',
+      'High-conversion copywriting',
+      'Built to convert, not just look good',
+      'Unlimited review requests',
+      'Connected straight to your CRM',
+      'Instant lead form engagement',
+    ]}
+  />
+
+  <TemplateShowcase addressLabel="youragency.com">
+    <AgencySample />
+  </TemplateShowcase>
+
+  <ProcessCircles />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Booked Discovery Call Actually Worth?"
+    subheadline="Every visitor who leaves without booking is a client you already paid to reach. ScaleKit makes sure they don't just disappear."
+  />
+
+  <BookCall />
+
+  <Footer slot="footer" logoText="ScaleKit" groups={footerGroups} />
+</BaseLayout>

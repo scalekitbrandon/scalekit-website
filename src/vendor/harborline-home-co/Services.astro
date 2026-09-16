@@ -1,0 +1,144 @@
+---
+// Harborline Home Co. — Services. Deliberately different layout from
+// Anchor's 3-card photo-overlay carousel: a clean 4-column icon grid on
+// a white background, no photos, no carousel arrows. Each card links to
+// the Hero's instant-estimate calculator (#estimate) since project type
+// there maps 1:1 to these four categories.
+interface ServiceItem {
+  title: string;
+  description: string;
+  icon: 'painting' | 'roofing' | 'decks' | 'remodel';
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  services?: ServiceItem[];
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = 'What We Do',
+  headline = 'Four Ways We Help Homeowners',
+  services = [
+    { title: 'Exterior Painting', description: 'Full-home exterior repaints with prep done right, not rushed.', icon: 'painting' },
+    { title: 'Roof Repair', description: 'Leak fixes, shingle replacement, and full re-roofs.', icon: 'roofing' },
+    { title: 'Decks & Patios', description: 'New builds and repairs, built to actually hold up outdoors.', icon: 'decks' },
+    { title: 'Full Exterior Remodels', description: 'Siding, trim, and full exterior refreshes in one project.', icon: 'remodel' },
+  ],
+  ctaLabel = 'See Pricing',
+  ctaHref = '#estimate',
+} = Astro.props;
+
+const icons: Record<string, string> = {
+  painting: '<path d="M3 21v-4a4 4 0 0 1 4-4h1"/><path d="M14 3l7 7-8.5 8.5-7-7z"/><path d="M13.5 6.5l4 4"/>',
+  roofing: '<path d="M3 11L12 4L21 11"/><path d="M5 10V20H19V10"/>',
+  decks: '<path d="M3 9h18"/><path d="M3 9v11"/><path d="M21 9v11"/><path d="M7 9v11"/><path d="M11 9v11"/><path d="M15 9v11"/><path d="M19 9v11"/><path d="M12 3L3 9h18z"/>',
+  remodel: '<rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 10h18"/><path d="M9 10v10"/>',
+};
+---
+
+<section class="hl-services" id="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+    </div>
+
+    <div class="service-grid">
+      {services.map((s) => (
+        <div class="service-item">
+          <span class="icon-badge" set:html={`<svg viewBox="0 0 24 24" fill="none" stroke="#0E5E5E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${icons[s.icon]}</svg>`} />
+          <h3 class="service-title">{s.title}</h3>
+          <p class="service-desc">{s.description}</p>
+          <a href={ctaHref} class="service-link">
+            {ctaLabel}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hl-services {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #ffffff;
+    padding: 84px 40px;
+  }
+  .services-inner { max-width: 1400px; margin: 0 auto; }
+
+  .services-header { text-align: center; margin: 0 0 48px; }
+  .eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #DE9A5C;
+    margin: 0 0 12px;
+  }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(26px, 3.2vw, 36px);
+    font-weight: 600;
+    color: #0E5E5E;
+    margin: 0;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .service-item {
+    padding: 28px 22px;
+    border: 1px solid #E3DCCD;
+    border-radius: 12px;
+    background: #F7F3EC;
+  }
+  .icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #ffffff;
+    margin: 0 0 18px;
+  }
+  .icon-badge svg { width: 24px; height: 24px; }
+  .service-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #0E5E5E;
+    margin: 0 0 8px;
+  }
+  .service-desc {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #6B7D78;
+    margin: 0 0 16px;
+  }
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0E5E5E;
+    text-decoration: none;
+  }
+  .service-link svg { width: 13px; height: 13px; }
+  .service-link:hover { color: #DE9A5C; }
+
+  @media (max-width: 900px) {
+    .service-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .hl-services { padding: 56px 20px; }
+    .service-grid { grid-template-columns: 1fr; }
+  }
+</style>

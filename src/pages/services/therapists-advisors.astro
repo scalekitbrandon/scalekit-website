@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import TemplateShowcase from '../../components/TemplateShowcase.astro';
+import ProcessCircles from '../../components/ProcessCircles.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+import TherapistsSample from '../../components/samples/TherapistsSample.astro';
+import WillowmereSample from '../../components/samples/WillowmereSample.astro';
+import AshfordSample from '../../components/samples/AshfordSample.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Therapist & Advisor Websites & Funnels',
+    name: 'Website Design for Therapists & Advisors',
+    description: 'ScaleKit builds therapists and advisors a site — and a gentle follow-up system — that earns trust before the first conversation.',
+    url: `${siteUrl}/services/therapists-advisors`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Book Your Free Strategy Call', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Website Design for Therapists & Advisors | ScaleKit"
+  description="ScaleKit builds therapists and advisors a site — and a gentle follow-up system — that earns trust before the first conversation."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="Website Design for Therapists & Advisors"
+    headline="Build Trust Before The First Conversation"
+    subheadline="People choose a therapist or advisor based on how safe your website makes them feel before they've even spoken to you. We build a site — and a gentle follow-up system — that earns that trust."
+    checklist={[
+      'Lightning-fast load times',
+      'Mobile-first on every device',
+      'Technical SEO from day one',
+      'Ranks in Google & AI search',
+      'Live in days, not months',
+      'High-conversion copywriting',
+      'Built to convert, not just look good',
+      'Unlimited review requests',
+      'Connected straight to your CRM',
+      'Instant lead form engagement',
+    ]}
+  />
+
+  <TemplateShowcase addressLabel="yourpractice.com" sampleLabels={['willowmeretherapygroup.com', 'ashfordtherapy.com']}>
+    <TherapistsSample />
+    <WillowmereSample slot="sample-1" />
+    <AshfordSample slot="sample-2" />
+  </TemplateShowcase>
+
+  <ProcessCircles />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Booked Consultation Actually Worth?"
+    subheadline="Every inquiry that sits unanswered is someone who found the courage to reach out — and then didn't hear back. ScaleKit makes sure that doesn't happen."
+  />
+
+  <BookCall />
+
+  <Footer slot="footer" logoText="ScaleKit" groups={footerGroups} />
+</BaseLayout>

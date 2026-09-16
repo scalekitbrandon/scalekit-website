@@ -1,0 +1,148 @@
+---
+// Matches reference layout: dark footer, 3-column grid (brand+tagline+badge,
+// Quick Links, Contact Us with icons per line) — not the previous plain
+// 2-column text layout. Uses the site's own dark neutral (--color-fg) as
+// the background rather than the reference's teal, per brand rules.
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface ContactItem {
+  icon: string;
+  text: string;
+  href?: string;
+}
+
+interface Props {
+  logoText?: string;
+  tagline?: string;
+  badge?: string;
+  quickLinksHeading?: string;
+  quickLinks?: LinkItem[];
+  contactHeading?: string;
+  contactItems?: ContactItem[];
+  legalLine?: string;
+}
+
+const {
+  logoText = 'Logo', tagline, badge,
+  quickLinksHeading = 'Quick Links', quickLinks = [],
+  contactHeading = 'Contact Us', contactItems = [],
+  legalLine,
+} = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <p class="footer-brand">{logoText}</p>
+        {tagline && <p class="tagline">{tagline}</p>}
+        {badge && <p class="badge">⭐ {badge}</p>}
+      </div>
+      <div class="footer-group">
+        <h4>{quickLinksHeading}</h4>
+        <ul>
+          {quickLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="footer-group">
+        <h4>{contactHeading}</h4>
+        <ul class="contact-list">
+          {contactItems.map((item) => (
+            <li>
+              <span class="contact-icon" aria-hidden="true">{item.icon}</span>
+              {item.href ? <a href={item.href}>{item.text}</a> : <span>{item.text}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <p class="footer-copyright">&copy; {year} {logoText}. All rights reserved.</p>
+    {legalLine && <p class="legal-line">{legalLine}</p>}
+    <p class="built-by">Website by <a href="https://scalekit.io" target="_blank" rel="noopener noreferrer">ScaleKit.io</a></p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-fg);
+    color: var(--color-bg);
+    padding-block: var(--space-7);
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+  .footer-brand-col { max-width: 340px; }
+  .footer-brand { font-size: var(--text-lg); font-weight: var(--font-weight-max); font-family: var(--font-heading); }
+  .tagline { font-size: var(--text-sm); opacity: 0.75; margin-top: var(--space-3); }
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-button);
+    margin-top: var(--space-4);
+  }
+  .legal-line {
+    text-align: center;
+    font-size: var(--text-sm);
+    opacity: 0.6;
+    margin-top: var(--space-2);
+  }
+  .footer-group h4 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-button);
+    margin-bottom: var(--space-4);
+  }
+  .footer-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .footer-group a,
+  .footer-group span {
+    color: var(--color-bg);
+    text-decoration: none;
+    opacity: 0.85;
+  }
+  .footer-group a:hover { opacity: 1; text-decoration: underline; }
+  .contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+  .contact-icon { flex-shrink: 0; opacity: 0.9; }
+  .footer-copyright {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-bg);
+    opacity: 0.6;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: var(--space-4);
+  }
+  .built-by {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-bg);
+    opacity: 0.5;
+    margin-top: var(--space-2);
+  }
+  .built-by a {
+    color: inherit;
+    text-decoration: underline;
+  }
+  @media (max-width: 768px) {
+    .footer-top { grid-template-columns: 1fr; }
+  }
+</style>

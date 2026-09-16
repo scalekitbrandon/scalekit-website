@@ -1,0 +1,286 @@
+---
+// "Optimize Your Website SEO To Match Your GBP" — feature row 6 of "How
+// Scout Works" on /scout. Structure cloned from the reference (a browser
+// mockup of "your website" plus a floating "run the analysis" card with
+// an optimization-percentage gauge) —
+// colors and copy are ScaleKit's own. The reference showed a real
+// screenshot of a specific HVAC client's site; here the browser mockup
+// shows one of ScaleKit's own real industry templates (Home Services /
+// "Anchor" — same one shown live on the homepage's Websites & Funnels
+// grid) instead of a fabricated fake screenshot — the real Header +
+// Hero components, scaled down via the same .mini-page technique used
+// in WebsitesFunnels.astro's card thumbnails.
+// The gauge reuses the exact conic-gradient technique from
+// ScoutGbpFeature's scorecard for visual consistency across the page.
+// Orientation: image left, per direction.
+import HomeServicesHeader from '../vendor/anchor-home-services/Header.astro';
+import HomeServicesHero from '../vendor/anchor-home-services/Hero.astro';
+import HomeServicesServices from '../vendor/anchor-home-services/Services.astro';
+
+interface Props {
+  headline?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  paragraph3?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  addressLabel?: string;
+  gaugePercent?: number;
+  cardLabel?: string;
+}
+
+const {
+  headline = 'Optimize Your Website SEO To Match Your GBP',
+  paragraph1 = 'Google uses the information on your website to better understand your business, services, and locations—which can directly support your visibility in local search.',
+  paragraph2 = 'Scout analyzes your website, identifies opportunities for improvement, and recommends optimized content, FAQs, and structured data (schema) you can add to strengthen your online presence.',
+  paragraph3 = 'A stronger website. Better local search signals. More visibility across Google, Maps, and AI search.',
+  ctaLabel = 'Get Started',
+  ctaHref = '#book-call',
+  addressLabel = 'anchorhomeservices.com',
+  gaugePercent = 80,
+  cardLabel = 'Run Scout to optimize your website',
+} = Astro.props;
+---
+
+<div class="webseo-feature">
+  <div class="webseo-copy">
+    <h3 class="webseo-headline">{headline}</h3>
+    <p class="webseo-p">{paragraph1}</p>
+    <p class="webseo-p">{paragraph2}</p>
+    <p class="webseo-p">{paragraph3}</p>
+    <a href={ctaHref} class="webseo-cta">
+      {ctaLabel}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+
+  <div class="webseo-graphic">
+    <div class="browser-frame">
+      <div class="browser-chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="address-pill">{addressLabel}</div>
+      </div>
+      <div class="browser-body">
+        <div class="template-preview">
+          <div class="mini-page-wrap">
+            <div class="mini-page">
+              <HomeServicesHeader />
+              <HomeServicesHero />
+              <HomeServicesServices />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <span class="analysis-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+      </span>
+      <p class="analysis-label">{cardLabel}</p>
+      <div class="analysis-divider"></div>
+      <div class="analysis-gauge">
+        <div class="gauge-ring" style={`--pct: ${gaugePercent}`}>
+          <span class="gauge-value">{gaugePercent}%</span>
+        </div>
+        <p class="gauge-caption">Your website is {gaugePercent}% optimized for SEO</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .webseo-feature {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-8);
+    align-items: center;
+    margin-bottom: var(--space-8);
+  }
+  /* Graphic moved visually first via `order`, not by reordering the
+     markup, so DOM/reading order stays copy-then-graphic for a11y —
+     same technique used on ScoutReviewsFeature/ScoutSocialFeature. */
+  .webseo-graphic { order: -1; }
+
+  .webseo-headline {
+    font-size: clamp(28px, 3.4vw, 38px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4);
+  }
+  .webseo-p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-4);
+    max-width: 480px;
+  }
+  .webseo-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 16px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    margin-top: var(--space-2);
+    transition: background 0.15s;
+  }
+  .webseo-cta:hover { background: var(--color-primary-hover); }
+  .webseo-cta svg { width: 15px; height: 15px; }
+
+  .webseo-graphic {
+    position: relative;
+    background-color: var(--color-bg-alt);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    min-height: 460px;
+  }
+
+  .browser-frame {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 24px 50px rgba(10, 10, 10, 0.14);
+  }
+  .browser-chrome {
+    background: #eceae4;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .dots { display: flex; gap: 5px; flex-shrink: 0; }
+  .dots span { width: 8px; height: 8px; border-radius: 50%; background: #d4d1c8; }
+  .address-pill {
+    flex: 1;
+    max-width: 220px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: var(--radius-pill);
+    padding: 4px 14px;
+    font-size: 11px;
+    color: var(--color-text-light);
+    text-align: center;
+  }
+
+  .browser-body { position: relative; }
+
+  /* Real Home Services template (Header + Hero), rendered at full
+     desktop width then scaled down to fit — same .mini-page technique
+     as the homepage's WebsitesFunnels.astro card thumbnails, not a
+     fabricated screenshot. */
+  .template-preview {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .mini-page-wrap { position: absolute; inset: 0; overflow: hidden; }
+  .mini-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400%;
+    transform: scale(0.25);
+    transform-origin: top left;
+    pointer-events: none;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mini-page :global(.nav-links) { display: none !important; }
+  .mini-page :global(.headline) { font-size: 34px !important; }
+  .mini-page :global(.sub) { font-size: 15px !important; }
+
+  .analysis-card {
+    position: absolute;
+    right: 24px;
+    bottom: -18px;
+    left: 24px;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    box-shadow: 0 20px 44px rgba(10, 10, 10, 0.16);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .analysis-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--color-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .analysis-icon svg { width: 17px; height: 17px; }
+  .analysis-label {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: var(--color-fg);
+    margin: 0;
+    flex: 1;
+  }
+  .analysis-divider {
+    width: 1px;
+    align-self: stretch;
+    background: var(--color-border);
+  }
+
+  .analysis-gauge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+    max-width: 190px;
+  }
+  .gauge-ring {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: conic-gradient(var(--color-primary) calc(var(--pct) * 1%), var(--color-border) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gauge-ring::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+  .gauge-value {
+    position: relative;
+    z-index: 1;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--color-fg);
+  }
+  .gauge-caption {
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: var(--color-text-mid);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .webseo-feature { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .webseo-graphic { padding: var(--space-5); min-height: 520px; }
+    .analysis-card { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+    .analysis-divider { display: none; }
+  }
+</style>

@@ -1,0 +1,97 @@
+---
+// Therapists & Advisors industry template — CtaBand. Blush full-bleed
+// section per README.md's deferred plan: headline + copy + CTA on one
+// side, decorative concentric-circle illustration on the other.
+interface Props {
+  headline?: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  headline = "Ready When You Are",
+  body = "There's no perfect time to reach out — just the moment you decide you're ready. Send a message and I'll take it from there.",
+  ctaLabel = 'Contact Me',
+  ctaHref = '#contact',
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-copy">
+      <h2 class="headline">{headline}</h2>
+      <p class="body">{body}</p>
+      <a href={ctaHref} class="cta">{ctaLabel}</a>
+    </div>
+
+    <div class="cta-illustration" aria-hidden="true">
+      <svg viewBox="0 0 240 240">
+        <circle cx="120" cy="120" r="118" fill="none" stroke="#3B5A4E" stroke-width="1" opacity="0.25" />
+        <circle cx="120" cy="120" r="86" fill="none" stroke="#3B5A4E" stroke-width="1" opacity="0.4" />
+        <circle cx="120" cy="120" r="54" fill="none" stroke="#3B5A4E" stroke-width="1" opacity="0.6" />
+        <circle cx="120" cy="120" r="22" fill="#3B5A4E" opacity="0.85" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    font-family: 'Karla', -apple-system, sans-serif;
+    background: #F3E1D3;
+    padding: 88px 40px;
+    overflow: hidden;
+  }
+  .cta-band-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #2C3B35;
+    margin: 0 0 16px;
+  }
+  .body {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #5C4A3D;
+    margin: 0 0 30px;
+    max-width: 460px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background: #3B5A4E;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .cta:hover { background: #2C453B; }
+
+  .cta-illustration { width: 100%; }
+  .cta-illustration svg { width: 100%; height: auto; }
+
+  @media (max-width: 760px) {
+    .cta-band-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .cta-illustration { max-width: 180px; margin: 0 auto; order: -1; }
+    .body { margin-inline: auto; }
+  }
+  @media (max-width: 560px) {
+    .cta-band { padding: 64px 20px; }
+  }
+</style>

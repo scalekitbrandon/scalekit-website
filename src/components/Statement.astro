@@ -1,0 +1,148 @@
+---
+// Standalone bold statement banner — bridges Hero into the next section.
+// Also hosts the "I Need To..." service selector (moved here from
+// Transition.astro per direction), single row, clearly clickable.
+// NOTE: hrefs point to placeholder anchors (#local-seo, etc.) — wire these
+// up to real section ids once those sections exist.
+interface SelectorItem {
+  job: string;
+  service: string;
+  href: string;
+}
+
+interface Props {
+  lines?: string[];
+  selectorLabel?: string;
+  selectorItems?: SelectorItem[];
+}
+
+const {
+  lines = ['Start with what you need today.', 'Scale into what you need tomorrow.'],
+  selectorLabel = 'I Need To...',
+  selectorItems = [
+    { job: 'Convert More', service: 'Websites & Funnels', href: '#websites-funnels' },
+    { job: 'Get Found', service: 'Local SEO', href: '#local-seo' },
+    { job: 'Get More Leads', service: 'Google & Meta Ads', href: '#ads' },
+    { job: 'Stop Losing Leads', service: 'CRM & Automation', href: '#automation' },
+    { job: 'Recover Old Leads', service: 'Reactivation', href: '#reactivation' },
+    { job: 'Save Time & Scale', service: 'AI Agents & Solutions', href: '#ai-agents' },
+  ],
+} = Astro.props;
+---
+
+<section class="statement">
+  <div class="statement-inner">
+    {lines.map((line) => (
+      <span class="line">{line}</span>
+    ))}
+  </div>
+
+  <div class="selector">
+    <p class="selector-label">{selectorLabel}</p>
+    <div class="selector-row">
+      {selectorItems.map((item) => (
+        <a href={item.href} class="option">
+          <span class="job">{item.job}<span class="arrow">→</span></span>
+          <span class="service">{item.service}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .statement {
+    background: #ffffff;
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .statement-inner {
+    max-width: 800px;
+    margin: 0 auto var(--space-7);
+  }
+  .line {
+    display: block;
+    font-size: clamp(28px, 3.6vw, 42px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--color-fg);
+  }
+
+  .selector-label {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 14px;
+  }
+  .selector-row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: var(--space-3);
+    overflow-x: auto;
+    /* overflow-x: auto implicitly makes overflow-y clip too (per CSS
+       spec, neither axis can stay "visible" once the other isn't) — this
+       padding-top gives .option's hover lift (translateY(-2px)) room so
+       it doesn't get cut off at the top of this row. */
+    padding-top: 6px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .option {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    text-align: left;
+    padding: 14px 20px;
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  }
+  .option:hover {
+    border-color: var(--color-primary);
+    background: #ffffff;
+    transform: translateY(-2px);
+  }
+  .job {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--color-fg);
+  }
+  .arrow {
+    color: var(--color-primary-outline);
+    font-weight: 800;
+  }
+  .service {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-light);
+  }
+
+  @media (max-width: 640px) {
+    .selector-row {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      overflow-x: visible;
+      align-items: stretch;
+    }
+    .option {
+      flex: 1 1 auto;
+      white-space: normal;
+    }
+  }
+</style>

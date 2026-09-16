@@ -1,0 +1,160 @@
+---
+// Reusable "everything we build for X" grid — one card per ScaleKit
+// service, each with copy customized to a specific vertical's real
+// pain points, linking to that service's real page. Built for the new
+// multi-service industry hub pages (/services/<vertical>, starting with
+// public-adjusters), which cover ALL of ScaleKit's services for that
+// industry — different from the 6 "Websites & Funnels for X" pages,
+// which are single-service and use TemplateShowcase instead.
+interface ServiceCard {
+  icon: string; // 'globe' | 'search' | 'megaphone' | 'crm' | 'bot'
+  title: string;
+  description: string;
+  linkLabel?: string;
+  href: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
+  services: ServiceCard[];
+}
+
+const {
+  eyebrow = "What's Included",
+  headline = 'Everything We Build For You',
+  subheadline = 'Start with one service or the whole system — every piece is built around your business specifically.',
+  services,
+} = Astro.props;
+
+const icons: Record<string, string> = {
+  globe: '<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+  search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>',
+  megaphone: '<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+  crm: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>',
+  bot: '<rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/><path d="M9 18h6"/>',
+};
+---
+
+<section class="service-grid">
+  <div class="inner">
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="sub">{subheadline}</p>
+    </div>
+
+    <div class="grid">
+      {services.map((s) => (
+        <div class="card">
+          <span class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={icons[s.icon]} />
+          </span>
+          <h3 class="card-title">{s.title}</h3>
+          <p class="card-desc">{s.description}</p>
+          <a href={s.href} class="card-link">
+            {s.linkLabel ?? 'Learn More'}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-grid {
+    background: var(--color-bg-alt);
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 1100px; margin: 0 auto; }
+
+  .header { text-align: center; max-width: 620px; margin: 0 auto var(--space-7); }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 18px;
+  }
+  .headline {
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-3);
+  }
+  .sub {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-mid);
+    margin: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+  .card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+  }
+  .icon-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: 0 0 var(--space-4);
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
+  }
+  .icon-badge svg { width: 22px; height: 22px; }
+  .card-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--color-fg);
+    margin: 0 0 10px;
+  }
+  .card-desc {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-4);
+    flex: 1;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--color-primary);
+    padding-bottom: 2px;
+    align-self: flex-start;
+    transition: opacity 0.15s;
+  }
+  .card-link:hover { opacity: 0.7; }
+  .card-link svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .service-grid { padding: var(--space-7) var(--space-5); }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>

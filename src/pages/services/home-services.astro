@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import TemplateShowcase from '../../components/TemplateShowcase.astro';
+import ProcessCircles from '../../components/ProcessCircles.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+import AnchorSample from '../../components/samples/AnchorSample.astro';
+import PaintingSample from '../../components/samples/PaintingSample.astro';
+import RoofingSample from '../../components/samples/RoofingSample.astro';
+import LandscapingSample from '../../components/samples/LandscapingSample.astro';
+import RestorationSample from '../../components/samples/RestorationSample.astro';
+import HomeServicesTwoSample from '../../components/samples/HomeServicesTwoSample.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Home Services Websites & Funnels',
+    name: 'Website Design for Home Services Companies',
+    description: 'ScaleKit builds home services companies a bold, video-ready website and a follow-up system built to win the comparison.',
+    url: `${siteUrl}/services/home-services`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Book Your Free Strategy Call', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Website Design for Home Services Companies | ScaleKit"
+  description="ScaleKit builds home services companies a bold website and a follow-up system built to turn estimate requests into booked jobs."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="Website Design for Home Services Companies"
+    headline="Turn Your Website Into a Lead Conversion Machine"
+    subheadline="Homeowners compare three companies before they call one. We build home services companies a site built to win that comparison — and a system that follows up before they call your competitor."
+    checklist={[
+      'Lightning-fast load times',
+      'Mobile-first on every device',
+      'Technical SEO from day one',
+      'Ranks in Google & AI search',
+      'Live in days, not months',
+      'High-conversion copywriting',
+      'Built to convert, not just look good',
+      'Unlimited review requests',
+      'Connected straight to your CRM',
+      'Instant lead form engagement',
+    ]}
+  />
+
+  <!--
+    Single showcase for this page — cross-industry samples (Painting,
+    Roofing, Landscaping, Restoration) plus Harborline (home-services-2)
+    folded in as another home-services variant, rather than a second
+    stacked showcase section. Add home-services-3 through -8 here as
+    more variants land (7 named slots total are wired in
+    TemplateShowcase.astro).
+  -->
+  <TemplateShowcase
+    addressLabel="yourhomeservicesco.com"
+    sampleLabels={[
+      'brushhourpaintingtexas.com',
+      'yourroofingcompany.com',
+      'yourlandscapingco.com',
+      'yourrestorationco.com',
+      'harborlinehomeco.com',
+    ]}
+  >
+    <AnchorSample />
+    <Fragment slot="sample-1"><PaintingSample /></Fragment>
+    <Fragment slot="sample-2"><RoofingSample /></Fragment>
+    <Fragment slot="sample-3"><LandscapingSample /></Fragment>
+    <Fragment slot="sample-4"><RestorationSample /></Fragment>
+    <Fragment slot="sample-5"><HomeServicesTwoSample /></Fragment>
+  </TemplateShowcase>
+
+  <ProcessCircles />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Booked Job Actually Worth?"
+    subheadline="An outdated website loses the job before you even get the call. A slow response loses it after. ScaleKit closes both gaps."
+  />
+
+  <BookCall />
+
+  <Footer slot="footer" logoText="ScaleKit" groups={footerGroups} />
+</BaseLayout>

@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import ScoutHero from '../components/ScoutHero.astro';
+import HowScoutWorks from '../components/HowScoutWorks.astro';
+import ScoutDemoVideoSection from '../components/ScoutDemoVideoSection.astro';
+import ScoutFaq from '../components/ScoutFaq.astro';
+import Footer from '../components/Footer.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'AI-Powered Local SEO',
+    name: 'ScaleKit Local SEO — Powered by Scout™',
+    description: "Scout continuously optimizes your Google Business Profile, strengthens your local search presence, monitors ranking opportunities, and helps your business get discovered by more customers in your service area.",
+    url: `${siteUrl}/scout`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Get Started', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="ScaleKit Local SEO — Powered by Scout™ | AI Local SEO Agent"
+  description="Meet Scout, your AI Local SEO agent. Scout continuously optimizes your Google Business Profile, strengthens your local search presence, monitors ranking opportunities, and helps your business get discovered by more customers in your service area."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <ScoutHero />
+
+  <HowScoutWorks />
+
+  <ScoutDemoVideoSection />
+
+  <ScoutFaq />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

@@ -1,0 +1,271 @@
+---
+// Reusable "Painting" (Brush Hour Painting) template sample — the REAL
+// client build (~/Astro-Sites/brush-hour-painting/), not an invented
+// placeholder. Real business: brushhourpaintingtexas.com, Austin TX,
+// founded 2008. Extracted from home-services.astro so every
+// /services/<industry> page's TemplateShowcase can include it as a
+// cross-reference sample without duplicating this whole block.
+// Skips TestimonialCarousel: that project's testimonials are explicit
+// unfilled placeholders ("[Client name pending]"), so showing them here
+// would display broken-looking placeholder text rather than real proof.
+// FeatureGrid's services list and ContactSection's services list are
+// hardcoded from the real content/services/*.md files instead of via
+// getCollection() — Astro's content collections are resolved per-
+// project, so brush-hour's own collection can't be queried from inside
+// ScaleKit's build.
+import PaintingHeader from '../../vendor/brush-hour-painting/Header.astro';
+import PaintingHero from '../../vendor/brush-hour-painting/Hero.astro';
+import PaintingQuoteForm from '../../vendor/brush-hour-painting/QuoteForm.astro';
+import PaintingSplitContent from '../../vendor/brush-hour-painting/SplitContent.astro';
+import PaintingFeatureGrid from '../../vendor/brush-hour-painting/FeatureGrid.astro';
+import PaintingProcessCard from '../../vendor/brush-hour-painting/ProcessCard.astro';
+import PaintingStatHighlight from '../../vendor/brush-hour-painting/StatHighlight.astro';
+import PaintingGallery from '../../vendor/brush-hour-painting/Gallery.astro';
+import PaintingLocationList from '../../vendor/brush-hour-painting/LocationList.astro';
+import PaintingContactSection from '../../vendor/brush-hour-painting/ContactSection.astro';
+import PaintingFAQAccordion from '../../vendor/brush-hour-painting/FAQAccordion.astro';
+import PaintingFooter from '../../vendor/brush-hour-painting/Footer.astro';
+
+const PAINTING_PHONE = '512-552-7519';
+const PAINTING_PHONE_TEL = 'tel:5125527519';
+const PAINTING_SERVICES = [
+  'Interior Painting',
+  'Exterior Painting',
+  'Commercial Painting',
+  'Deck & Fence Painting',
+  'Brick Painting',
+  'Dry Wall Repair',
+];
+---
+
+<div class="painting-sample">
+  <PaintingHeader
+    logoText="Brush Hour Painting"
+    links={[
+      { label: 'Services', href: '/#services' },
+      { label: 'Service Areas', href: '#service-areas' },
+      { label: 'Contact', href: '#contact' },
+    ]}
+    ctaLabel={PAINTING_PHONE}
+    ctaHref={PAINTING_PHONE_TEL}
+  />
+
+  <PaintingHero
+    backgroundSrc="/images/hero-bg-premium-home.jpg"
+    headline="Your Expert Painting Company in Austin, TX Since 2008"
+    subheadline="Interior, exterior, and commercial painting for Austin-area homes and businesses — licensed, insured, and serving Austin since 2008."
+    primaryLabel="Get Free Quote"
+    primaryHref="#quote"
+    secondaryLabel="Call Us Now"
+    secondaryHref={PAINTING_PHONE_TEL}
+    badges={[
+      { icon: 'star', title: 'Licensed & Insured', subtitle: 'On every job' },
+      { icon: 'house', title: 'Austin Local', subtitle: 'Serving since 2008' },
+      { icon: 'check', title: 'Free Estimates', subtitle: 'No obligation' },
+    ]}
+  >
+    <PaintingQuoteForm services={PAINTING_SERVICES} />
+  </PaintingHero>
+
+  <PaintingSplitContent
+    eyebrow="Renovate Your Home and Commercial Property"
+    heading="Transform Your House With Expert Austin Painting Services"
+    body="At Brush Hour Painting, we believe a paint job should hold up, not just look good on day one. Our crew has been serving Austin-area homes and businesses since 2008, with the prep work and attention to detail that make a finish actually last through Texas summers."
+    body2="Our team is experienced in interior painting, exterior painting, commercial painting, and pressure washing — and if you need anything else related to home improvement, we can point you in the right direction."
+    buttons={[
+      { label: 'Request a Free Estimate', href: '#quote', variant: 'primary' },
+      { label: 'See Our Services', href: '#services', variant: 'secondary' },
+    ]}
+    imageAlt="Recent Brush Hour Painting project — photo pending"
+    trustHeading="Always Trusted By"
+    trustItems={[
+      { icon: 'shield', label: 'Licensed & Insured' },
+      { icon: 'award', label: 'Workmanship Warranty' },
+      { icon: 'check', label: 'Free Estimates' },
+    ]}
+  />
+
+  <PaintingFeatureGrid
+    id="services"
+    heading="Our"
+    headingAccent="Painting Services"
+    subheading="Professional painting solutions tailored to your Austin-area home or business"
+    columns={3}
+    variant="card"
+    items={[
+      { title: 'Interior Painting', bullets: ['Furniture and flooring fully protected before we start', 'Premium paint options suited for Texas humidity', 'Detailed prep — patched, sanded, and primed before a drop of color goes on', 'Backed by our workmanship warranty'], linkLabel: 'Learn More', linkHref: '#quote' },
+      { title: 'Exterior Painting', bullets: ['Pressure-washed and fully prepped before painting begins', 'Coatings selected for Texas heat and UV exposure', 'Trim, siding, and brick all handled by the same crew', 'Licensed and insured on every job'], linkLabel: 'Learn More', linkHref: '#quote' },
+      { title: 'Commercial Painting', bullets: ['Flexible scheduling — nights and weekends available', 'Minimal disruption to staff, customers, or operations', 'Experience with offices, retail spaces, and multi-unit properties', 'Serving Austin and the surrounding area since 2008'], linkLabel: 'Learn More', linkHref: '#quote' },
+      { title: 'Deck & Fence Painting', bullets: ['Premium, weather-resistant stains and paints', 'Surface cleaning and prep before every coat', 'Furniture and landscaping protected during the job', 'Backed by our workmanship warranty'], linkLabel: 'Learn More', linkHref: '#quote' },
+      { title: 'Brick Painting', bullets: ['Proper masonry prep and cleaning before painting', 'Breathable, brick-safe coatings', 'Even, factory-quality finish', 'Licensed and insured on every job'], linkLabel: 'Learn More', linkHref: '#quote' },
+      { title: 'Dry Wall Repair', bullets: ['Patch and repair cracks, holes, and surface damage', 'Smooth, seamless blending with existing walls', 'Available as its own service or bundled with painting', 'Free, no-obligation estimates'], linkLabel: 'Learn More', linkHref: '#quote' },
+    ]}
+  />
+
+  <PaintingProcessCard
+    topIcon="house"
+    steps={[
+      { icon: 'phone', title: 'Get Your Quote', description: "Call us or click 'Get a Quote' for quick, accurate pricing." },
+      { icon: 'calendar', title: 'Plan Your Project', description: "We'll help you choose colors, finalize details, and schedule a time." },
+      { icon: 'key', title: 'Enjoy Your Space', description: 'Sit back while we bring your vision to life. You approve the final results.' },
+    ]}
+    bannerHeading="Painting done right, every time — serving Austin since 2008."
+    ctaLabel="Get Your Free Quote Today"
+    ctaHref="#quote"
+  />
+
+  <PaintingFeatureGrid
+    heading="Why Choose Brush Hour Painting"
+    columns={4}
+    items={[
+      { icon: 'shield', title: 'Licensed & Insured', description: 'Full coverage on every job, no exceptions.' },
+      { icon: 'pin', title: 'Austin Local', description: 'Serving the greater Austin area since 2008.' },
+      { icon: 'award', title: 'Expert Craftsmanship', description: 'Proper prep work on every job, big or small.' },
+      { icon: 'tag', title: 'Free, No-Pressure Quotes', description: 'No obligation, just an honest estimate.' },
+    ]}
+  />
+
+  <PaintingStatHighlight
+    heading="Your Home Deserves the Best Residential Austin Painting Company"
+    body="At Brush Hour Painting, we believe quality painting transforms not just walls, but entire spaces. Every project gets our full attention, from the initial estimate to the final brush stroke."
+    stats={[
+      { value: '2008', label: 'Founded' },
+      { value: '13+', label: 'Austin-Area Communities Served' },
+      { icon: '🛡️', value: 'Licensed', label: '& Insured' },
+    ]}
+    ctaLabel="Start Your Project Today"
+    ctaHref="#quote"
+  />
+
+  <PaintingGallery
+    heading="Recent Projects"
+    subheading="See the quality craftsmanship and attention to detail that sets us apart"
+    images={[
+      { alt: 'Project photo pending', title: 'Project photo pending', caption: 'Add a real before/after from a recent job' },
+      { alt: 'Project photo pending', title: 'Project photo pending', caption: 'Add a real before/after from a recent job' },
+      { alt: 'Project photo pending', title: 'Project photo pending', caption: 'Add a real before/after from a recent job' },
+    ]}
+    ctaText="Ready to transform your space with expert craftsmanship?"
+    ctaLabel="Get Your Free Estimate"
+    ctaHref="#quote"
+  />
+
+  <PaintingLocationList
+    id="service-areas"
+    heading="Proudly Serving the Austin Area Since 2008"
+    intro="Brush Hour Painting is proud to serve the greater Austin area for all residential and commercial painting needs."
+    locations={['Austin', 'Round Rock', 'Cedar Park', 'Georgetown', 'Pflugerville', 'Leander', 'Buda', 'Kyle', 'San Marcos', 'Bee Cave', 'Dripping Springs', 'Manor', 'Hutto']}
+    footnote="Don't see your city listed? Give us a call — we may still be able to serve your area."
+    mapQuery="10610 McMillian Dr, Austin, TX 78753"
+  />
+
+  <PaintingContactSection
+    id="contact"
+    heading="Get Your"
+    headingAccent="Free Quote"
+    subheading="Ready to transform your home or business? Contact us today for a free, no-obligation quote."
+    infoCards={[
+      { icon: '📞', title: 'Call Us', value: PAINTING_PHONE, detail: 'Mon–Fri, 8am–6pm' },
+      { icon: '✉️', title: 'Email Us', value: 'quotes@brushhourpaintingtexas.com', detail: "We'll respond within 24 hours" },
+      { icon: '🕐', title: 'Business Hours', value: 'Mon–Fri, 8am–6pm' },
+    ]}
+    ctaHeading="Ready to Get Started?"
+    ctaBody="Transform your Austin home or business with Brush Hour Painting. Fill out the form and we'll be in touch — or call us now."
+    ctaBullets={[
+      'Free, no-obligation quotes',
+      'Licensed & insured crew',
+      'Workmanship warranty',
+      'Serving Austin since 2008',
+    ]}
+    services={PAINTING_SERVICES}
+    primaryLabel={`Call ${PAINTING_PHONE}`}
+    primaryHref={PAINTING_PHONE_TEL}
+    secondaryLabel="Get Your Free Quote"
+  />
+
+  <PaintingFAQAccordion
+    items={[
+      { question: 'Are you licensed and insured?', answer: 'Yes — Brush Hour Painting is fully licensed and insured on every job we take on.' },
+      { question: 'Do you offer free estimates?', answer: 'Yes, every quote is free and comes with no obligation.' },
+      { question: 'What areas do you serve?', answer: 'We serve Austin and the surrounding communities, including Austin, Round Rock, Cedar Park, Georgetown, Pflugerville, Leander, and more.' },
+      { question: 'Do I need to move my furniture before you start?', answer: "We handle protecting your furniture and flooring as part of every job — just let us know about anything particularly fragile ahead of time." },
+      { question: 'How long does exterior paint hold up in Austin heat?', answer: 'Proper prep — pressure washing, scraping, and priming — is what determines how well paint holds up against Texas sun and heat. We prep every exterior job the same way regardless of the size of the job.' },
+      { question: 'How soon can you start my project?', answer: "Reach out through the quote form and we'll give you a timeline based on current scheduling — it varies by season and project size." },
+    ]}
+  />
+
+  <PaintingFooter
+    logoText="Brush Hour Painting"
+    tagline="Serving Austin with excellence and integrity since 2008. Your trusted partner for interior, exterior, and commercial painting."
+    badge="Licensed & Insured"
+    legalLine="Professional painting services in Austin, TX | Licensed & Insured"
+    quickLinks={[
+      { label: 'Services', href: '#services' },
+      { label: 'Service Areas', href: '#service-areas' },
+      { label: 'Get a Quote', href: '#quote' },
+      { label: 'Contact', href: '#contact' },
+    ]}
+    contactItems={[
+      { icon: '📞', text: PAINTING_PHONE, href: PAINTING_PHONE_TEL },
+      { icon: '✉️', text: 'quotes@brushhourpaintingtexas.com', href: 'mailto:quotes@brushhourpaintingtexas.com' },
+      { icon: '📍', text: '10610 McMillian Dr, Austin, TX 78753' },
+      { icon: '🕐', text: 'Mon–Fri, 8am–6pm' },
+    ]}
+  />
+</div>
+
+<style>
+  /* Brush Hour Painting's real components read CSS custom properties
+     (--color-primary, --text-lg, etc.) from that project's own
+     tokens.css, which this build never loads — same issue solved in
+     WebsitesFunnels.astro's .painting-preview, just at full size here
+     instead of scaled down. Scoped to .painting-sample so nothing leaks
+     into the rest of this page (custom properties only cascade to
+     descendants). Real values from brush-hour-painting/src/styles/tokens.css. */
+  .painting-sample {
+    --color-bg: #ffffff;
+    --color-fg: #2b2b2a;
+    --color-primary: #962107;
+    --color-primary-fg: #ffffff;
+    --color-accent: #f6520e;
+    --color-muted: #f5f0ee;
+    --color-border: #e6e0dd;
+    --font-heading: 'Roboto Slab', serif;
+    --font-body: 'Poppins', sans-serif;
+    --font-weight-max: 700;
+    --font-weight-button: 600;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.563rem;
+    --text-2xl: 1.953rem;
+    --text-3xl: 2.441rem;
+    --text-4xl: 3.052rem;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --space-6: 48px;
+    --space-7: 64px;
+    --space-8: 96px;
+    --container-max: 1440px;
+    font-family: var(--font-body);
+  }
+  .painting-sample :global(h1),
+  .painting-sample :global(h2),
+  .painting-sample :global(h3),
+  .painting-sample :global(h4) {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-max);
+    margin: 0;
+  }
+  .painting-sample :global(.container) {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+</style>

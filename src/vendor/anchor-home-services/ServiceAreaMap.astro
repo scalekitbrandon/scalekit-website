@@ -1,0 +1,175 @@
+---
+// Home Services industry template — ServiceAreaMap. Map + city list +
+// ZIP-lookup field, per README.md's deferred plan. No real map embed
+// (would need a Maps API key tied to a real business) — uses a stylized
+// placeholder map panel instead, same honest-placeholder discipline as
+// BookCall.astro's "coming soon" calendar note. City names use the same
+// bracket-placeholder convention as heroVideoUrl/photoUrl elsewhere in
+// this template — never invent real town names for a fictional business.
+// The ZIP field has no submission handler, same as noted in README.md's
+// "how to use for a real client" section — wire it before launch.
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
+  cities?: string[];
+}
+
+const {
+  eyebrow = 'Where We Work',
+  headline = 'Proudly Serving Your Area',
+  subheadline = "Not sure if you're in our service area? Enter your ZIP and we'll let you know.",
+  cities = ['[CITY 1]', '[CITY 2]', '[CITY 3]', '[CITY 4]', '[CITY 5]', '[CITY 6]'],
+} = Astro.props;
+---
+
+<section class="service-area">
+  <div class="service-area-inner">
+    <div class="copy-col">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="sub">{subheadline}</p>
+
+      <form class="zip-form" data-zip-form>
+        <input type="text" inputmode="numeric" placeholder="Enter your ZIP code" aria-label="ZIP code" />
+        <button type="submit">Check</button>
+      </form>
+
+      <ul class="city-list">
+        {cities.map((c) => (
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F0A93B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            {c}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="map-panel">
+      <svg class="map-pin" viewBox="0 0 24 24" fill="#F0A93B"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+      <p class="map-label">[SERVICE AREA MAP]</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-area {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #ffffff;
+    padding: 84px 40px;
+  }
+  .service-area-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F0A93B;
+    margin: 0 0 14px;
+  }
+  .headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 700;
+    color: #12294F;
+    margin: 0 0 18px;
+  }
+  .sub {
+    font-size: 19.5px;
+    line-height: 1.6;
+    color: #4B5768;
+    margin: 0 0 26px;
+  }
+
+  .zip-form {
+    display: flex;
+    gap: 10px;
+    margin: 0 0 32px;
+    max-width: 380px;
+  }
+  .zip-form input {
+    flex: 1;
+    box-sizing: border-box;
+    padding: 13px 16px;
+    border: 1.5px solid #D8DEE8;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #12294F;
+  }
+  .zip-form input::placeholder { color: #9AA5B4; }
+  .zip-form button {
+    flex-shrink: 0;
+    padding: 13px 22px;
+    background: #12294F;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .zip-form button:hover { background: #0B1B36; }
+
+  .city-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+  }
+  .city-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2A3648;
+  }
+  .city-list svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  .map-panel {
+    aspect-ratio: 4 / 3.6;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #E9EDF3, #D8DEE8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .map-pin { width: 40px; height: 40px; opacity: 0.7; }
+  .map-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #8B96A5;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .service-area-inner { grid-template-columns: 1fr; gap: 36px; }
+    .map-panel { order: -1; }
+  }
+  @media (max-width: 560px) {
+    .service-area { padding: 56px 20px; }
+    .city-list { grid-template-columns: 1fr; }
+    .zip-form { flex-direction: column; }
+  }
+</style>
+
+<script>
+  const form = document.querySelector('[data-zip-form]');
+  form?.addEventListener('submit', (e) => e.preventDefault());
+</script>

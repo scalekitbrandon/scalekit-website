@@ -1,0 +1,327 @@
+---
+// "Publish YouTube Videos Showcasing Your Business" — final feature row
+// of "How Scout Works" on /scout. Structure cloned from the reference
+// (a "Published on YouTube" badge, an uploaded-images strip, a YouTube
+// player mockup, and a floating "links back to your profile" badge) —
+// colors, copy, and the pill treatment are ScaleKit's own. The
+// reference's video mockup showed a real person's face; that's replaced
+// with a generic play-button placeholder rather than fabricating a real
+// host/testimonial. Uploaded-image thumbnails are brand-toned gradient
+// placeholders, same technique as Landscaping's Gallery.astro, not real
+// photos. Orientation: image right, per direction.
+interface Props {
+  headline?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  paragraph3?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  videoTitle?: string;
+  channelName?: string;
+  linkBackLabel?: string;
+}
+
+const {
+  headline = 'Publish YouTube Videos Showcasing Your Business',
+  paragraph1 = 'Most local businesses overlook YouTube as a way to strengthen their online visibility. Scout turns it into another channel working for your business.',
+  paragraph2 = 'Scout automatically creates SEO-focused videos and publishes them to your YouTube channel and Google Business Profile, building additional signals around your services, locations, and expertise.',
+  paragraph3 = 'More content. More authority. More opportunities to rank across Google, YouTube, Maps, and AI search.',
+  ctaLabel = 'Get Started',
+  ctaHref = '#book-call',
+  videoTitle = 'Why Homeowners Are Choosing Us This Year',
+  channelName = 'Your Business Name',
+  linkBackLabel = 'Links back to your business profile',
+} = Astro.props;
+
+const thumbGradients = [
+  'linear-gradient(135deg, #2F5941, #1E3D2B)',
+  'linear-gradient(135deg, #12294F, #1C3A6B)',
+  'linear-gradient(135deg, #6D4FF0, #3E7BFA)',
+  'linear-gradient(135deg, #3D5A45, #22392B)',
+  'linear-gradient(135deg, #D97C4A, #B15F34)',
+  'linear-gradient(135deg, #142E4D, #0B1B36)',
+  'linear-gradient(135deg, #9CB84E, #6B8A3A)',
+];
+---
+
+<div class="youtube-feature">
+  <div class="youtube-copy">
+    <h3 class="youtube-headline">{headline}</h3>
+    <p class="youtube-p">{paragraph1}</p>
+    <p class="youtube-p">{paragraph2}</p>
+    <p class="youtube-p">{paragraph3}</p>
+    <a href={ctaHref} class="youtube-cta">
+      {ctaLabel}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+
+  <div class="youtube-graphic">
+    <div class="yt-card">
+      <div class="yt-top-row">
+        <span class="scout-pill">
+          <span class="scout-pill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+          </span>
+          Scout
+        </span>
+        <span class="published-pill">
+          Published on YouTube
+          <svg viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+      </div>
+
+      <p class="uploads-label">Uploaded Images</p>
+      <div class="uploads-strip">
+        {thumbGradients.map((g) => (
+          <span class="upload-thumb" style={`background-image:${g};`}></span>
+        ))}
+      </div>
+
+      <div class="yt-player">
+        <div class="yt-player-bar">
+          <span class="yt-logo">
+            <svg viewBox="0 0 24 24" fill="#FF0000"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 8.5l6 3.5-6 3.5z" fill="#ffffff"/></svg>
+          </span>
+          <span class="yt-search"></span>
+        </div>
+        <div class="yt-video-area">
+          <span class="yt-play-btn">
+            <svg viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <div class="yt-info">
+          <p class="yt-title">{videoTitle}</p>
+          <div class="yt-channel-row">
+            <span class="yt-avatar"></span>
+            <span class="yt-channel-name">{channelName}</span>
+            <span class="yt-subscribe">Subscribe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="link-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      {linkBackLabel}
+    </div>
+  </div>
+</div>
+
+<style>
+  .youtube-feature {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--space-8);
+    align-items: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .youtube-headline {
+    font-size: clamp(28px, 3.4vw, 38px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4);
+  }
+  .youtube-p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-4);
+    max-width: 480px;
+  }
+  .youtube-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 16px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    margin-top: var(--space-2);
+    transition: background 0.15s;
+  }
+  .youtube-cta:hover { background: var(--color-primary-hover); }
+  .youtube-cta svg { width: 15px; height: 15px; }
+
+  .youtube-graphic {
+    position: relative;
+    background-color: var(--color-bg-alt);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    min-height: 460px;
+    display: flex;
+    align-items: center;
+  }
+
+  .yt-card {
+    width: 100%;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    box-shadow: 0 24px 50px rgba(10, 10, 10, 0.14);
+  }
+
+  .yt-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+  .scout-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--color-fg);
+  }
+  .scout-pill-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .scout-pill-icon svg { width: 12px; height: 12px; }
+  .published-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #3E7BFA;
+    color: #ffffff;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+  }
+  .published-pill svg { width: 12px; height: 12px; }
+
+  .uploads-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin: 0 0 8px;
+  }
+  .uploads-strip {
+    display: flex;
+    gap: 8px;
+    margin-bottom: var(--space-4);
+    overflow: hidden;
+  }
+  .upload-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background-size: cover;
+    flex-shrink: 0;
+  }
+
+  .yt-player {
+    background: #14151A;
+    border-radius: var(--radius-sm);
+    padding: var(--space-3);
+  }
+  .yt-player-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: var(--space-3);
+  }
+  .yt-logo { width: 28px; height: 20px; flex-shrink: 0; }
+  .yt-logo svg { width: 100%; height: 100%; }
+  .yt-search {
+    flex: 1;
+    max-width: 200px;
+    height: 16px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .yt-video-area {
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #24262e, #14151A);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-3);
+  }
+  .yt-play-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .yt-play-btn svg { width: 18px; height: 18px; margin-left: 2px; }
+
+  .yt-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 10px;
+  }
+  .yt-channel-row { display: flex; align-items: center; gap: 8px; }
+  .yt-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    flex-shrink: 0;
+  }
+  .yt-channel-name {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    margin-right: auto;
+  }
+  .yt-subscribe {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #14151A;
+    background: #ffffff;
+    padding: 5px 10px;
+    border-radius: var(--radius-pill);
+  }
+
+  .link-badge {
+    position: absolute;
+    left: 40px;
+    bottom: -16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border-radius: var(--radius-pill);
+    padding: 10px 18px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--color-fg);
+    box-shadow: 0 14px 30px rgba(10, 10, 10, 0.14);
+  }
+  .link-badge svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    .youtube-feature { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .youtube-graphic { padding: var(--space-5); min-height: auto; }
+    .uploads-strip { flex-wrap: wrap; }
+    .link-badge { left: 20px; font-size: 11px; padding: 8px 14px; }
+  }
+</style>

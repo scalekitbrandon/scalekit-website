@@ -1,0 +1,174 @@
+---
+// Therapist Template 3 (group therapy practice) — Footer.
+// No reference screenshot was given for this one — logo + tagline, 3
+// link columns, crisis-resource disclaimer, copyright — same shape used
+// by the other two templates in this trade slot. The disclaimer
+// references the real US 988 Suicide & Crisis Lifeline and 911 — genuine
+// public-safety information appropriate on any real mental-health
+// practice site, not a fabricated claim about the business itself. Keep
+// this line on any real client site this template is used for.
+interface LinkGroup {
+  heading: string;
+  links: { label: string; href: string }[];
+}
+
+interface Props {
+  businessName?: string;
+  tagline?: string;
+  groups?: LinkGroup[];
+}
+
+const {
+  businessName = 'Ashford Therapy',
+  tagline = 'Group therapy practice for individuals, couples, and families — in-person and virtual.',
+  groups = [
+    {
+      heading: 'Company',
+      links: [
+        { label: 'About', href: '#about' },
+        { label: 'Specialties', href: '#specialties' },
+        { label: 'Contact', href: '#contact' },
+      ],
+    },
+    {
+      heading: 'Care',
+      links: [
+        { label: 'FAQs', href: '#faqs' },
+        { label: 'Insurance & Fees', href: '#faqs' },
+        { label: 'Telehealth', href: '#faqs' },
+      ],
+    },
+    {
+      heading: 'Legal',
+      links: [
+        { label: 'Privacy Policy', href: '#privacy' },
+        { label: 'Client Rights', href: '#rights' },
+      ],
+    },
+  ],
+} = Astro.props;
+
+const year = new Date().getFullYear();
+---
+
+<footer class="aa-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-logo">{businessName}</p>
+        <p class="footer-tagline">{tagline}</p>
+      </div>
+
+      <div class="footer-groups">
+        {groups.map((group) => (
+          <div class="footer-group">
+            <h4>{group.heading}</h4>
+            <ul>
+              {group.links.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="crisis-note">
+      <p>
+        If you are experiencing a mental health emergency, please call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline) or call <strong>911</strong>. {businessName} does not provide crisis or emergency intervention services.
+      </p>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; {year} {businessName}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .aa-footer {
+    font-family: 'Work Sans', -apple-system, sans-serif;
+    background: #2E3A5C;
+    color: #ffffff;
+    padding: 64px 40px 32px;
+  }
+  .footer-inner { max-width: 1360px; margin: 0 auto; }
+
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+
+  .footer-brand { max-width: 320px; flex-shrink: 0; }
+  .footer-logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 12px;
+  }
+  .footer-tagline {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  .footer-groups { display: flex; flex-wrap: wrap; gap: 48px; }
+  .footer-group { min-width: 130px; }
+  .footer-group h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 16px;
+  }
+  .footer-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-group a {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+  }
+  .footer-group a:hover { color: #ffffff; }
+
+  .crisis-note {
+    padding: 22px 24px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    margin-bottom: 32px;
+  }
+  .crisis-note p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+  }
+  .crisis-note strong { color: #ffffff; }
+
+  .footer-bottom {
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .footer-copyright {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+  }
+
+  @media (max-width: 560px) {
+    .aa-footer { padding: 48px 20px 24px; }
+    .footer-brand { max-width: none; width: 100%; }
+  }
+</style>

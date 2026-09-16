@@ -1,0 +1,146 @@
+---
+// Home Services industry template — Hero. Full-bleed video/photo
+// background, large bold multi-line headline, subhead, single gold CTA
+// — colors, copy, and business identity are ScaleKit's own placeholder
+// brand.
+// Built with a REAL <video> background (poster + source), not a photo —
+// this is the template's whole point. But a scaled-down thumbnail can't
+// play video meaningfully at that size anyway, so the design leans on a
+// large, bold headline to carry the visual impact on its own — the
+// video is a bonus for full-size viewing, not the only thing doing the
+// work. Until a real video is supplied, the hero now shows a real static
+// photo (heroImageUrl, Brandon-supplied asset) behind the same dark
+// scrim used everywhere else, instead of the flat navy gradient —
+// gradient is still the fallback if heroImageUrl is ever unset.
+// PLACEHOLDER: [HERO_VIDEO_URL] / [HERO_POSTER_URL] still need real
+// assets before video is used — nothing fabricated is baked in.
+// Headline location and phone number are demo defaults.
+interface Props {
+  headlinePrefix?: string;
+  headlineAccent?: string;
+  headlineSuffix?: string;
+  subheadline?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  heroVideoUrl?: string;
+  heroPosterUrl?: string;
+  // Static background photo, shown behind the same dark scrim used
+  // everywhere else once a video isn't supplied. Real asset — same
+  // opaque-scrim treatment as every other template's photo hero
+  // (Roofing/Restoration/Landscaping/Therapists), applied via inline
+  // background-image so it layers under .hero-scrim the same way.
+  heroImageUrl?: string;
+}
+
+const {
+  headlinePrefix = 'Turn Your Home Into',
+  headlineAccent = 'The Talk',
+  headlineSuffix = 'of the Neighborhood',
+  subheadline = 'No Guesswork. No Pressure. No Runaround. Ever.',
+  ctaLabel = 'Get Your Instant Estimate',
+  ctaHref = '#estimate',
+  heroVideoUrl = '[HERO_VIDEO_URL]',
+  heroPosterUrl = '[HERO_POSTER_URL]',
+  heroImageUrl = 'https://assets.cdn.filesafe.space/xqDaZG0jn1TlXwXyX8Jk/media/6aa711249f8b31b6abed0a3e.jpg',
+} = Astro.props;
+
+const hasVideo = !heroVideoUrl.startsWith('[');
+const hasImage = !heroImageUrl.startsWith('[');
+---
+
+<section class="home-hero">
+  <div class="hero-media" style={hasImage ? `background-image: url('${heroImageUrl}');` : ''}>
+    {hasVideo && (
+      <video class="hero-video" autoplay muted loop playsinline poster={heroPosterUrl}>
+        <source src={heroVideoUrl} type="video/mp4" />
+      </video>
+    )}
+    <div class="hero-scrim"></div>
+  </div>
+
+  <div class="hero-inner">
+    <h1 class="headline">
+      <span class="line">{headlinePrefix}</span>
+      <span class="line"><span class="accent">{headlineAccent}</span></span>
+      <span class="line">{headlineSuffix}</span>
+    </h1>
+    <p class="sub">{subheadline}</p>
+    <a href={ctaHref} class="cta">{ctaLabel}</a>
+  </div>
+</section>
+
+<style>
+  .home-hero {
+    position: relative;
+    font-family: 'Inter', -apple-system, sans-serif;
+    padding: 90px 40px;
+    overflow: hidden;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+  }
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(155deg, #1C3A6B, #0B1B36);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,22,46,0.35), rgba(10,22,46,0.75));
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+  }
+  .headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(39px, 5.75vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: #ffffff;
+    margin: 0 0 18px;
+  }
+  .headline .line { display: block; }
+  .accent { color: #F0A93B; }
+  .sub {
+    font-size: 19.5px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 28px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background: #F0A93B;
+    color: #12294F;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .cta:hover { background: #dc971f; }
+
+  @media (max-width: 700px) {
+    .home-hero { padding: 60px 20px; }
+  }
+</style>

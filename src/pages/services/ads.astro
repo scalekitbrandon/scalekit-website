@@ -1,0 +1,121 @@
+---
+// First-pass build, same pattern the original 6 /services/<industry>
+// pages used before /scout grew into a bespoke build: IndustryHero for
+// the pain-point framing, then the homepage's own real GetMoreLeads
+// section (already-approved copy, not rebuilt from scratch) for the
+// deliverables grid, then the shared Process/TrustStrip/FinalCta/
+// BookCall/Footer stack. No industry-template showcase here since this
+// isn't a trade vertical — it's one of ScaleKit's own core services.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import GetMoreLeads from '../../components/GetMoreLeads.astro';
+import Process from '../../components/Process.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Google & Meta Ads Management',
+    name: 'Google & Meta Ads for Service Businesses',
+    description: 'ScaleKit builds and manages Google Search, Local Services, and Meta ad campaigns for service businesses, with landing pages and conversion tracking built in.',
+    url: `${siteUrl}/services/ads`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Get Started', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Google & Meta Ads for Service Businesses | ScaleKit"
+  description="ScaleKit builds and manages Google Search, Local Services, and Meta ad campaigns for service businesses, with landing pages and conversion tracking built in."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="Google & Meta Ads"
+    headline="Get More Leads Without Wasting Ad Spend"
+    subheadline="Clicks don't pay the bills. We build campaigns around the people who are actually ready to hire you — and we track every dollar back to a real lead."
+    painPoints={[
+      "Ad spend disappears and you can't tell what actually worked",
+      'Leads come in from ads, but nobody follows up before they go cold',
+      'Agencies report clicks and impressions — not real booked jobs',
+    ]}
+    ctaLabel="Get Started"
+  />
+
+  <GetMoreLeads
+    eyebrow="What's Included"
+    headlineLine1="Everything Your"
+    headlineLine2="Ad Campaigns Include"
+    subheadline="No à la carte guessing. Every ads engagement includes the full stack — the ads, the landing page, and the tracking that tells you what's working."
+    ctaLabel="Get Started"
+    ctaHref="#book-call"
+  />
+
+  <Process />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Booked Job From Ads Actually Worth?"
+    subheadline="Every click you're already paying for is wasted if the page it lands on doesn't convert, or the lead never gets a follow-up. ScaleKit closes both gaps."
+  />
+
+  <BookCall />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

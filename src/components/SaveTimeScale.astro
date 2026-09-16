@@ -1,0 +1,214 @@
+---
+// "Save Time & Scale" (AI Agents & Solutions) service section. Same
+// structural language as the other service sections. Last of the 6
+// selector items.
+interface Item {
+  title: string;
+  description: string;
+  icon: string; // 'mic' | 'chat' | 'bot' | 'workflow' | 'code' | 'dashboard'
+}
+
+interface Props {
+  eyebrow?: string;
+  headlineLine1?: string;
+  headlineLine2?: string;
+  subheadline?: string;
+  items?: Item[];
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = 'AI Agents & Solutions',
+  headlineLine1 = 'Save Time & Scale',
+  headlineLine2 = 'Without Hiring More Staff',
+  subheadline = 'Every hour your team spends on repetitive work is an hour they\'re not spending on customers. We build AI that handles the busywork — so you can grow without growing your headcount.',
+  items = [
+    {
+      icon: 'mic',
+      title: 'AI Voice Agents',
+      description: 'Answers calls, books appointments, and qualifies leads — 24/7, no hold music.',
+    },
+    {
+      icon: 'chat',
+      title: 'AI Chat Agents',
+      description: 'Instant answers on your website and social channels, day or night.',
+    },
+    {
+      icon: 'bot',
+      title: 'Internal AI Assistants',
+      description: "Handles the busywork your team shouldn't have to — scheduling, data entry, follow-ups.",
+    },
+    {
+      icon: 'workflow',
+      title: 'Agentic Workflows',
+      description: 'Multi-step processes that run themselves, from lead to job to invoice.',
+    },
+    {
+      icon: 'code',
+      title: 'Custom AI Development',
+      description: "Need something nobody else has built? We build it around your business.",
+    },
+    {
+      icon: 'dashboard',
+      title: 'Business Intelligence Dashboards',
+      description: "Real-time insight into what's actually working, without digging through spreadsheets.",
+    },
+  ],
+  ctaLabel = 'Explore AI Agents & Solutions',
+  ctaHref = '/services/ai-agents',
+} = Astro.props;
+
+const icons: Record<string, string> = {
+  mic: '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/><path d="M8 23h8"/>',
+  chat: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+  bot: '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/>',
+  workflow: '<line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>',
+  code: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+  dashboard: '<path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12.5" y="8" width="3" height="10"/><rect x="18" y="5" width="3" height="13"/>',
+};
+---
+
+<section class="ai-agents" id="ai-agents">
+  <div class="inner">
+
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">
+        <span class="line">{headlineLine1}</span>
+        <span class="line accent">{headlineLine2}</span>
+      </h2>
+      <p class="sub">{subheadline}</p>
+    </div>
+
+    <div class="item-grid">
+      {items.map((item) => (
+        <div class="item">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={icons[item.icon]} />
+          </div>
+          <h3 class="item-title">{item.title}</h3>
+          <p class="item-desc">{item.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="cta-row">
+      <a href={ctaHref} class="cta">
+        {ctaLabel}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .ai-agents {
+    background: var(--color-bg);
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 1200px; margin: 0 auto; }
+
+  .header { max-width: 700px; margin: 0 0 var(--space-8); }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 18px;
+  }
+  .headline {
+    font-size: clamp(34px, 4.8vw, 52px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 var(--space-5);
+  }
+  .headline .line { display: block; color: var(--color-fg); }
+  .headline .accent {
+    display: inline-block;
+    background: var(--color-fg);
+    color: var(--color-primary);
+    padding: 4px 18px;
+    border-radius: var(--radius-sm);
+    margin-top: 10px;
+  }
+  .sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--color-text-mid);
+    margin: 0;
+  }
+
+  .item-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+  .item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+  .icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: rgba(215, 255, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-4);
+  }
+  .icon-wrap svg { width: 22px; height: 22px; color: var(--color-fg); }
+  .item-title {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--color-fg);
+    margin: 0 0 8px;
+  }
+  .item-desc {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--color-text-mid);
+    margin: 0;
+  }
+
+  .cta-row {
+    text-align: center;
+    margin-top: var(--space-8);
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 16px 32px;
+    font-size: 15.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--color-fg);
+    background: transparent;
+    border: 2px solid var(--color-fg);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .cta:hover { background: var(--color-fg); color: #ffffff; }
+  .cta svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    .item-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .ai-agents { padding: var(--space-7) var(--space-5); }
+    .item-grid { grid-template-columns: 1fr; }
+  }
+</style>

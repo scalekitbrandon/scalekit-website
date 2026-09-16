@@ -1,0 +1,221 @@
+---
+// Faithful port of funnel-library/clients/scale-kit-home-page/section-02c-problem.html
+// Dark full-bleed section: lime eyebrow, white headline, gray subhead,
+// 4-column stat-card row with real third-party research numbers.
+// NOTE: stats are real, third-party industry research, not ScaleKit-specific
+// claims. On-page citation intentionally omitted per prior direction;
+// sources documented in funnel-library/clients/scale-kit-home-page/copy.md
+// (BrightLocal 2026 Local Consumer Review Survey, 411 Locals call response
+// study, customer acquisition-vs-retention cost research) — keep that
+// record even without an on-page note.
+interface StatCard {
+  stat: string;
+  label: string;
+  desc: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  intro?: string;
+  gaps?: string[];
+  closing?: string[];
+  stats?: StatCard[];
+}
+
+const {
+  eyebrow = 'The Problem',
+  headline = "You're Losing Leads Every Day — And Don't Even Know It",
+  intro = "Most service businesses don't have one big growth problem. They have small gaps everywhere.",
+  gaps = [
+    "Customers can't find you on Google.",
+    'Your site gets traffic, not customers.',
+    'Your calls get missed.',
+    "Your leads don't hear back fast enough.",
+    'Your estimates go cold.',
+    'Your old opportunities sit untouched.',
+    "Your ad dollars get spent without a clear picture of what's actually generating revenue.",
+    'And your employees spend hours doing work that could be automated.',
+  ],
+  closing = [
+    "The problem isn't always that you need more leads.\nIt's that too much revenue gets lost between getting found and getting paid.",
+  ],
+  stats = [
+    {
+      stat: '62%',
+      label: 'Of Small Business Calls Go Unanswered',
+      desc: "Imagine how many more jobs you'd close if every call was answered—without spending $1 more on advertising.",
+    },
+    {
+      stat: '78%',
+      label: 'Buy From Whoever Responds First',
+      desc: 'Every minute you wait gives your competitor a better chance to take the job.',
+    },
+    {
+      stat: '97%',
+      label: 'Check Reviews Before Choosing',
+      desc: "If you ask for a review after you complete the job and that's it, there's a better way.",
+    },
+    {
+      stat: '$45K+',
+      label: 'Average Revenue You Lose Every Year',
+      desc: 'Stop missing calls and leads and put this money back into your business.',
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="problem" id="problem">
+  <div class="problem-inner">
+
+    <div class="problem-header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="sub">{intro}</p>
+    </div>
+
+    <ul class="gap-list">
+      {gaps.map((gap) => (
+        <li><span class="gap-bullet"></span>{gap}</li>
+      ))}
+    </ul>
+
+    <div class="problem-closing">
+      {closing.map((paragraph) => (
+        <p class="sub">
+          {paragraph.split('\n').map((line, i, arr) => (
+            <>
+              {line}
+              {i < arr.length - 1 && <br />}
+            </>
+          ))}
+        </p>
+      ))}
+    </div>
+
+    <div class="stat-grid">
+      {stats.map((card) => (
+        <div class="stat-card">
+          <p class="stat-number">{card.stat}</p>
+          <h3 class="stat-label">{card.label}</h3>
+          <p class="stat-desc">{card.desc}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .problem {
+    background-color: var(--color-dark-bg);
+    /* Same shared token StartCta uses — matching it exactly. */
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    padding: 110px var(--space-6) 110px;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .problem-inner { max-width: 1600px; margin: 0 auto; }
+
+  .problem-header { text-align: center; max-width: 780px; margin: 0 auto var(--space-7); }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 18px;
+  }
+  .headline {
+    font-size: clamp(32px, 4.2vw, 46px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-dark-fg);
+    margin: 0 0 var(--space-5);
+  }
+  .sub {
+    font-size: 18px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 var(--space-3);
+  }
+  .sub:last-child {
+    margin-bottom: 0;
+  }
+
+  .gap-list {
+    list-style: none;
+    margin: 0 auto var(--space-7);
+    padding: 0;
+    max-width: 880px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--space-7);
+    row-gap: var(--space-4);
+  }
+  .gap-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 17px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: left;
+  }
+  .gap-bullet {
+    flex-shrink: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--color-primary);
+    margin-top: 8px;
+  }
+
+  .problem-closing { text-align: center; max-width: 780px; margin: 0 auto var(--space-8); }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+  }
+  .stat-card {
+    box-sizing: border-box;
+    /* Solid, fully opaque — not rgba — so the section's grid texture
+       behind it never shows through the card. */
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 17.6px;
+    padding: 36px 28px;
+  }
+  .stat-number {
+    font-size: 48px;
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .stat-label {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--color-dark-fg);
+    margin: 0 0 10px;
+    line-height: 1.4;
+  }
+  .stat-desc {
+    font-size: 15px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .problem { padding: 72px var(--space-5); }
+    .gap-list { grid-template-columns: 1fr; row-gap: var(--space-3); }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 380px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+</style>

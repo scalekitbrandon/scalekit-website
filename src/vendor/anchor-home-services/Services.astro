@@ -1,0 +1,180 @@
+---
+// Home Services industry template — Services. Follows Header + Hero,
+// same placeholder brand (navy #12294F / gold #F0A93B, Poppins + Inter).
+// Structure cloned from the reference's 3-card photo carousel (section
+// headline + prev/next arrow icons, dark-photo-overlay cards with a
+// title and a "More Info" button) — genericized to broad home-services
+// categories rather than roofing-specific ones, since this template
+// represents the wider "Home Services" trade slot, not roofing
+// specifically (a dedicated Roofing template already exists).
+// PLACEHOLDER: no real photos are baked in. Each card falls back to a
+// brand-toned gradient (matching the pattern used in the Landscaping
+// template's Gallery.astro) when no imageUrl is supplied.
+interface ServiceCard {
+  title: string;
+  description: string;
+  imageUrl?: string;
+}
+
+interface Props {
+  headline?: string;
+  services?: ServiceCard[];
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  headline = 'Our Services',
+  services = [
+    {
+      title: 'Exterior Upgrades',
+      description: 'Give your home a fresh, done-right makeover with a full exterior remodel.',
+    },
+    {
+      title: 'Maintenance Plans',
+      description: "Protect your investment with seasonal upkeep you don't have to think about.",
+    },
+    {
+      title: 'Repairs & Fixes',
+      description: "Don't let small problems turn into big ones — fast, honest repairs done right.",
+    },
+  ],
+  ctaLabel = 'More Info',
+  ctaHref = '#services',
+} = Astro.props;
+
+const gradients = [
+  'linear-gradient(135deg, #1C3A6B, #0B1B36)',
+  'linear-gradient(135deg, #2A4A82, #12294F)',
+  'linear-gradient(135deg, #12294F, #0B1B36)',
+];
+---
+
+<section class="home-services" id="services">
+  <div class="services-inner">
+
+    <div class="services-header">
+      <h2 class="headline">{headline}</h2>
+      <div class="carousel-arrows">
+        <button type="button" class="arrow-btn" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="arrow-btn" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="service-grid">
+      {services.map((s, i) => (
+        <div
+          class="service-card"
+          style={s.imageUrl ? `background-image: linear-gradient(180deg, rgba(10,22,46,0.15), rgba(10,22,46,0.85)), url('${s.imageUrl}');` : `background-image: linear-gradient(180deg, rgba(10,22,46,0.2), rgba(10,22,46,0.9)), ${gradients[i % gradients.length]};`}
+        >
+          <div class="service-card-body">
+            <h3 class="service-title">{s.title}</h3>
+            <p class="service-desc">{s.description}</p>
+            <a href={ctaHref} class="service-cta">{ctaLabel}</a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .home-services {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #ffffff;
+    padding: 110px 40px;
+  }
+  .services-inner { max-width: 1500px; margin: 0 auto; }
+
+  .services-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+    margin: 0 0 48px;
+  }
+  .headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 700;
+    color: #12294F;
+    margin: 0;
+    text-align: right;
+  }
+  .carousel-arrows { display: flex; gap: 12px; flex-shrink: 0; }
+  .arrow-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1.5px solid #D8DEE8;
+    background: #ffffff;
+    color: #12294F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .arrow-btn svg { width: 20px; height: 20px; }
+  .arrow-btn:hover { background: #F0A93B; border-color: #F0A93B; color: #12294F; }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .service-card {
+    position: relative;
+    aspect-ratio: 1 / 1.05;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .service-card-body { padding: 36px; }
+  .service-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0 0 12px;
+  }
+  .service-desc {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0 0 22px;
+    max-width: 320px;
+  }
+  .service-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 26px;
+    background: #F0A93B;
+    color: #12294F;
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .service-cta:hover { background: #dc971f; }
+
+  @media (max-width: 900px) {
+    .service-grid { grid-template-columns: 1fr; }
+    .services-header { justify-content: center; }
+    .headline { text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .home-services { padding: 64px 20px; }
+    .service-card-body { padding: 26px; }
+  }
+</style>

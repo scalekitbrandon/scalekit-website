@@ -1,0 +1,110 @@
+---
+// Rebuilt to match the reference: heading + paragraph + stat row + CTA,
+// all inside one light card. Icon sits inline beside the value (same line),
+// label sits below — the first pass put icon and value on separate lines.
+interface Stat {
+  value: string;
+  label: string;
+  icon?: string;
+}
+
+interface Props {
+  heading: string;
+  body?: string;
+  stats: Stat[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { heading, body, stats, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="stat-highlight-wrap">
+  <div class="container">
+    <div class="card">
+      <h2>{heading}</h2>
+      {body && <p class="body-text">{body}</p>}
+      <div class="stat-grid">
+        {stats.map((stat) => (
+          <div class="stat">
+            <div class="value-row">
+              {stat.icon && <span class="stat-icon" aria-hidden="true">{stat.icon}</span>}
+              <span class="value">{stat.value}</span>
+            </div>
+            <span class="label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+      <a class="btn primary" href={ctaHref}>{ctaLabel}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stat-highlight-wrap { padding-block: var(--space-6); }
+  .card {
+    background: var(--color-muted);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7);
+    text-align: center;
+  }
+  h2 {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: var(--space-4);
+    max-width: 760px;
+    margin-inline: auto;
+  }
+  .body-text {
+    font-size: var(--text-lg);
+    max-width: 700px;
+    margin: 0 auto var(--space-6);
+    opacity: 0.75;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+    max-width: 760px;
+    margin: 0 auto var(--space-6);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .value-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stat-icon {
+    font-size: var(--text-xl);
+    line-height: 1;
+  }
+  .value {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-max);
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    line-height: 1;
+  }
+  .label {
+    display: block;
+    margin-top: var(--space-1);
+    opacity: 0.7;
+    font-size: var(--text-sm);
+  }
+  .btn.primary {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    padding: 14px 32px;
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-button);
+    text-decoration: none;
+  }
+  @media (max-width: 640px) {
+    .stat-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+  }
+</style>

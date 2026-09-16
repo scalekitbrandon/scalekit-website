@@ -1,0 +1,188 @@
+---
+// FAQ section for /scout, below ScoutDemoVideoSection ("Your Always-On
+// Local SEO Agent"). Reference image failed to load when this was
+// requested, so this uses ScaleKit's own established FAQ pattern
+// (native <details>/<summary> accordion, zero-JS, same approach flagged
+// as the plan for the industry templates' deferred FAQ sections) rather
+// than copying a visual it never actually saw. Answers are honest and
+// specific — no guaranteed-results timelines or fabricated stats.
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
+  items?: FaqItem[];
+}
+
+const {
+  eyebrow = 'Good to Know',
+  headline = 'Questions About Scout, Answered',
+  subheadline = "Still deciding? Here's what most people ask before their first call.",
+  items = [
+    {
+      question: 'What exactly does Scout do?',
+      answer: 'Scout continuously optimizes your Google Business Profile, builds and maintains citations, generates keyword-targeted reviews, publishes service content and social posts, and monitors your rankings — all on an ongoing basis, not as a one-time setup.',
+    },
+    {
+      question: 'Do I need any SEO experience to use it?',
+      answer: "No. Scout handles the technical side — keyword research, schema, citation consistency — and surfaces recommendations in plain language when your input is needed. You don't need to know what any of those terms mean.",
+    },
+    {
+      question: 'How is this different from hiring an agency?',
+      answer: "A typical agency checks in monthly and does a batch of work each cycle. Scout works every day — the profile gets checked, reviews get requested, content gets published — without waiting on a monthly retainer call.",
+    },
+    {
+      question: 'Will Scout work with my existing Google Business Profile?',
+      answer: "Yes. Scout connects to the Google Business Profile you already have — nothing gets rebuilt from scratch, and you don't lose your existing reviews, photos, or history.",
+    },
+    {
+      question: 'How long until I see results?',
+      answer: "Local SEO compounds over weeks, not overnight — there's no way to responsibly promise a specific timeline, and we won't. What we can tell you is what changes and when on your strategy call, based on your current profile and market.",
+    },
+    {
+      question: 'Is Scout a standalone product, or part of a bigger package?',
+      answer: "Scout is a standalone solution for your local SEO strategy — $399/month, on its own. You're not required to buy anything else to use it.",
+    },
+    {
+      question: 'Does Scout include citation building?',
+      answer: "Scout has an automated citation building feature, however it is an added cost. If you're not in our Agency Partner Program, it's just an added $40/month/GBP you add it to. If you join our Agency Partner Program the price drops down to $20/month/GBP.",
+    },
+    {
+      question: 'Does Scout help businesses rank on ChatGPT?',
+      answer: "Scout's content gets published on multiple places ChatGPT and other AI search platforms use for training data, so although Scout really is focused on ranking your Google Business Profile on Google Search, Google Maps, and Google AI Mode (where 90%+ people are looking), Scout can also help give you a visibility boost across AI search platforms such as ChatGPT, Google AI Mode, Gemini, Perplexity, and beyond.",
+    },
+    {
+      question: 'Are YouTube videos helpful for ranking local businesses?',
+      answer: 'Yes! Currently, YouTube is the second most cited source in Google AI Mode results, which is why Scout can create and publish YouTube videos for your business completely automatically with almost no added effort from the business owner.',
+    },
+    {
+      question: 'Does Scout help you rank in AI search results?',
+      answer: 'Yes! Scout is designed to help businesses rank across the most popular search platforms consumers use for finding local businesses. This includes Google Maps, Google Search, ChatGPT, Gemini, Perplexity, Llama, popular search directories, YouTube, Facebook, Instagram, and more.',
+    },
+    {
+      question: 'How does Scout differ from traditional AI SEO software that requires manual management?',
+      answer: 'Unlike standard AI SEO tools that act as assistants—requiring users to log in, conduct research, and click "publish"—Scout is a fully automated AI SEO worker. While competitors provide dashboards for human-led tasks, Scout operates autonomously, executing local SEO strategies, writing content, and optimizing profiles without needing manual oversight.',
+    },
+    {
+      question: 'What does "fully automated SEO" actually mean when using Scout for Google Business Profile optimization?',
+      answer: 'With Scout, fully automated SEO means the AI independently identifies ranking opportunities and pushes updates directly to your Google Business Profile. It doesn\'t just suggest keywords; it actively manages your business\'s digital presence, making it a "set-it-and-forget-it" solution for local search visibility.',
+    },
+    {
+      question: 'Can Scout autonomously handle local search rankings without a human SEO specialist?',
+      answer: "Yes. Scout is engineered to function as an autonomous SEO agent. It replaces the need for a human specialist to perform repetitive tasks like post scheduling, image optimization, and keyword integration. By leveraging advanced machine learning, Scout ensures your business stays competitive in the Google Map Pack 24/7. You don't need to know anything about SEO to be successful with Scout.",
+    },
+    {
+      question: 'How does Scout manage Google Business Profile posts and updates automatically?',
+      answer: 'Scout uses proprietary algorithms to scan your business information and industry trends to create and publish hyper-relevant posts. This hands-off AI SEO automation ensures your Google Business Profile remains active and authoritative, helping strengthen your visibility across local search results.',
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="scout-faq" id="faq">
+  <div class="inner">
+
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="sub">{subheadline}</p>
+    </div>
+
+    <div class="faq-list">
+      {items.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            {item.question}
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="faq-answer">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .scout-faq {
+    background: var(--color-bg);
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 780px; margin: 0 auto; }
+
+  .header { text-align: center; margin: 0 auto var(--space-7); }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 18px;
+  }
+  .headline {
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-3);
+  }
+  .sub {
+    font-size: 16px;
+    color: var(--color-text-mid);
+    margin: 0;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+  }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-fg);
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .chevron {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--color-text-light);
+    transition: transform 0.2s;
+  }
+  .faq-item[open] .chevron { transform: rotate(180deg); }
+  .faq-item[open] .faq-question { color: var(--color-fg); }
+
+  .faq-answer {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-text-mid);
+    margin: var(--space-3) 0 0;
+    padding-right: 34px;
+  }
+
+  @media (max-width: 560px) {
+    .scout-faq { padding: var(--space-7) var(--space-5); }
+    .faq-item { padding: var(--space-4); }
+    .faq-question { font-size: 15px; }
+  }
+</style>

@@ -1,0 +1,272 @@
+---
+// Roofing industry template — Hero. Structure cloned from a reference
+// roofing-company site (full-bleed photo hero, left copy + trust row,
+// right multi-step lead-capture form card) — colors, copy, and the
+// business identity are ScaleKit's own placeholder brand, not carried
+// over from the reference.
+// heroImageUrl now defaults to a real Brandon-supplied photo asset
+// (same pattern as the other templates' hero backgrounds) rather than
+// the bracket-placeholder fallback. Headline location and phone number
+// are still demo defaults; swap for the real client's info.
+interface TrustItem {
+  icon: 'star' | 'shield' | 'clock';
+  label: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
+  callCtaLabel?: string;
+  callCtaHref?: string;
+  trustItems?: TrustItem[];
+  formHeadline?: string;
+  formSubheadline?: string;
+  formNote?: string;
+  heroImageUrl?: string;
+}
+
+const {
+  eyebrow = 'GAF Certified · Family-Owned · Trusted Since Day One',
+  headline = 'Top Rated Roofing Company Serving the Greater Metro Area',
+  subheadline = 'Premium roofing solutions for homeowners across the region. From the first inspection to the final shingle — we do it right.',
+  callCtaLabel = 'Call Us (555) 470-7181',
+  callCtaHref = 'tel:5554707181',
+  trustItems = [
+    { icon: 'star', label: '5-Star Rated' },
+    { icon: 'shield', label: 'Licensed & Insured' },
+    { icon: 'clock', label: 'Same-Day Estimates' },
+  ],
+  formHeadline = 'Get Your Free Estimate',
+  formSubheadline = 'No obligation · Response within 24 hours',
+  formNote = 'Your information is private. We never share your data.',
+  heroImageUrl = 'https://assets.cdn.filesafe.space/xqDaZG0jn1TlXwXyX8Jk/media/6aa9be4e196984c4080874d1.jpg',
+} = Astro.props;
+
+const icons: Record<string, string> = {
+  star: '<path d="M12 2L14.5 8.5L21.5 9L16 13.5L17.5 20.5L12 16.5L6.5 20.5L8 13.5L2.5 9L9.5 8.5L12 2Z"/>',
+  shield: '<path d="M12 2L4 5V11C4 16 7.5 20.5 12 22C16.5 20.5 20 16 20 11V5L12 2Z"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+};
+---
+
+<section class="roof-hero">
+  <div class="hero-bg" style={`background-image: linear-gradient(rgba(23,23,26,0.55), rgba(23,23,26,0.65)), url('${heroImageUrl}');`}></div>
+
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 class="headline">{headline}</h1>
+      <p class="sub">{subheadline}</p>
+
+      <a href={callCtaHref} class="call-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V19.92C22.0011 20.4853 21.7669 21.0251 21.3533 21.4132C20.9397 21.8013 20.3871 22.0067 19.823 21.98C16.7428 21.6227 13.7893 20.5805 11.19 18.93C8.77383 17.4233 6.72534 15.3748 5.21801 12.96C3.56226 10.3484 2.51997 7.3801 2.17001 4.28C2.1437 3.71754 2.34727 3.16776 2.73386 2.75523C3.12045 2.34269 3.65653 2.10713 4.22001 2.11H7.22001C8.10561 2.10083 8.86143 2.73545 9.00001 3.61C9.12662 4.48 9.34688 5.33422 9.65001 6.16C9.89284 6.78937 9.7418 7.50207 9.26001 7.98L8.09001 9.15C9.51356 11.6488 11.5712 13.7065 14.07 15.13L15.24 13.96C15.7179 13.4782 16.4306 13.3272 17.06 13.57C17.8858 13.8731 18.74 14.0934 19.61 14.22C20.4969 14.3598 21.1345 15.1302 21.12 16.02L22 16.92Z"/></svg>
+        {callCtaLabel}
+      </a>
+
+      <div class="trust-row">
+        {trustItems.map((item) => (
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#d9a62e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={icons[item.icon]} />
+            <span>{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="form-card">
+      <p class="form-headline">{formHeadline}</p>
+      <p class="form-sub">{formSubheadline}</p>
+
+      <div class="step-indicator">
+        <span class="step active">1</span>
+        <span class="step-line"></span>
+        <span class="step">2</span>
+      </div>
+
+      <form class="lead-form">
+        <div class="form-row">
+          <input type="text" name="firstName" placeholder="First Name" required />
+          <input type="text" name="lastName" placeholder="Last Name" required />
+        </div>
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        <input type="text" name="address" placeholder="Property Address" required />
+        <button type="submit" class="form-submit">Next</button>
+      </form>
+
+      <p class="form-privacy">{formNote}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .roof-hero {
+    position: relative;
+    font-family: 'Inter', -apple-system, sans-serif;
+    padding: 90px 40px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-color: #3a3a3f;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d9a62e;
+    margin: 0 0 20px;
+  }
+  .headline {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(34px, 4.4vw, 54px);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    color: #ffffff;
+    margin: 0 0 24px;
+  }
+  .sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 540px;
+    margin: 0 0 32px;
+  }
+  .call-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 28px;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .call-cta svg { width: 16px; height: 16px; }
+  .call-cta:hover { background: #ffffff; color: #17171a; }
+
+  .trust-row { display: flex; align-items: center; flex-wrap: wrap; gap: 28px; }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .trust-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+  .form-card {
+    background: #1c1c20;
+    border-radius: 12px;
+    padding: 40px 36px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  }
+  .form-headline {
+    font-family: 'Oswald', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-align: center;
+    margin: 0 0 8px;
+  }
+  .form-sub {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    margin: 0 0 28px;
+  }
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 28px;
+  }
+  .step {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .step.active { background: #ffffff; border-color: #ffffff; color: #17171a; }
+  .step-line { flex: 1; height: 1px; background: rgba(255, 255, 255, 0.25); }
+
+  .lead-form { display: flex; flex-direction: column; gap: 14px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .lead-form input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #2a2a2f;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #ffffff;
+  }
+  .lead-form input::placeholder { color: rgba(255, 255, 255, 0.4); }
+  .form-submit {
+    width: 100%;
+    background: #d9a62e;
+    color: #17171a;
+    border: none;
+    border-radius: 6px;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: background 0.15s;
+  }
+  .form-submit:hover { background: #c2941f; }
+  .form-privacy {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    margin: 16px 0 0;
+  }
+
+  @media (max-width: 960px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .roof-hero { padding: 60px 20px; }
+  }
+  @media (max-width: 480px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>

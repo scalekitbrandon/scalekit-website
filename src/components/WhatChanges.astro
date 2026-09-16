@@ -1,0 +1,185 @@
+---
+// Section 9 — What Changes. Real, approved pain-point copy pulled from
+// each service's own established messaging (Problem.astro's gaps,
+// StopLosingLeads/GetMoreLeads/GetFound/SaveTimeScale's real feature
+// copy, and each /services/<x>.astro page's real painPoints) — not
+// invented fresh. 5-column layout, one column per ScaleKit service;
+// Reactivation is folded into CRM & Automation's column (not sold as a
+// separate line item — matches the /pricing page's CRM bundle).
+// No testimonial here — ScaleKit has no real client testimonial yet,
+// and a placeholder box wasn't earning its place on the page.
+interface Item {
+  title: string;
+  description: string;
+}
+
+interface Column {
+  service: string;
+  items: Item[];
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  columns?: Column[];
+}
+
+const {
+  eyebrow = 'What Changes',
+  headline = 'When Your Business Runs On One System',
+  columns = [
+    {
+      service: 'Websites & Funnels',
+      items: [
+        { title: 'Never Lose A Visitor To Slow Load Times', description: 'Every site is mobile-first and built for speed.' },
+        { title: 'Never Skip Technical SEO', description: "Built in from day one, not bolted on later." },
+        { title: 'Never Use A Cookie-Cutter Template', description: 'Every site is built around your business, not a one-size-fits-all layout.' },
+        { title: 'Never Let A Website Lead Slip Through', description: 'Every inquiry connects straight into your CRM automatically.' },
+      ],
+    },
+    {
+      service: 'Local SEO',
+      items: [
+        { title: 'Never Get Buried In The Map Pack', description: 'Scout optimizes your Google Business Profile daily, not once and forgotten.' },
+        { title: 'Never Chase Reviews Manually', description: 'Reviews get generated automatically, on the right timing.' },
+        { title: 'Never Miss A Citation', description: 'Citations are built and maintained across the web automatically.' },
+        { title: 'Never Miss A Ranking Drop', description: 'Scout monitors your rankings and flags problems before they cost you leads.' },
+      ],
+    },
+    {
+      service: 'Google & Meta Ads',
+      items: [
+        { title: 'Never Wonder Where Your Ad Spend Went', description: 'Every dollar is tracked back to a real lead, not just a click.' },
+        { title: 'Never Get A Clicks-And-Impressions Report', description: 'We report on booked jobs, not vanity metrics.' },
+        { title: 'Never Send Ad Traffic To A Generic Page', description: 'Every campaign gets its own landing page built to convert.' },
+        { title: 'Never Let An Ad Lead Go Cold', description: 'Leads from ads flow straight into your CRM for instant follow-up.' },
+      ],
+    },
+    {
+      service: 'CRM & Automation',
+      items: [
+        { title: 'Never Miss A Lead', description: 'Every new lead gets a text or call within minutes, automatically.' },
+        { title: 'Never Lose A Missed Call', description: 'A missed call triggers an instant text-back before they call your competitor.' },
+        { title: 'Never Let A Lead Go Cold', description: 'Automated follow-up sequences keep nurturing until they respond.' },
+        { title: 'Never Let An Old Lead Sit Untouched', description: 'Reactivation campaigns turn dormant leads back into booked revenue.' },
+      ],
+    },
+    {
+      service: 'AI Agents & Solutions',
+      items: [
+        { title: 'Never Miss An After-Hours Call', description: "AI voice agents answer around the clock, even when your team's off." },
+        { title: 'Never Do Manual Data Entry Again', description: "Agentic workflows handle the busywork so your team doesn't have to." },
+        { title: 'Never Dig Through Five Different Tools', description: "Dashboards show you what's actually working, in one place." },
+        { title: 'Never Settle For A Generic Bot', description: 'Every AI agent is custom-built around what your business actually needs.' },
+      ],
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="what-changes" id="what-changes">
+  <div class="inner">
+
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+    </div>
+
+    <div class="column-grid">
+      {columns.map((col) => (
+        <div class="column">
+          <h3 class="column-title">{col.service}</h3>
+          <ul class="item-list">
+            {col.items.map((item) => (
+              <li class="item">
+                <p class="item-title">{item.title}</p>
+                <p class="item-desc">{item.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .what-changes {
+    background: #ffffff;
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 1300px; margin: 0 auto; }
+
+  .header { max-width: 640px; margin: 0 auto var(--space-7); text-align: center; }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 18px;
+  }
+  .headline {
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-fg);
+    margin: 0;
+  }
+
+  .column-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-5);
+  }
+  .column {
+    border-top: 3px solid var(--color-primary);
+    padding-top: var(--space-4);
+  }
+  .column-title {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.005em;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4);
+  }
+
+  .item-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .item {
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .item:last-child { padding-bottom: 0; border-bottom: none; }
+  .item-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--color-fg);
+    margin: 0 0 6px;
+  }
+  .item-desc {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--color-text-mid);
+    margin: 0;
+  }
+
+  @media (max-width: 1000px) {
+    .column-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-6) var(--space-5); }
+  }
+  @media (max-width: 560px) {
+    .what-changes { padding: var(--space-7) var(--space-5); }
+    .column-grid { grid-template-columns: 1fr; }
+  }
+</style>

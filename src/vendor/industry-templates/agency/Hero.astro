@@ -1,0 +1,218 @@
+---
+// Agency & Consultant industry template — Hero. Structure cloned from a
+// reference AI-SaaS product's homepage (eyebrow pill, gradient-accent
+// headline, subhead, pill CTA, inline trust row, right-side dark
+// video-style card with a photo + play button + stat row) — colors,
+// copy, and business identity are ScaleKit's own placeholder brand.
+// The right-side card is a "video thumbnail" pattern, not a lead-capture
+// form like the trade templates — SaaS landing pages sell the product
+// with a founder/demo video instead of an on-site quote form.
+// PLACEHOLDER: [HERO_PHOTO_URL] needs a real photo before use — no
+// fabricated/stock image is baked in here. Stats (rating, customer
+// count) are demo defaults.
+interface TrustItem {
+  label: string;
+}
+
+interface Props {
+  eyebrowPrefix?: string;
+  eyebrowSuffix?: string;
+  headlinePrefix?: string;
+  headlineAccent?: string;
+  subheadline?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  trustItems?: TrustItem[];
+  videoHeadlinePrefix?: string;
+  videoHeadlineAccent?: string;
+  rating?: string;
+  customerCount?: string;
+  reviewCount?: string;
+  heroPhotoUrl?: string;
+}
+
+const {
+  eyebrowPrefix = 'INTRODUCING NOVA:',
+  eyebrowSuffix = 'AI Visibility Software Built for Agencies',
+  headlinePrefix = 'Keep every client visible across',
+  headlineAccent = 'the AI tools their customers actually use.',
+  subheadline = "Local search is shifting toward AI assistants, and most agencies aren't set up to manage that shift at scale. Nova monitors, updates, and strengthens every client's business profile automatically — so your team doesn't have to touch it by hand.",
+  ctaLabel = 'Start Free Trial',
+  ctaHref = '#trial',
+  trustItems = [
+    { label: 'Rated by Agencies' },
+    { label: 'Runs Under Your Brand' },
+    { label: 'No Contracts Required' },
+  ],
+  videoHeadlinePrefix = 'See Why Agencies',
+  videoHeadlineAccent = 'Choose Nova',
+  rating = '4.8/5 rating',
+  customerCount = '300+ agencies',
+  reviewCount = '650+ reviews',
+  heroPhotoUrl = '[HERO_PHOTO_URL]',
+} = Astro.props;
+---
+
+<section class="agency-hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow-badge"><strong>{eyebrowPrefix}</strong> {eyebrowSuffix}</span>
+      <h1 class="headline">
+        {headlinePrefix} <span class="accent">{headlineAccent}</span>
+      </h1>
+      <p class="sub">{subheadline}</p>
+
+      <a href={ctaHref} class="cta">{ctaLabel}</a>
+
+      <div class="trust-row">
+        {trustItems.map((item) => (
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6D4FF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <span>{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="video-card" style={`background-image: linear-gradient(160deg, rgba(15,18,53,0.55), rgba(15,18,53,0.85)), url('${heroPhotoUrl}');`}>
+      <p class="video-headline">{videoHeadlinePrefix} <span class="accent-yellow">{videoHeadlineAccent}</span></p>
+      <button class="play-btn" type="button" aria-label="Play video">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="video-stats">
+        <span>{rating}</span>
+        <span class="dot">•</span>
+        <span>{customerCount}</span>
+        <span class="dot">•</span>
+        <span>{reviewCount}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .agency-hero {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #ffffff;
+    padding: 64px 40px;
+  }
+  .hero-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .eyebrow-badge {
+    display: inline-block;
+    background: #EEF1FF;
+    color: #4B3FBF;
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .eyebrow-badge strong { font-weight: 800; }
+  .headline {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(30px, 3.6vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: #14162B;
+    margin: 0 0 20px;
+  }
+  .headline .accent {
+    background: linear-gradient(135deg, #6D4FF0, #3E7BFA);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .sub {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: #5B5F7A;
+    max-width: 520px;
+    margin: 0 0 26px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #6D4FF0, #3E7BFA);
+    color: #ffffff;
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    transition: opacity 0.15s;
+  }
+  .cta:hover { opacity: 0.88; }
+
+  .trust-row { display: flex; flex-wrap: wrap; gap: 20px; }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #5B5F7A;
+  }
+  .trust-item svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .video-card {
+    position: relative;
+    border-radius: 16px;
+    background-color: #0F1235;
+    background-size: cover;
+    background-position: center;
+    aspect-ratio: 4 / 3;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 24px 60px rgba(15, 18, 53, 0.35);
+  }
+  .video-headline {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #ffffff;
+    margin: 0;
+  }
+  .accent-yellow { color: #FFD166; }
+  .play-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    color: #14162B;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    cursor: pointer;
+  }
+  .play-btn svg { width: 22px; height: 22px; margin-left: 2px; }
+  .video-stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .video-stats .dot { opacity: 0.5; }
+
+  @media (max-width: 960px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .agency-hero { padding: 48px 20px; }
+  }
+</style>

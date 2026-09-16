@@ -1,0 +1,259 @@
+---
+// Restoration/Remodeling industry template — Hero. Structure cloned from
+// a reference restoration company's homepage (solid-navy hero, no photo
+// background, split-color headline, left copy + trust badges + dual
+// CTAs, right emergency-quote form card with a textarea) — colors,
+// copy, and business identity are ScaleKit's own placeholder brand.
+// Deliberately distinct from Roofing (photo-bg hero, 2-step form) and
+// Landscaping (photo-bg hero, service-dropdown form): this hero is a
+// flat navy panel — no [HERO_IMAGE_URL] placeholder needed — and the
+// form asks the visitor to describe the damage in a textarea instead of
+// picking from a dropdown.
+// PLACEHOLDER: headline location, phone number, and trust badges are
+// demo defaults; swap for the real client's info.
+interface TrustBadge {
+  icon: 'clock' | 'search' | 'shield';
+  label: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headlinePrefix?: string;
+  headlineAccent1?: string;
+  headlineAccent2?: string;
+  headlineSuffix?: string;
+  subheadline?: string;
+  trustBadges?: TrustBadge[];
+  emergencyLabel?: string;
+  emergencyHref?: string;
+  estimateLabel?: string;
+  estimateHref?: string;
+  formHeadline?: string;
+  formSubheadline?: string;
+  formNote?: string;
+}
+
+const {
+  eyebrow = 'Licensed, Bonded & Insured',
+  headlinePrefix = 'Professional',
+  headlineAccent1 = 'Water Damage',
+  headlineAccent2 = 'Restoration',
+  headlineSuffix = 'in the Greater Metro Area',
+  subheadline = 'Bluepoint Restoration provides 24/7 emergency water damage restoration services. Fast response times, expert technicians, and insurance claim assistance.',
+  trustBadges = [
+    { icon: 'clock', label: '24/7 Emergency Response' },
+    { icon: 'search', label: 'Advanced Moisture Detection' },
+    { icon: 'shield', label: 'IICRC Certified' },
+  ],
+  emergencyLabel = 'Call (555) 907-9292',
+  emergencyHref = 'tel:5559079292',
+  estimateLabel = 'Get Free Estimate',
+  estimateHref = '#free-estimate',
+  formHeadline = 'Inquire Now to Get a Free Quote!',
+  formSubheadline = 'Get your emergency assessment started',
+  formNote = 'By submitting this form, you consent to receive marketing communications. Msg & data rates may apply. We will never sell your information.',
+} = Astro.props;
+
+const icons: Record<string, string> = {
+  clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  search: '<circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>',
+  shield: '<path d="M12 2L4 5V11C4 16 7.5 20.5 12 22C16.5 20.5 20 16 20 11V5L12 2Z"/>',
+};
+---
+
+<section class="rest-hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow-badge">{eyebrow}</span>
+      <h1 class="headline">
+        {headlinePrefix} <span class="accent-blue">{headlineAccent1}</span> <span class="accent-orange">{headlineAccent2}</span> {headlineSuffix}
+      </h1>
+      <p class="sub">{subheadline}</p>
+
+      <div class="badge-row">
+        {trustBadges.map((b) => (
+          <div class="badge-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5EA6FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={icons[b.icon]} />
+            <span>{b.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="cta-row">
+        <a href={emergencyHref} class="cta-call">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V19.92C22.0011 20.4853 21.7669 21.0251 21.3533 21.4132C20.9397 21.8013 20.3871 22.0067 19.823 21.98C16.7428 21.6227 13.7893 20.5805 11.19 18.93C8.77383 17.4233 6.72534 15.3748 5.21801 12.96C3.56226 10.3484 2.51997 7.3801 2.17001 4.28C2.1437 3.71754 2.34727 3.16776 2.73386 2.75523C3.12045 2.34269 3.65653 2.10713 4.22001 2.11H7.22001C8.10561 2.10083 8.86143 2.73545 9.00001 3.61C9.12662 4.48 9.34688 5.33422 9.65001 6.16C9.89284 6.78937 9.7418 7.50207 9.26001 7.98L8.09001 9.15C9.51356 11.6488 11.5712 13.7065 14.07 15.13L15.24 13.96C15.7179 13.4782 16.4306 13.3272 17.06 13.57C17.8858 13.8731 18.74 14.0934 19.61 14.22C20.4969 14.3598 21.1345 15.1302 21.12 16.02L22 16.92Z"/></svg>
+          {emergencyLabel}
+        </a>
+        <a href={estimateHref} class="cta-outline">{estimateLabel}</a>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <p class="form-headline">{formHeadline}</p>
+      <p class="form-sub">{formSubheadline}</p>
+
+      <form class="lead-form">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone" required />
+        <textarea name="details" placeholder="Describe your water damage situation..." rows="3" required></textarea>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+
+      <p class="form-privacy">{formNote}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rest-hero {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: linear-gradient(155deg, #142E4D, #0F2138);
+    padding: 80px 40px;
+  }
+  .hero-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .eyebrow-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 100px;
+    margin-bottom: 22px;
+  }
+  .headline {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0 0 20px;
+  }
+  .accent-blue { color: #5EA6FF; }
+  .accent-orange { color: #F4791F; }
+  .sub {
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 520px;
+    margin: 0 0 26px;
+  }
+
+  .badge-row { display: flex; flex-wrap: wrap; gap: 22px; margin-bottom: 30px; }
+  .badge-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .badge-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .cta-call {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 15px 26px;
+    background: #F4791F;
+    color: #ffffff;
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background 0.15s;
+  }
+  .cta-call svg { width: 16px; height: 16px; }
+  .cta-call:hover { background: #dd6712; }
+  .cta-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 26px;
+    background: transparent;
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .cta-outline:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.7); }
+
+  .form-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 34px 32px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  }
+  .form-headline {
+    font-family: 'Manrope', sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    color: #142E4D;
+    text-align: center;
+    margin: 0 0 6px;
+  }
+  .form-sub {
+    font-size: 13px;
+    color: #6B7A8C;
+    text-align: center;
+    margin: 0 0 24px;
+  }
+
+  .lead-form { display: flex; flex-direction: column; gap: 13px; }
+  .lead-form input,
+  .lead-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: #F5F7FA;
+    border: 1px solid #E7ECF2;
+    border-radius: 6px;
+    padding: 13px 15px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #142E4D;
+    resize: none;
+  }
+  .lead-form input::placeholder,
+  .lead-form textarea::placeholder { color: #94A3B8; }
+  .form-submit {
+    width: 100%;
+    background: #F4791F;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 15px;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background 0.15s;
+  }
+  .form-submit:hover { background: #dd6712; }
+  .form-privacy {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #94A3B8;
+    text-align: center;
+    margin: 14px 0 0;
+  }
+
+  @media (max-width: 960px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .rest-hero { padding: 56px 20px; }
+  }
+</style>

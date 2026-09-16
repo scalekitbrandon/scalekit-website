@@ -1,0 +1,75 @@
+---
+import '../styles/tokens.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  // Array of JSON-LD objects (Organization, Service, WebSite, etc.) —
+  // each rendered as its own <script type="application/ld+json"> in <head>.
+  structuredData?: object[];
+}
+
+const { title, description = '', structuredData = [] } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <!-- Fonts for the six _industry-templates previews plus the real
+         Brush Hour Painting client build (rendered live on the homepage's
+         Websites & Funnels grid, /scout's website-SEO mockup, and each
+         /services/<industry> page's TemplateShowcase) — each project's
+         own CSS references these font-family names, but nothing loaded
+         them, so the previews were silently falling back to system
+         fonts. Loaded globally here since every one of those surfaces
+         lives under this same layout. Roboto Slab + the full Poppins
+         weight range are for Brush Hour Painting specifically (real
+         business, real brand fonts, not an invented placeholder). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Fraunces:wght@500;600&family=Work+Sans:wght@400;500;600;700&family=Manrope:wght@700;800&family=Sora:wght@700&family=Poppins:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600&family=Karla:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    {structuredData.map((data) => (
+      <script type="application/ld+json" set:html={JSON.stringify(data)} />
+    ))}
+  </head>
+  <body>
+    <slot name="header" />
+    <main>
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>
+
+<style is:global>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-max);
+    margin: 0;
+  }
+  .container {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+</style>

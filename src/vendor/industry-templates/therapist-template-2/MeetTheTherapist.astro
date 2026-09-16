@@ -1,0 +1,141 @@
+---
+// Therapist Template 2 (group practice) — Meet the Therapist.
+// Structure cloned from a reference solo-practitioner bio section (hard
+// 57/43 split: left cream copy column vertically centered, right
+// full-bleed headshot against a solid-color studio backdrop, outline CTA
+// button) — colors and copy are ScaleKit's own placeholder brand for
+// this template, reskinned to the Willowmere aubergine/amber/ivory
+// palette instead of the reference's cream/olive.
+// PLACEHOLDER: [THERAPIST_HEADSHOT_URL] needs a real photo before use —
+// no fabricated/stock image is baked in here. Name, credentials, and
+// copy are generic placeholders for this invented practice.
+interface Props {
+  headline?: string;
+  pullQuote?: string;
+  body?: string;
+  therapistName?: string;
+  therapistCredentials?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  headshotUrl?: string;
+}
+
+const {
+  headline = "The version of okay you've been settling for isn't the same as actually feeling well.",
+  pullQuote = "You've built a life that looks right on paper — but something underneath still feels unsettled.",
+  body = "I work with people who are ready to stop pushing through and start understanding what's actually going on underneath — so the next chapter feels less like managing and more like living.",
+  therapistName = 'Dana Whitfield, LCSW',
+  therapistCredentials = 'Founder & Clinical Director, Willowmere Therapy Group',
+  ctaLabel = 'Book a Session Online',
+  ctaHref = '#contact',
+  headshotUrl = '[THERAPIST_HEADSHOT_URL]',
+} = Astro.props;
+---
+
+<section class="meet-therapist">
+  <div class="copy-col">
+    <div class="copy-inner">
+      <h2 class="headline">{headline}</h2>
+      <p class="pull-quote">{pullQuote}</p>
+      <p class="body">{body}</p>
+      <p class="signature">
+        <span class="signature-name">{therapistName}</span>
+        <span class="signature-role">{therapistCredentials}</span>
+      </p>
+      <a href={ctaHref} class="cta-outline">{ctaLabel}</a>
+    </div>
+  </div>
+
+  <!-- PLACEHOLDER: replace headshotUrl with a real photo before use -->
+  <div class="photo-col" style={`background-image: url('${headshotUrl}');`}></div>
+</section>
+
+<style>
+  .meet-therapist {
+    font-family: 'Karla', -apple-system, sans-serif;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    min-height: 660px;
+  }
+
+  .copy-col {
+    background: #FAF6EF;
+    display: flex;
+    align-items: center;
+  }
+  .copy-inner {
+    max-width: 620px;
+    padding: 80px 100px 80px 110px;
+  }
+
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1.28;
+    color: #2B1B29;
+    margin: 0 0 28px;
+  }
+  .pull-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.5;
+    color: #4A2545;
+    margin: 0 0 22px;
+  }
+  .body {
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: #5A4A55;
+    margin: 0 0 32px;
+  }
+
+  .signature {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin: 0 0 36px;
+  }
+  .signature-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #2B1B29;
+  }
+  .signature-role {
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    color: #8A7683;
+  }
+
+  .cta-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    border: 1.5px solid #2B1B29;
+    color: #2B1B29;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .cta-outline:hover { background: #2B1B29; color: #FAF6EF; }
+
+  .photo-col {
+    background-color: #7C5A72;
+    background-size: cover;
+    background-position: center;
+  }
+
+  @media (max-width: 960px) {
+    .meet-therapist { grid-template-columns: 1fr; min-height: auto; }
+    .copy-inner { padding: 64px 32px; max-width: none; }
+    .photo-col { min-height: 420px; }
+  }
+</style>

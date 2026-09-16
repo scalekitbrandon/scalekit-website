@@ -1,0 +1,202 @@
+---
+// Landscaping/Tree Care industry template — Header/Nav.
+// Structure cloned from a reference tree-care company's homepage (utility
+// bar + main nav layout, logo/links/phone/CTA arrangement) — colors, logo,
+// business name, and copy are ScaleKit's own placeholder brand for this
+// template, not carried over from the reference.
+// Distinct identity from the Roofing template on purpose: deep forest
+// green + warm terracotta (vs. Roofing's gold/near-black), Fraunces serif
+// headline font + Work Sans body (vs. Roofing's Oswald + Inter) — every
+// trade gets its own look so the showcase grid reads as a real agency's
+// range, not one template reskinned six times.
+// PLACEHOLDER: business name, phone/email, and nav link targets — swap
+// for a real client's info when this template is used for an actual
+// landscaping/tree-care client build.
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  businessName?: string;
+  businessTagline?: string;
+  hours?: string;
+  email?: string;
+  links?: NavLink[];
+  phone?: string;
+  phoneHref?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  businessName = 'Rooted',
+  businessTagline = 'Tree Care Co.',
+  hours = 'Mon–Sat: 7AM – 7PM',
+  email = 'hello@rootedtreecare.com',
+  links = [
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about' },
+    { label: 'Services', href: '#services' },
+    { label: 'Service Areas', href: '#service-areas' },
+    { label: 'Gallery', href: '#gallery' },
+    { label: 'Contact', href: '#contact' },
+  ],
+  phone = '(555) 384-2960',
+  phoneHref = 'tel:5553842960',
+  ctaLabel = 'Free Estimate',
+  ctaHref = '#free-estimate',
+} = Astro.props;
+---
+
+<header class="land-header">
+  <div class="utility-bar">
+    <div class="utility-inner">
+      <span class="utility-item">{hours}</span>
+      <div class="utility-right">
+        <a href={`mailto:${email}`} class="utility-item utility-link">{email}</a>
+        <a href={phoneHref} class="utility-item utility-link">{phone}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-nav">
+    <div class="nav-inner">
+      <a href="#home" class="logo">
+        <span class="logo-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F7F3E9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22V12"/>
+            <path d="M12 12C12 7 8 4 4 4C4 8 6.5 12 12 12Z"/>
+            <path d="M12 12C12 8 15.5 5.5 20 5.5C20 9.5 17 12.5 12 12.5Z"/>
+          </svg>
+        </span>
+        <span class="logo-text">
+          <span class="logo-name">{businessName}</span>
+          <span class="logo-tagline">{businessTagline}</span>
+        </span>
+      </a>
+
+      <nav class="nav-links">
+        {links.map((link, i) => (
+          <a href={link.href} class={`nav-link ${i === 0 ? 'active' : ''}`}>{link.label}</a>
+        ))}
+      </nav>
+
+      <div class="nav-right">
+        <a href={ctaHref} class="cta">{ctaLabel}</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .land-header {
+    font-family: 'Work Sans', -apple-system, sans-serif;
+  }
+
+  .utility-bar {
+    background: #1E3D2B;
+  }
+  .utility-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 9px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .utility-item {
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(247, 243, 233, 0.75);
+  }
+  .utility-right { display: flex; align-items: center; gap: 24px; }
+  .utility-link { text-decoration: none; transition: color 0.15s; }
+  .utility-link:hover { color: #F7F3E9; }
+
+  .main-nav {
+    background: #F7F3E9;
+    border-bottom: 1px solid #E4DCC6;
+  }
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo-badge {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #1E3D2B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-badge svg { width: 22px; height: 22px; }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.15; }
+  .logo-name {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: #1B211C;
+  }
+  .logo-tagline {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6B7A6E;
+    margin-top: 2px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-link {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #3D4A3F;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-link:hover { color: #1E3D2B; }
+  .nav-link.active { color: #1E3D2B; font-weight: 600; }
+  .nav-right { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 26px;
+    background: #D97C4A;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .cta:hover { background: #c56638; }
+
+  @media (max-width: 980px) {
+    .nav-links { display: none; }
+    .nav-inner { padding: 0 20px; }
+    .utility-inner { padding: 9px 20px; }
+  }
+  @media (max-width: 560px) {
+    .utility-right { gap: 14px; }
+  }
+</style>

@@ -1,0 +1,37 @@
+{
+  "slug": "scalekit",
+  "business": {
+    "name": "ScaleKit",
+    "industry": "Growth & automation agency for service businesses",
+    "audience": "Local/home service businesses (pressure washing, contractors, and similar) seeking marketing, automation, and AI systems"
+  },
+  "pages": [
+    "homepage"
+  ],
+  "referenceSite": {
+    "used": true,
+    "url": "LOCAL: funnel-library/clients/scale-kit-home-page/ (existing GHL build — 11 section-*.html files, not a live/external URL)",
+    "screenshots": []
+  },
+  "brand": {
+    "hasExistingAssets": true,
+    "assets": [
+      "funnel-library/scalekit-main-landing-page/styles.css (master ScaleKit brand tokens/CSS)"
+    ]
+  },
+  "contentSources": [
+    "funnel-library/clients/scale-kit-home-page/copy.md (approved section-by-section copy)",
+    "funnel-library/clients/scale-kit-home-page/layout-clone.md (structural/visual reference notes)",
+    "funnel-library/clients/scale-kit-home-page/section-*.html (existing built GHL sections, ported as-is — real ScaleKit copy/brand, not re-sourced)"
+  ],
+  "contentTypes": [
+    "testimonials (referenced in Section 9 'What Changes + Testimonial')",
+    "case-studies (Section 8 'Proof' — placeholder/deferred, no fabricated content per copy.md)"
+  ],
+  "interactivity": [
+    "Interactive ecosystem diagram in Section 4 (Operating System) — hover/click expands branch nodes",
+    "VSL video player in Section 2b (currently a placeholder panel — 'Video coming soon')",
+    "Mobile nav hamburger menu (Section 1)"
+  ],
+  "hosting": "Cloudflare Pages"
+}

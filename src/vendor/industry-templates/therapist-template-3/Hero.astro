@@ -1,0 +1,166 @@
+---
+// Therapist Template 3 (group therapy practice) — Hero.
+// Structure AND palette cloned from the same reference (full-bleed
+// grainy photo, no color-tint overlay, bold rounded headline, small-caps
+// subhead, terracotta + blue CTA pair, bottom divider with 3 outlined
+// trust pills) — per explicit direction this keeps the reference's
+// terracotta/blue color pairing. Copy rewritten from scratch for this
+// invented practice.
+// PLACEHOLDER: [HERO_IMAGE_URL] needs a real photo before use — no
+// fabricated/stock image is baked in here.
+interface TrustItem {
+  label: string;
+}
+
+interface Props {
+  headline?: string;
+  subheadline?: string;
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  trustItems?: TrustItem[];
+  heroImageUrl?: string;
+}
+
+const {
+  headline = "Therapy For The Life You're Actually Living.",
+  subheadline = 'Serving individuals, couples, and families — in person and virtually',
+  primaryCtaLabel = 'View Specialties',
+  primaryCtaHref = '#specialties',
+  secondaryCtaLabel = 'Book a Consultation',
+  secondaryCtaHref = '#contact',
+  trustItems = [
+    { label: 'Insurance-Friendly Care' },
+    { label: 'Licensed, Experienced Clinicians' },
+    { label: 'In-Person & Virtual Sessions' },
+  ],
+  heroImageUrl = '[HERO_IMAGE_URL]',
+} = Astro.props;
+---
+
+<section class="aa-hero">
+  <!-- PLACEHOLDER: replace heroImageUrl with a real photo before use -->
+  <div class="hero-bg" style={`background-image: linear-gradient(rgba(46,58,92,0.82), rgba(30,38,61,0.92)), url('${heroImageUrl}');`}></div>
+
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1 class="headline">{headline}</h1>
+      <p class="sub">{subheadline}</p>
+
+      <div class="cta-row">
+        <a href={primaryCtaHref} class="cta-terracotta">{primaryCtaLabel}</a>
+        <a href={secondaryCtaHref} class="cta-blue">{secondaryCtaLabel}</a>
+      </div>
+    </div>
+
+    <div class="trust-row">
+      {trustItems.map((item) => (
+        <span class="trust-pill">{item.label}</span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .aa-hero {
+    position: relative;
+    font-family: 'Work Sans', -apple-system, sans-serif;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-color: #7A7A7A;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .hero-copy { max-width: 680px; text-align: center; margin: 0 auto; }
+  .headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(34px, 4.6vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #FFFFFF;
+    margin: 0 0 18px;
+  }
+  .sub {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 32px;
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 64px;
+    flex-wrap: wrap;
+  }
+  .cta-terracotta,
+  .cta-blue {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 28px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .cta-terracotta { background: #D9A48A; color: #2E3A5C; }
+  .cta-terracotta:hover { background: #C68F73; }
+  .cta-blue { background: #6B7FB0; color: #FFFFFF; }
+  .cta-blue:hover { background: #4C5D8A; }
+
+  .trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+  }
+  .trust-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 20px;
+    border: 1.5px solid rgba(255, 255, 255, 0.75);
+    border-radius: 100px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+
+  @media (max-width: 720px) {
+    .hero-inner { padding: 0 20px; }
+    .aa-hero { min-height: 600px; padding: 40px 0; }
+  }
+</style>

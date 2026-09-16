@@ -1,0 +1,155 @@
+---
+// Therapist Template 3 (group therapy practice) — Announcement bar + Header/Nav.
+// Structure AND color palette cloned from a reference group-therapy-
+// practice site (blue announcement bar, serif-ish nav, outline "Contact"
+// button) — per explicit direction, this template reuses the reference's
+// blue/terracotta/cream palette rather than an invented one (an
+// exception to the usual "every template gets its own colors" rule).
+// Fonts and all copy are still original — business identity is
+// ScaleKit's own placeholder brand, not carried over from the reference.
+// PLACEHOLDER: business name, announcement text, and nav link targets —
+// swap for a real client's info when this template is used for an
+// actual advisory/coaching client build.
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  announcementText?: string;
+  businessName?: string;
+  businessTagline?: string;
+  links?: NavLink[];
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  announcementText = 'Now accepting new clients for individual and family therapy.',
+  businessName = 'Ashford',
+  businessTagline = 'THERAPY',
+  links = [
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about' },
+    { label: 'Therapists', href: '#therapists' },
+    { label: 'Specialties', href: '#specialties' },
+    { label: 'Blog', href: '#blog' },
+  ],
+  ctaLabel = 'Contact',
+  ctaHref = '#contact',
+} = Astro.props;
+---
+
+<div class="announce-bar">
+  <p>{announcementText}</p>
+</div>
+
+<header class="aa-header">
+  <div class="header-inner">
+    <a href="#home" class="logo">
+      <span class="logo-name">{businessName}</span>
+      <span class="logo-tagline">{businessTagline}</span>
+    </a>
+
+    <nav class="nav-links">
+      {links.map((link) => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+    </nav>
+
+    <a href={ctaHref} class="cta-outline">{ctaLabel}</a>
+  </div>
+</header>
+
+<style>
+  .announce-bar {
+    background: #6B7FB0;
+    padding: 11px 20px;
+    text-align: center;
+  }
+  .announce-bar p {
+    margin: 0;
+    font-family: 'Work Sans', -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #FBF6EF;
+  }
+
+  .aa-header {
+    font-family: 'Work Sans', -apple-system, sans-serif;
+    background: #FBF6EF;
+    border-bottom: 1px solid #EDE3D6;
+  }
+  .header-inner {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    color: #2E3A5C;
+  }
+  .logo-tagline {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: #6B7FB0;
+    margin-top: 3px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+  }
+  .nav-link {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2E3A5C;
+    text-decoration: none;
+    opacity: 0.82;
+    transition: opacity 0.15s;
+  }
+  .nav-link:hover { opacity: 1; }
+
+  .cta-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 28px;
+    border: 1.5px solid #2E3A5C;
+    color: #2E3A5C;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .cta-outline:hover { background: #2E3A5C; color: #FBF6EF; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .header-inner { padding: 0 20px; }
+  }
+</style>

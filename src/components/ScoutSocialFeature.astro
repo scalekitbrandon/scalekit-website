@@ -1,0 +1,314 @@
+---
+// "Publish Posts To Social Media Profiles" — feature row 4 of "How Scout
+// Works" on /scout. Structure cloned from the reference's layered
+// post-preview composition (a "Post Published" confirmation badge +
+// stacked platform post cards, front card shown in full detail) — colors,
+// copy, business name, and caption are ScaleKit's own invented
+// placeholders, not carried over from the reference (which used a real
+// spa-business example). Platform icons (Facebook/LinkedIn/Instagram)
+// are simplified color approximations with text labels, same approach
+// used for the directory icons in ScoutCitationsFeature — not exact
+// reproductions of each platform's official logo artwork.
+// Orientation: image left, per direction.
+// The Facebook post's photo is a custom on-brand illustration (inspector
+// + clipboard, checking a house) rather than a random stock photo — a
+// themed real photo ("home service business doing an inspection") isn't
+// something that can be reliably sourced with a proper license here, so
+// this follows the same discipline as every other placeholder on this
+// site: an honest illustrative stand-in, not a fabricated/unlicensed
+// photo. Pass a real `photoUrl` to swap in an actual client photo later.
+interface Props {
+  headline?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  businessName?: string;
+  caption?: string;
+  photoUrl?: string;
+}
+
+const {
+  headline = 'Publish Posts To Social Media Profiles',
+  paragraph1 = "Google factors in how active a business is on Facebook, Instagram, LinkedIn, and beyond when deciding who to rank higher on Google Maps. Staying active everywhere is one more thing most businesses don't have time for.",
+  paragraph2 = 'Scout automates it. The same post Scout creates for your Google Business Profile gets published across your other social media profiles automatically — no extra work, no extra software to log into.',
+  ctaLabel = 'Get Started',
+  ctaHref = '#book-call',
+  businessName = 'Your Business Name',
+  caption = "Completed today's inspection — everything looks great!",
+  photoUrl = '',
+} = Astro.props;
+---
+
+<div class="social-feature">
+  <div class="social-copy">
+    <h3 class="social-headline">{headline}</h3>
+    <p class="social-p">{paragraph1}</p>
+    <p class="social-p">{paragraph2}</p>
+    <a href={ctaHref} class="social-cta">
+      {ctaLabel}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+
+  <div class="social-graphic">
+    <div class="published-badge">
+      <span class="published-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+      </span>
+      <span class="published-text">Post Published</span>
+      <div class="published-platforms">
+        <span class="mini-icon" style="background:#1877F2;">f</span>
+        <span class="mini-icon" style="background:#0A66C2;">in</span>
+        <span class="mini-icon" style="background:linear-gradient(135deg,#F58529,#DD2A7B,#8134AF);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="#ffffff" stroke="none"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="peek-card peek-linkedin">
+      <p class="peek-label">LinkedIn post</p>
+      <div class="peek-row"><span class="peek-avatar"></span><span class="peek-name">{businessName}</span></div>
+    </div>
+
+    <div class="peek-card peek-instagram">
+      <p class="peek-label">Instagram Post</p>
+      <div class="peek-row"><span class="peek-avatar"></span><span class="peek-name">{businessName}</span></div>
+    </div>
+
+    <div class="post-card">
+      <p class="post-label">Facebook post</p>
+      <div class="post-row">
+        <span class="post-avatar"></span>
+        <div>
+          <p class="post-name">{businessName}</p>
+          <p class="post-time">1 min</p>
+        </div>
+      </div>
+      <p class="post-caption">{caption}</p>
+      <div class="post-photo">
+        {photoUrl ? (
+          <img src={photoUrl} alt="Example post photo" loading="lazy" />
+        ) : (
+          <svg class="inspection-illustration" viewBox="0 0 320 200" fill="none">
+            <rect width="320" height="200" fill="var(--color-bg-alt)" />
+            <line x1="0" y1="164" x2="320" y2="164" stroke="var(--color-border)" stroke-width="2" />
+            <g stroke="var(--color-fg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="150,60 210,60 230,90 130,90" fill="#ffffff" stroke="var(--color-fg)" />
+              <rect x="140" y="90" width="80" height="74" fill="#ffffff" />
+              <rect x="176" y="128" width="18" height="36" fill="var(--color-bg-alt)" />
+              <rect x="150" y="104" width="18" height="18" fill="var(--color-bg-alt)" />
+              <rect x="196" y="104" width="18" height="18" fill="var(--color-bg-alt)" />
+            </g>
+            <g stroke="var(--color-fg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <circle cx="256" cy="118" r="9" fill="#ffffff" />
+              <line x1="256" y1="127" x2="256" y2="150" />
+              <line x1="256" y1="134" x2="244" y2="144" />
+              <line x1="256" y1="134" x2="270" y2="128" />
+              <line x1="256" y1="150" x2="247" y2="164" />
+              <line x1="256" y1="150" x2="266" y2="164" />
+            </g>
+            <g stroke="var(--color-fg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="266" y="122" width="14" height="18" rx="1.5" fill="#ffffff" />
+              <line x1="269" y1="127" x2="277" y2="127" stroke="var(--color-primary-outline)" />
+              <line x1="269" y1="131" x2="277" y2="131" stroke="var(--color-primary-outline)" />
+              <line x1="269" y1="135" x2="273" y2="135" stroke="var(--color-primary-outline)" />
+            </g>
+            <circle cx="99" cy="120" r="16" fill="none" stroke="var(--color-fg)" stroke-width="2.5" />
+            <line x1="110" y1="131" x2="120" y2="141" stroke="var(--color-fg)" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M92 120a7 7 0 0 1 7-7" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" />
+          </svg>
+        )}
+      </div>
+      <div class="post-actions">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/></svg> Like</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Comment</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg> Share</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .social-feature {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-8);
+    align-items: center;
+    margin-bottom: var(--space-8);
+  }
+  /* Graphic moved visually first via `order`, not by reordering the
+     markup, so DOM/reading order stays copy-then-graphic for a11y —
+     same technique as ScoutReviewsFeature. */
+  .social-graphic { order: -1; }
+
+  .social-headline {
+    font-size: clamp(28px, 3.4vw, 38px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4);
+  }
+  .social-p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-4);
+    max-width: 480px;
+  }
+  .social-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 16px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    margin-top: var(--space-2);
+    transition: background 0.15s;
+  }
+  .social-cta:hover { background: var(--color-primary-hover); }
+  .social-cta svg { width: 15px; height: 15px; }
+
+  .social-graphic {
+    position: relative;
+    background-color: var(--color-bg-alt);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    min-height: 480px;
+  }
+
+  .published-badge {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    z-index: 4;
+    background: var(--color-success-bg);
+    border: 1px solid rgba(26, 138, 26, 0.25);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    box-shadow: 0 12px 26px rgba(10, 10, 10, 0.1);
+  }
+  .published-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-fg);
+    margin-right: 8px;
+  }
+  .published-icon svg { width: 11px; height: 11px; }
+  .published-text { font-size: 13.5px; font-weight: 800; color: var(--color-fg); }
+  .published-platforms { display: flex; gap: 8px; margin-top: 12px; }
+  .mini-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: Georgia, serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mini-icon svg { width: 15px; height: 15px; }
+
+  .peek-card {
+    position: absolute;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    box-shadow: 0 14px 30px rgba(10, 10, 10, 0.1);
+    width: 200px;
+  }
+  .peek-linkedin { top: 20px; right: 24px; z-index: 1; opacity: 0.75; }
+  .peek-instagram { top: 64px; right: 60px; z-index: 2; }
+  .peek-label { font-size: 12px; font-weight: 700; color: var(--color-fg); margin: 0 0 10px; }
+  .peek-row { display: flex; align-items: center; gap: 8px; }
+  .peek-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+  .peek-name { font-size: 11.5px; font-weight: 700; color: var(--color-fg); }
+
+  .post-card {
+    position: absolute;
+    left: 28px;
+    bottom: 28px;
+    z-index: 3;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    box-shadow: 0 20px 44px rgba(10, 10, 10, 0.16);
+    width: 300px;
+  }
+  .post-label { font-size: 12px; font-weight: 700; color: var(--color-fg); margin: 0 0 12px; }
+  .post-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .post-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+  .post-name { font-size: 12.5px; font-weight: 800; color: var(--color-fg); margin: 0; }
+  .post-time { font-size: 10.5px; color: var(--color-text-light); margin: 1px 0 0; }
+  .post-caption { font-size: 12.5px; line-height: 1.5; color: var(--color-fg); margin: 0 0 12px; }
+  .post-photo {
+    aspect-ratio: 16 / 10;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .post-photo img,
+  .post-photo .inspection-illustration {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .post-actions {
+    display: flex;
+    gap: 16px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-border);
+  }
+  .post-actions span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text-mid);
+  }
+  .post-actions svg { width: 13px; height: 13px; }
+
+  @media (max-width: 900px) {
+    .social-feature { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .social-graphic { padding: var(--space-5); min-height: 560px; }
+    .peek-card { width: 150px; }
+    .peek-instagram { right: 20px; top: 110px; }
+    .peek-linkedin { right: 20px; top: 20px; }
+    .post-card { width: calc(100% - 40px); left: 20px; bottom: 20px; }
+  }
+</style>

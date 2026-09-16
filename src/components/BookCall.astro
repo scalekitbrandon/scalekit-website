@@ -1,0 +1,258 @@
+---
+// "Book Your Free Strategy Call" — the real destination for every CTA on
+// the page (Hero, Nav, every service section, StartCta, FinalCta, Process
+// all point to #book-call). Shared across the homepage and every other
+// page, so this one component change updates the booking flow site-wide.
+// Two-step flow per direction: capture contact info first, THEN show the
+// booking step.
+// Step 1 embeds the real GHL contact form (form ID xlFepU32RxK08WhKB7NJ —
+// submits directly into the GHL CRM, replacing the old custom form that
+// went nowhere). Step 2 embeds the real consultation calendar
+// (LeadConnector booking widget, calendar ID miZCiSMB6B4a91VTW2Vp). Both
+// via iframe + the shared link.msgsndr.com resize script — real
+// functionality end to end, not placeholders.
+// Step 1 -> step 2 auto-advance listens for a postMessage from the form
+// iframe on submit (heuristic match on the message payload, since GHL
+// doesn't publicly document the exact event shape) — UNTESTED against
+// the live embed. The manual "Continue" fallback and the "Or call us
+// now" phone link were both removed per explicit request; if the
+// postMessage auto-advance ever fails to fire, there is currently no
+// fallback way to reach step 2 other than a page reload.
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
+}
+
+const {
+  eyebrow = 'Get Started',
+  headline = 'Book Your Free Strategy Call',
+  subheadline = "Tell us a bit about your business, then pick a time that works. 20 minutes, free, no pressure.",
+} = Astro.props;
+---
+
+<section class="book-call" id="book-call">
+  <div class="inner">
+
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="sub">{subheadline}</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-indicator">
+        <span class="step-dot is-active" data-step-dot="1">1</span>
+        <span class="step-line"></span>
+        <span class="step-dot" data-step-dot="2">2</span>
+      </div>
+
+      <div class="step-panel is-active" data-step-panel="1">
+        <h3 class="panel-heading">Your Info</h3>
+        <p class="panel-sub">We'll use this to prep for your call — no spam, ever.</p>
+
+        <div class="form-embed">
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/xlFepU32RxK08WhKB7NJ"
+            style="width: 100%; height: 480px; border: none; overflow: hidden;"
+            id="inline-xlFepU32RxK08WhKB7NJ"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="ScaleKit Strategy Call Intake"
+            data-height="480"
+            data-layout-iframe-id="inline-xlFepU32RxK08WhKB7NJ"
+            data-form-id="xlFepU32RxK08WhKB7NJ"
+            title="ScaleKit Strategy Call Intake"
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="step-panel" data-step-panel="2">
+        <h3 class="panel-heading">Pick a Time</h3>
+        <p class="panel-sub">Thanks — last step. Grab whatever time works best for you.</p>
+
+        <div class="calendar-embed">
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/booking/miZCiSMB6B4a91VTW2Vp"
+            style="width: 100%; height: 700px; border: none; overflow: hidden;"
+            scrolling="no"
+            id="miZCiSMB6B4a91VTW2Vp_booking"
+            title="Book your free strategy call"
+          ></iframe>
+        </div>
+
+        <button type="button" class="back-link" data-step-back>&larr; Back</button>
+      </div>
+
+      <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const panel1 = document.querySelector('[data-step-panel="1"]');
+  const panel2 = document.querySelector('[data-step-panel="2"]');
+  const dot1 = document.querySelector('[data-step-dot="1"]');
+  const dot2 = document.querySelector('[data-step-dot="2"]');
+  const backBtn = document.querySelector('[data-step-back]');
+
+  function goToStep2() {
+    panel1?.classList.remove('is-active');
+    panel2?.classList.add('is-active');
+    dot1?.classList.remove('is-active');
+    dot2?.classList.add('is-active');
+  }
+
+  // Heuristic: GHL's form_embed.js doesn't publicly document its exact
+  // postMessage payload shape, so this matches loosely on "form" +
+  // "submit"/"success" anywhere in the message rather than an exact key.
+  window.addEventListener('message', (event) => {
+    if (!event.data || typeof event.data !== 'object') return;
+    const payload = JSON.stringify(event.data).toLowerCase();
+    if (payload.includes('form') && (payload.includes('submit') || payload.includes('success'))) {
+      goToStep2();
+    }
+  });
+
+  backBtn?.addEventListener('click', () => {
+    panel2?.classList.remove('is-active');
+    panel1?.classList.add('is-active');
+    dot2?.classList.remove('is-active');
+    dot1?.classList.add('is-active');
+  });
+</script>
+
+<style>
+  .book-call {
+    background: #ffffff;
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 720px; margin: 0 auto; }
+
+  .header { text-align: center; margin: 0 auto var(--space-7); }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 18px;
+  }
+  .headline {
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4);
+  }
+  .sub {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-text-mid);
+    margin: 0;
+  }
+
+  .step-card {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+  }
+
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: var(--space-5);
+    max-width: 160px;
+    margin-inline: auto;
+  }
+  .step-dot {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border);
+    background: #ffffff;
+    color: var(--color-text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .step-dot.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-fg);
+  }
+  .step-line { flex: 1; height: 1px; background: var(--color-border); }
+
+  .step-panel { display: none; }
+  .step-panel.is-active { display: block; }
+
+  .panel-heading {
+    font-size: 20px;
+    font-weight: var(--font-weight-max);
+    color: var(--color-fg);
+    text-align: center;
+    margin: 0 0 6px;
+  }
+  .panel-sub {
+    font-size: 14px;
+    color: var(--color-text-mid);
+    text-align: center;
+    margin: 0 0 24px;
+  }
+
+  .form-embed {
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+  }
+  .form-embed iframe {
+    display: block;
+    width: 100%;
+  }
+
+  .calendar-embed {
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-4);
+  }
+  .calendar-embed iframe {
+    display: block;
+    width: 100%;
+  }
+
+  .back-link {
+    display: block;
+    margin: 0 auto;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-mid);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .back-link:hover { color: var(--color-fg); }
+
+  @media (max-width: 560px) {
+    .book-call { padding: var(--space-7) var(--space-5); }
+    .step-card { padding: var(--space-5); }
+  }
+</style>

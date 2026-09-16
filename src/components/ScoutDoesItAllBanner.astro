@@ -1,0 +1,80 @@
+---
+// "Scout Does It All" closing banner — sits directly below the feature
+// list on /scout, before the final CTA. Structure cloned from the
+// reference's pale pill banner (badge pill + bold statement) — colors
+// are ScaleKit's own (black/lime pill on a pale lime panel) instead of
+// the reference's purple/pink.
+interface Props {
+  badgeLabel?: string;
+  statement?: string;
+}
+
+const {
+  badgeLabel = 'Scout',
+  statement = 'SCOUT DOES IT ALL',
+} = Astro.props;
+---
+
+<div class="does-it-all">
+  <span class="badge-pill">
+    <span class="badge-pill-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+    </span>
+    {badgeLabel}
+  </span>
+  <span class="statement">{statement}</span>
+</div>
+
+<style>
+  .does-it-all {
+    max-width: 1100px;
+    margin: 0 auto var(--space-6);
+    background: rgba(215, 255, 0, 0.16);
+    border-radius: var(--radius-lg);
+    padding: 44px var(--space-8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    background: var(--color-fg);
+    color: #ffffff;
+    border-radius: var(--radius-pill);
+    padding: 18px 40px 18px 18px;
+    font-size: 30px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .badge-pill-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .badge-pill-icon svg { width: 24px; height: 24px; stroke: var(--color-primary-fg); }
+
+  .statement {
+    font-size: clamp(40px, 5.2vw, 60px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: 0.01em;
+    color: var(--color-fg);
+    text-align: center;
+  }
+
+  @media (max-width: 560px) {
+    .does-it-all { padding: 32px var(--space-5); flex-direction: column; text-align: center; }
+    .badge-pill { font-size: 22px; padding: 14px 28px 14px 14px; }
+    .badge-pill-icon { width: 36px; height: 36px; }
+    .badge-pill-icon svg { width: 18px; height: 18px; }
+    .statement { font-size: 28px; }
+  }
+</style>

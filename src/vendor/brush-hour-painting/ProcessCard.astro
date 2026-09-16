@@ -1,0 +1,137 @@
+---
+// Matches the reference's actual structure: one unified card (not two
+// separate flat sections) — a decorative icon overlapping the top edge,
+// 3 icon-circle steps with subtext, and an embedded darker CTA banner
+// inside the same card.
+// Icon set matches the outline-SVG style used in FeatureGrid.astro's
+// "Why Choose" badges — same currentColor-stroke pattern, swapped in here
+// instead of emoji for visual consistency across the two sections.
+const ICONS: Record<string, string> = {
+  house: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7"/><path d="M9 22V12h6v10"/><path d="M5 10v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+  calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  key: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>',
+};
+
+interface Step {
+  icon?: keyof typeof ICONS;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  topIcon?: keyof typeof ICONS;
+  steps: Step[];
+  bannerHeading: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { topIcon = 'house', steps, bannerHeading, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="process-wrap">
+  <div class="container">
+    <div class="process-card">
+      <span class="top-icon" aria-hidden="true" set:html={ICONS[topIcon]} />
+      <div class="steps">
+        {steps.map((step) => (
+          <div class="step">
+            {step.icon && <span class="step-icon" aria-hidden="true" set:html={ICONS[step.icon]} />}
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </div>
+        ))}
+      </div>
+      <div class="banner">
+        <p>{bannerHeading}</p>
+        <a class="btn" href={ctaHref}>{ctaLabel}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process-wrap { padding-block: var(--space-6); }
+  .process-card {
+    position: relative;
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7) var(--space-5) var(--space-5);
+  }
+  .top-icon {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: var(--color-primary-fg);
+  }
+  .top-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    text-align: center;
+    margin-bottom: var(--space-5);
+  }
+  .step-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    padding: 14px;
+    margin: 0 auto var(--space-2);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  .step-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+  .step h3 {
+    font-size: var(--text-base);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: var(--space-1);
+  }
+  .step p {
+    font-size: var(--text-sm);
+    opacity: 0.85;
+  }
+  .banner {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    text-align: center;
+  }
+  .banner p {
+    font-weight: var(--font-weight-button);
+    font-style: italic;
+    margin-bottom: var(--space-3);
+  }
+  .banner .btn {
+    display: inline-block;
+    background: var(--color-bg);
+    color: var(--color-primary);
+    padding: 10px 22px;
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-button);
+    text-decoration: none;
+  }
+  @media (max-width: 640px) {
+    .steps { grid-template-columns: 1fr; gap: var(--space-4); }
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+// Therapist Template 2 (group practice) — Book Consultation.
+// Structure cloned from the same reference site (centered headline +
+// subtext, large space below for an embedded scheduler) — colors and
+// copy reskinned to Willowmere's palette.
+// PLACEHOLDER: the booking-embed area is a literal dashed placeholder —
+// wire a real scheduling widget (Calendly, GHL calendar, etc.) into
+// `<div data-booking-embed>` before this goes live anywhere.
+interface Props {
+  headline?: string;
+  headlineEmphasis?: string;
+  subtext?: string;
+}
+
+const {
+  headline = 'Start with a',
+  headlineEmphasis = 'conversation',
+  subtext = "If you're considering therapy, this is a simple place to begin. Schedule a brief call to share what's bringing you in and see if it feels like a good fit.",
+} = Astro.props;
+---
+
+<section class="book-consultation" id="contact">
+  <div class="book-inner">
+    <h2 class="headline">{headline} <span>{headlineEmphasis}</span></h2>
+    <p class="subtext">{subtext}</p>
+
+    <!-- PLACEHOLDER: wire a real scheduling embed here -->
+    <div class="booking-embed" data-booking-embed>
+      <p>[BOOKING_CALENDAR_EMBED]</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .book-consultation {
+    font-family: 'Karla', -apple-system, sans-serif;
+    background: #FAF6EF;
+    padding: 100px 40px 120px;
+    text-align: center;
+  }
+  .book-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(28px, 3.4vw, 40px);
+    color: #2B1B29;
+    margin: 0 0 18px;
+  }
+  .headline span { font-weight: 700; color: #4A2545; font-style: italic; }
+  .subtext {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #5A4A55;
+    margin: 0 0 48px;
+  }
+
+  .booking-embed {
+    min-height: 360px;
+    border: 1.5px dashed #C9B8C0;
+    border-radius: 8px;
+    background: #F1E9DD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .booking-embed p {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #8A7683;
+    margin: 0;
+  }
+
+  @media (max-width: 700px) {
+    .book-consultation { padding: 72px 24px 88px; }
+    .booking-embed { min-height: 260px; }
+  }
+</style>

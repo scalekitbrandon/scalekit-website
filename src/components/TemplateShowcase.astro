@@ -1,0 +1,283 @@
+---
+// Frames a real industry-template component (from ~/Astro-Sites/_industry-templates/)
+// inside a browser-chrome mockup on the per-industry service pages. Unlike
+// the tiny homepage card preview (WebsitesFunnels.astro's .mini-page
+// technique, which scales components down to ~25% because it only has a
+// few hundred pixels to work with), this page has real room — so the
+// real template components render at their natural, fully responsive
+// size, just clipped inside a rounded browser frame. No transform-scale
+// hack needed here.
+// Optional extra samples: pass `sampleLabels` (address-bar text for each
+// extra sample, in order) + content in named slots "sample-1",
+// "sample-2", etc. (matching sampleLabels' index + 1) to get a
+// left/right arrow-switchable set of full sample sites in the same
+// mockup frame, instead of just one. The default slot is always sample
+// 0. Up to 7 named slots are wired (sample-1..sample-7 — 8 total
+// samples), which covers both use cases: the cross-industry sample set
+// used on every /services/<industry> page, and the dedicated 8-variant
+// home-services showcase (home-services.astro's second TemplateShowcase
+// block); add more slots below if a page ever needs more than that.
+// Each sample still scrolls vertically inside the frame independently
+// (only the active one is in the layout flow — the inactive ones are
+// display:none, not just visually hidden, so they don't add scroll
+// height). Backward compatible: pages that only pass the default slot
+// render exactly as before, no arrows.
+interface Props {
+  label?: string;
+  // Second tier below `label` — bigger, bolder statement. Standard
+  // across every /services/<industry> page since this component is
+  // shared; override per page only if a specific page needs different
+  // wording.
+  subLabel?: string;
+  addressLabel: string;
+  sampleLabels?: string[];
+}
+
+const {
+  label = 'What We Could Build For You',
+  subLabel = 'Custom Layouts. Custom Colors. Every Time.',
+  addressLabel,
+  sampleLabels = [],
+} = Astro.props;
+const allLabels = [addressLabel, ...sampleLabels];
+const hasMultiple = allLabels.length > 1;
+---
+
+<section class="showcase">
+  <div class="showcase-inner">
+    {label && <p class="showcase-label">{label}</p>}
+    {subLabel && <p class="showcase-sublabel">{subLabel}</p>}
+
+    <div class="browser-row">
+      {hasMultiple && (
+        <button type="button" class="sample-arrow prev" data-sample-prev aria-label="Previous sample">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+      )}
+
+      <div class="browser-frame">
+        <div class="browser-chrome">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="address-pill" data-sample-address>{addressLabel}</div>
+        </div>
+        <div class="browser-body">
+          <div class="sample-panel is-active" data-sample-panel="0" data-address={addressLabel}>
+            <slot />
+          </div>
+          {sampleLabels[0] && (
+            <div class="sample-panel" data-sample-panel="1" data-address={sampleLabels[0]}>
+              <slot name="sample-1" />
+            </div>
+          )}
+          {sampleLabels[1] && (
+            <div class="sample-panel" data-sample-panel="2" data-address={sampleLabels[1]}>
+              <slot name="sample-2" />
+            </div>
+          )}
+          {sampleLabels[2] && (
+            <div class="sample-panel" data-sample-panel="3" data-address={sampleLabels[2]}>
+              <slot name="sample-3" />
+            </div>
+          )}
+          {sampleLabels[3] && (
+            <div class="sample-panel" data-sample-panel="4" data-address={sampleLabels[3]}>
+              <slot name="sample-4" />
+            </div>
+          )}
+          {sampleLabels[4] && (
+            <div class="sample-panel" data-sample-panel="5" data-address={sampleLabels[4]}>
+              <slot name="sample-5" />
+            </div>
+          )}
+          {sampleLabels[5] && (
+            <div class="sample-panel" data-sample-panel="6" data-address={sampleLabels[5]}>
+              <slot name="sample-6" />
+            </div>
+          )}
+          {sampleLabels[6] && (
+            <div class="sample-panel" data-sample-panel="7" data-address={sampleLabels[6]}>
+              <slot name="sample-7" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {hasMultiple && (
+        <button type="button" class="sample-arrow next" data-sample-next aria-label="Next sample">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      )}
+    </div>
+
+    {hasMultiple && (
+      <div class="sample-dots">
+        {allLabels.map((_, i) => (
+          <span class:list={['sample-dot', i === 0 && 'is-active']} data-sample-dot={String(i)}></span>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .showcase {
+    background: var(--color-bg);
+    padding: 0 var(--space-6) var(--space-8);
+    font-family: var(--font-body);
+  }
+  .showcase-inner { max-width: 1160px; margin: 0 auto; }
+
+  .showcase-label {
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 10px;
+  }
+  .showcase-sublabel {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    color: var(--color-text-light);
+    margin: 0 0 22px;
+  }
+
+  .browser-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .browser-frame {
+    flex: 1;
+    min-width: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 30px 70px rgba(10, 10, 10, 0.12);
+  }
+  .browser-chrome {
+    background: #eceae4;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .dots { display: flex; gap: 6px; flex-shrink: 0; }
+  .dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d4d1c8;
+  }
+  .address-pill {
+    flex: 1;
+    max-width: 320px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: var(--radius-pill);
+    padding: 6px 16px;
+    font-size: 12.5px;
+    color: var(--color-text-light);
+    text-align: center;
+  }
+  .browser-body {
+    max-height: 720px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #ffffff;
+    scrollbar-width: thin;
+  }
+  .sample-panel {
+    display: none;
+    /* Establishes a containing block for any sample whose own components
+       use position:absolute against their nearest positioned ancestor
+       (e.g. the therapist template's Header.astro, which floats over its
+       Hero photo by design). Without this, position:absolute children
+       resolve against whatever positioned ancestor happens to exist
+       further up the real page — landing outside the visible, clipped
+       browser frame entirely instead of over their own Hero. */
+    position: relative;
+  }
+  .sample-panel.is-active { display: block; }
+
+  .sample-arrow {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border);
+    background: #ffffff;
+    color: var(--color-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .sample-arrow svg { width: 18px; height: 18px; }
+  .sample-arrow:hover { background: var(--color-primary); border-color: var(--color-primary); }
+
+  .sample-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: var(--space-4);
+  }
+  .sample-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-border);
+    transition: background 0.15s, transform 0.15s;
+  }
+  .sample-dot.is-active {
+    background: var(--color-primary);
+    transform: scale(1.25);
+  }
+
+  @media (max-width: 560px) {
+    .showcase { padding: 0 var(--space-5) var(--space-7); }
+    .browser-body { max-height: 520px; }
+    .browser-row { gap: var(--space-2); }
+    .sample-arrow { width: 34px; height: 34px; }
+    .sample-arrow svg { width: 15px; height: 15px; }
+  }
+</style>
+
+<script>
+  // Only wires up if a second sample actually exists (data-sample-next
+  // will be null otherwise, all queries just no-op).
+  const panels = document.querySelectorAll('[data-sample-panel]');
+  const dots = document.querySelectorAll('[data-sample-dot]');
+  const addressEl = document.querySelector('[data-sample-address]');
+  const prevBtn = document.querySelector('[data-sample-prev]');
+  const nextBtn = document.querySelector('[data-sample-next]');
+  const browserBody = document.querySelector('.browser-body');
+
+  let active = 0;
+
+  function showSample(index) {
+    if (index < 0 || index >= panels.length) return;
+    active = index;
+    panels.forEach((p) => {
+      const isActive = p.getAttribute('data-sample-panel') === String(active);
+      p.classList.toggle('is-active', isActive);
+      if (isActive && addressEl) {
+        addressEl.textContent = p.getAttribute('data-address') ?? '';
+      }
+    });
+    dots.forEach((d) => {
+      d.classList.toggle('is-active', d.getAttribute('data-sample-dot') === String(active));
+    });
+    if (browserBody) browserBody.scrollTop = 0;
+  }
+
+  prevBtn?.addEventListener('click', () => showSample((active - 1 + panels.length) % panels.length));
+  nextBtn?.addEventListener('click', () => showSample((active + 1) % panels.length));
+</script>

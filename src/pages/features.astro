@@ -1,0 +1,198 @@
+---
+// /features — new discovery/SEO surface per Brandon's direction: give the
+// individual capabilities that are currently buried inside pricing-card
+// bullet lists (Websites & Funnels Growth, CRM & Automation) their own
+// real page + top-level nav link, same pattern as /pricing. Reuses
+// PricingTierSection/PricingCard (price omitted, same as the AI Agents
+// pricing section) for full visual consistency — this is not a new
+// design system, just a new surface for real, already-published copy.
+// Each card's CTA links back to the specific /pricing section that
+// actually sells it — this page explains, /pricing is where it's priced.
+// "Printing Services" from the reference screenshot is deliberately
+// excluded — Brandon confirmed ScaleKit will not offer it.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PricingTierSection from '../components/PricingTierSection.astro';
+import FinalCta from '../components/FinalCta.astro';
+import BookCall from '../components/BookCall.astro';
+import Footer from '../components/Footer.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'ScaleKit Features',
+    url: `${siteUrl}/features`,
+    itemListElement: [
+      'Functional Website',
+      'Local SEO',
+      'Missed Call Text-Back',
+      'All-in-One Inbox',
+      'Business Phone',
+      'Automated Review Requests',
+      'One-Click Marketing Campaigns',
+      'Automated Lead Follow-Up',
+    ].map((name, i) => ({ '@type': 'ListItem', position: i + 1, name })),
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'Features', href: '/features' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/scout' },
+      { label: 'Google & Meta Ads', href: '/services/ads' },
+      { label: 'CRM & Automation', href: '/services/automation' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Get Started', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Features | ScaleKit"
+  description="Every feature ScaleKit builds into your system — websites, local SEO, missed-call text-back, all-in-one inbox, review automation, and more, all connected in one place."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <PricingTierSection
+    id="all-features"
+    background="bg"
+    eyebrow="Everything Included"
+    headline="Every Feature Your Business Actually Needs"
+    subheadline="No separate tools, no extra logins — everything below works together inside your ScaleKit system. Each one links to where it's priced."
+    cards={[
+      {
+        name: 'Functional Website',
+        features: [
+          'Mobile-first, lightning-fast load times',
+          'Live in days, not months',
+          'Built to rank and convert, not just look good',
+        ],
+        ctaLabel: 'See Pricing',
+        ctaHref: '/pricing#websites-funnels',
+      },
+      {
+        name: 'Local SEO',
+        features: [
+          'Google Business Profile optimized daily',
+          'Citations built and maintained automatically',
+          'Powered by Scout, ScaleKit’s AI Local SEO agent',
+        ],
+        ctaLabel: 'See Pricing',
+        ctaHref: '/pricing#local-seo',
+      },
+      {
+        name: 'Missed Call Text-Back',
+        features: [
+          'Every missed call gets an automatic text back',
+          'Turns missed calls into booked jobs',
+          'No lead lost just because you couldn’t pick up',
+        ],
+        ctaLabel: 'See Pricing',
+        ctaHref: '/pricing#automation',
+      },
+      {
+        name: 'All-in-One Inbox',
+        features: [
+          'Text, email & social messages in one thread',
+          'Nothing falls through the cracks',
+          'One place to manage every conversation',
+        ],
+        ctaLabel: 'See Pricing',
+        ctaHref: '/pricing#automation',
+      },
+      {
+        name: 'Business Phone',
+        features: [
+          'A dedicated business number',
+          'Kept separate from your personal line',
+          'Included with your website build',
+        ],
+        ctaLabel: 'See Pricing',
+        ctaHref: '/pricing#websites-funnels',
+      },
+      {
+        name: 'Automated Review Requests',
+        features: [
+          'Sent automatically, timed to the right moment',
+          'More 5-star reviews without chasing anyone down',
+          'Built into your CRM, not a separate tool',
+        ],
+        ctaLabel: 'See Pricing',
+        ctaHref: '/pricing#automation',
+      },
+      {
+        name: 'One-Click Marketing Campaigns',
+        features: [
+          'Email & text campaigns to your whole list',
+          'One click, not a rebuild every time',
+          'Part of your CRM & Automation system',
+        ],
+        ctaLabel: 'See Pricing',
+        ctaHref: '/pricing#automation',
+      },
+      {
+        name: 'Automated Lead Follow-Up',
+        features: [
+          'Instant response the moment a lead comes in',
+          'Automated follow-up until they book',
+          'No lead goes cold waiting on a callback',
+        ],
+        ctaLabel: 'See Pricing',
+        ctaHref: '/pricing#automation',
+      },
+    ]}
+  />
+
+  <FinalCta
+    eyebrow="Ready to Get Started?"
+    headline="Which Feature Would Save You the Most Time?"
+    subheadline="Book a free strategy call and we'll map out exactly which system solves your biggest bottleneck first."
+  />
+
+  <BookCall />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

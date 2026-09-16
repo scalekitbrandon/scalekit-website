@@ -1,0 +1,120 @@
+---
+// Same pattern as the other three /services/<core-service> pages:
+// IndustryHero for pain-point framing, then the homepage's own real
+// SaveTimeScale section for the deliverables grid, then the shared
+// Process/TrustStrip/FinalCta/BookCall/Footer stack. Last of the 6 core
+// service pages — all six homepage service CTAs now resolve to a real
+// page.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import SaveTimeScale from '../../components/SaveTimeScale.astro';
+import Process from '../../components/Process.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'AI Agents & Automation',
+    name: 'AI Agents & Solutions for Service Businesses',
+    description: 'ScaleKit builds AI voice agents, chat agents, and custom agentic workflows that handle repetitive work so service businesses can scale without hiring more staff.',
+    url: `${siteUrl}/services/ai-agents`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Get Started', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="AI Agents & Solutions for Service Businesses | ScaleKit"
+  description="ScaleKit builds AI voice agents, chat agents, and custom agentic workflows that handle repetitive work so service businesses can scale without hiring more staff."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="AI Agents & Solutions"
+    headline="Save Time & Scale Without Hiring More Staff"
+    subheadline="Every hour your team spends on repetitive work is an hour they're not spending on customers. We build AI that handles the busywork — so you can grow without growing your headcount."
+    painPoints={[
+      'Calls go unanswered after hours, and those callers just call the next company',
+      'Your team spends hours a week on scheduling and data entry instead of customers',
+      "You can't tell what's actually working without digging through five different tools",
+    ]}
+    ctaLabel="Get Started"
+  />
+
+  <SaveTimeScale
+    eyebrow="What's Included"
+    headlineLine1="Everything Your"
+    headlineLine2="AI Agent Setup Includes"
+    subheadline="Built around what your business actually needs — not a generic bot bolted onto your website."
+    ctaLabel="Get Started"
+    ctaHref="#book-call"
+  />
+
+  <Process />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Answered Call After Hours Actually Worth?"
+    subheadline="Every call that goes to voicemail is a job that goes to whoever picked up. ScaleKit makes sure that's you, every time."
+  />
+
+  <BookCall />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

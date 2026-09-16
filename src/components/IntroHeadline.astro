@@ -1,0 +1,59 @@
+---
+// Small standalone intro headline, sits between the hero and the first
+// service section on the multi-service vertical hub pages. Reusable
+// across all future vertical pages (attorneys, real estate agents,
+// etc.), not just public-adjusters.
+interface Props {
+  eyebrow?: string;
+  headline: string;
+  subheadline?: string;
+}
+
+const { eyebrow, headline, subheadline } = Astro.props;
+---
+
+<section class="intro-headline">
+  <div class="inner">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2 class="headline">{headline}</h2>
+    {subheadline && <p class="sub">{subheadline}</p>}
+  </div>
+</section>
+
+<style>
+  .intro-headline {
+    background: var(--color-bg);
+    padding: var(--space-7) var(--space-6) 0;
+    text-align: center;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 700px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 16px;
+  }
+  .headline {
+    font-size: clamp(26px, 3.4vw, 38px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-fg);
+    margin: 0;
+  }
+  .sub {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-mid);
+    margin: 12px 0 0;
+  }
+
+  @media (max-width: 560px) {
+    .intro-headline { padding: var(--space-6) var(--space-5) 0; }
+  }
+</style>

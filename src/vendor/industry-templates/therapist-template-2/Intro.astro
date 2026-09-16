@@ -1,0 +1,119 @@
+---
+// Therapist Template 2 (group practice) — Intro.
+// Structure cloned from the same reference group-therapy-practice site
+// (two-column "something feels off" copy block, then a 3-image nav-card
+// row linking to Specialties/About/Insights) — colors, copy, and
+// business identity are ScaleKit's own placeholder brand, reskinned to
+// the Willowmere aubergine/amber/ivory palette.
+// PLACEHOLDER: all three nav-card image URLs need real photos before
+// use — no fabricated/stock images are baked in here.
+interface NavCard {
+  imageUrl: string;
+  label: string;
+  href: string;
+}
+
+interface Props {
+  eyebrowHeadline?: string;
+  body?: string;
+  navCards?: NavCard[];
+}
+
+const {
+  eyebrowHeadline = "When you're doing all the right things, but something still feels unsteady.",
+  body = "Many of the people who come to Willowmere are managing full lives — work, relationships, family — and the weight of it all can build quietly until it's hard to ignore. Willowmere Therapy Group brings together licensed therapists who help individuals, couples, and families slow down, understand what they're carrying, and move forward with more clarity.",
+  navCards = [
+    { imageUrl: '[SPECIALTIES_IMAGE_URL]', label: 'Our Specialties', href: '#specialties' },
+    { imageUrl: '[ABOUT_IMAGE_URL]', label: 'About Willowmere', href: '#about' },
+    { imageUrl: '[INSIGHTS_IMAGE_URL]', label: 'Insights & Resources', href: '#insights' },
+  ],
+} = Astro.props;
+---
+
+<section class="intro">
+  <div class="intro-inner">
+    <div class="intro-copy">
+      <h2 class="eyebrow-headline">{eyebrowHeadline}</h2>
+      <p class="body">{body}</p>
+    </div>
+
+    <div class="nav-cards">
+      {navCards.map((card) => (
+        <a href={card.href} class="nav-card">
+          <!-- PLACEHOLDER: replace imageUrl with a real photo before use -->
+          <div class="nav-card-image" style={`background-image: url('${card.imageUrl}');`}></div>
+          <span class="nav-card-label">{card.label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro {
+    font-family: 'Karla', -apple-system, sans-serif;
+    background: #FAF6EF;
+    padding: 100px 40px 80px;
+  }
+  .intro-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  .intro-copy {
+    display: grid;
+    grid-template-columns: 0.85fr 1fr;
+    gap: 80px;
+    margin-bottom: 72px;
+  }
+  .eyebrow-headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.4;
+    color: #4A2545;
+    margin: 0;
+  }
+  .body {
+    font-size: 16.5px;
+    line-height: 1.75;
+    color: #5A4A55;
+    margin: 0;
+  }
+
+  .nav-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .nav-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+  }
+  .nav-card-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+    background-color: #E3D6DE;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 18px;
+    transition: opacity 0.15s;
+  }
+  .nav-card:hover .nav-card-image { opacity: 0.85; }
+  .nav-card-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #C98A3E;
+  }
+
+  @media (max-width: 900px) {
+    .intro-copy { grid-template-columns: 1fr; gap: 28px; }
+    .nav-cards { grid-template-columns: 1fr; gap: 40px; }
+    .intro { padding: 72px 24px 56px; }
+  }
+</style>

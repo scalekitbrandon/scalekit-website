@@ -1,0 +1,118 @@
+---
+// Same pattern as /services/ads.astro: IndustryHero for pain-point
+// framing, then the homepage's own real StopLosingLeads section for the
+// deliverables grid, then the shared Process/TrustStrip/FinalCta/
+// BookCall/Footer stack.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import StopLosingLeads from '../../components/StopLosingLeads.astro';
+import Process from '../../components/Process.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'CRM & Automation',
+    name: 'CRM & Automation for Service Businesses',
+    description: 'ScaleKit builds instant lead response, missed-call text-back, and automated follow-up systems so service businesses never miss a lead.',
+    url: `${siteUrl}/services/automation`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Get Started', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="CRM & Automation for Service Businesses | ScaleKit"
+  description="ScaleKit builds instant lead response, missed-call text-back, and automated follow-up systems so service businesses never miss a lead."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="CRM & Automation"
+    headline="Never Miss Another Lead Again"
+    subheadline="Most leads don't disappear because they weren't interested. They disappear because nobody followed up fast enough. We build the system that never forgets to."
+    painPoints={[
+      'New leads sit in an inbox for hours before anyone responds',
+      "A missed call is a lead who's already calling your competitor",
+      'Every lead, call, and conversation is scattered across five different apps',
+    ]}
+    ctaLabel="Get Started"
+  />
+
+  <StopLosingLeads
+    eyebrow="What's Included"
+    headlineLine1="Everything Your"
+    headlineLine2="Automation System Includes"
+    subheadline="One connected system — not a patchwork of apps that don't talk to each other."
+    ctaLabel="Get Started"
+    ctaHref="#book-call"
+  />
+
+  <Process />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Lead That Doesn't Slip Through the Cracks Worth?"
+    subheadline="Every lead that waits too long for a response is a job that goes to whoever called back first. ScaleKit makes sure that's you."
+  />
+
+  <BookCall />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

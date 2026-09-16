@@ -1,0 +1,98 @@
+---
+// Agency & Consultant industry template — Header/Nav.
+// Structure cloned from a reference AI-SaaS product's homepage (minimal
+// nav: just logo + single trial CTA, no link clutter) — colors, logo,
+// business name, and copy are ScaleKit's own placeholder brand, not
+// carried over from the reference.
+// This is the first template in the set that isn't a local-service
+// trade — it's a SaaS/software product for agencies and consultants, so
+// the whole visual language is different on purpose: gradient
+// purple-to-blue instead of a flat trade-industry palette, `Sora` for
+// headlines instead of Oswald/Fraunces/Manrope, and a nav stripped down
+// to just logo + CTA the way real SaaS landing pages do.
+// PLACEHOLDER: business name and CTA target — swap for a real client's
+// info when this template is used for an actual agency/SaaS client build.
+interface Props {
+  businessName?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  businessName = 'Nova',
+  ctaLabel = 'Start Free Trial',
+  ctaHref = '#trial',
+} = Astro.props;
+---
+
+<header class="agency-header">
+  <div class="header-inner">
+    <a href="#home" class="logo">
+      <svg viewBox="0 0 24 24" fill="none" class="logo-mark">
+        <path d="M12 2L14 9L21 11L14 13L12 20L10 13L3 11L10 9L12 2Z" fill="url(#agencyLogoGrad)"/>
+        <defs>
+          <linearGradient id="agencyLogoGrad" x1="3" y1="2" x2="21" y2="20" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#6D4FF0"/>
+            <stop offset="1" stop-color="#3E7BFA"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="logo-text">{businessName}</span>
+    </a>
+
+    <a href={ctaHref} class="cta">{ctaLabel}</a>
+  </div>
+</header>
+
+<style>
+  .agency-header {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #ffffff;
+    border-bottom: 1px solid #EDEEF7;
+  }
+  .header-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+  }
+  .logo-mark { width: 22px; height: 22px; flex-shrink: 0; }
+  .logo-text {
+    font-family: 'Sora', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, #6D4FF0, #3E7BFA);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #6D4FF0, #3E7BFA);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+  .cta:hover { opacity: 0.88; }
+
+  @media (max-width: 560px) {
+    .header-inner { padding: 0 20px; }
+  }
+</style>

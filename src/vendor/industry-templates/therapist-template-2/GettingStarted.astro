@@ -1,0 +1,129 @@
+---
+// Therapist Template 2 (group practice) — Getting Started.
+// Structure cloned from the same reference site (dark full-width photo
+// band, centered eyebrow + headline, 3-step numbered process row) —
+// colors and copy reskinned to Willowmere's palette, not carried over
+// from the reference.
+// PLACEHOLDER: [GETTING_STARTED_BG_URL] needs a real photo before use —
+// no fabricated/stock image is baked in here.
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  headlineEmphasis?: string;
+  bgImageUrl?: string;
+  steps?: Step[];
+}
+
+const {
+  eyebrow = 'STARTING THERAPY',
+  headline = 'Getting started is',
+  headlineEmphasis = 'simple',
+  bgImageUrl = '[GETTING_STARTED_BG_URL]',
+  steps = [
+    { number: '01', title: 'Choose a Time', description: 'Use the scheduler below to choose a consultation time that works for you.' },
+    { number: '02', title: "Share What You're Looking For", description: "During your consultation, we'll talk through what's bringing you in and what kind of support may be the best fit." },
+    { number: '03', title: 'Begin the Work', description: "From there, we'll help connect you with the right therapist and take the next step at a pace that feels manageable." },
+  ],
+} = Astro.props;
+---
+
+<section class="getting-started">
+  <!-- PLACEHOLDER: replace bgImageUrl with a real photo before use -->
+  <div class="started-bg" style={`background-image: linear-gradient(rgba(43,27,41,0.78), rgba(43,27,41,0.82)), url('${bgImageUrl}');`}></div>
+
+  <div class="started-inner">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2 class="headline">{headline} <span>{headlineEmphasis}</span></h2>
+
+    <div class="steps">
+      {steps.map((step) => (
+        <div class="step">
+          <span class="step-number">{step.number}</span>
+          <h3 class="step-title">{step.title}</h3>
+          <p class="step-desc">{step.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .getting-started {
+    position: relative;
+    font-family: 'Karla', -apple-system, sans-serif;
+    padding: 100px 40px;
+    overflow: hidden;
+    text-align: center;
+  }
+  .started-bg {
+    position: absolute;
+    inset: 0;
+    background-color: #2B1B29;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .started-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #C98A3E;
+    margin: 0 0 16px;
+  }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(28px, 3.4vw, 40px);
+    color: #FFFFFF;
+    margin: 0 0 64px;
+  }
+  .headline span { font-weight: 700; color: #E3C08A; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    text-align: left;
+  }
+  .step-number {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #C98A3E;
+    margin-bottom: 14px;
+  }
+  .step-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0 0 10px;
+  }
+  .step-desc {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+  }
+
+  @media (max-width: 800px) {
+    .steps { grid-template-columns: 1fr; gap: 32px; }
+    .headline { margin-bottom: 44px; }
+    .getting-started { padding: 72px 24px; }
+  }
+</style>

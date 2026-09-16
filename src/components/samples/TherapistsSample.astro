@@ -1,0 +1,26 @@
+---
+// Reusable "Therapists & Advisors" template sample — the full
+// 9-section page (Header through Footer), extracted from
+// therapists-advisors.astro so every /services/<industry> page's
+// TemplateShowcase can include it as a cross-reference sample without
+// duplicating all 9 imports + JSX on every page.
+import TherapistsHeader from '../../vendor/industry-templates/therapists-advisors/Header.astro';
+import TherapistsHero from '../../vendor/industry-templates/therapists-advisors/Hero.astro';
+import TherapistsSpecialties from '../../vendor/industry-templates/therapists-advisors/Specialties.astro';
+import TherapistsIntro from '../../vendor/industry-templates/therapists-advisors/Intro.astro';
+import TherapistsFlexible from '../../vendor/industry-templates/therapists-advisors/Flexible.astro';
+import TherapistsHowItHelps from '../../vendor/industry-templates/therapists-advisors/HowItHelps.astro';
+import TherapistsFAQ from '../../vendor/industry-templates/therapists-advisors/FAQ.astro';
+import TherapistsCtaBand from '../../vendor/industry-templates/therapists-advisors/CtaBand.astro';
+import TherapistsFooter from '../../vendor/industry-templates/therapists-advisors/Footer.astro';
+---
+
+<TherapistsHeader />
+<TherapistsHero heroImageUrl="https://assets.cdn.filesafe.space/xqDaZG0jn1TlXwXyX8Jk/media/6aa6fbbf85b9b36bdb29026e.jpg" />
+<TherapistsSpecialties />
+<TherapistsIntro />
+<TherapistsFlexible />
+<TherapistsHowItHelps />
+<TherapistsFAQ />
+<TherapistsCtaBand />
+<TherapistsFooter />

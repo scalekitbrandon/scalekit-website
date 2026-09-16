@@ -1,0 +1,167 @@
+---
+// Section 10 — Process / How It Works. Real, approved copy per copy.md.
+// NOTE: copy.md explicitly dropped an unconfirmed "no contracts" claim
+// from the original reference clone — don't reintroduce it without real
+// confirmed contract terms.
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  steps?: Step[];
+  ctaLabel?: string;
+  ctaMicrocopy?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = 'How We Work',
+  headline = 'Simple To Start. Built To Grow With You.',
+  steps = [
+    { number: '01', title: 'Book Your Call', description: '20 minutes. We map your leads, your gaps, and what\'s possible.' },
+    { number: '02', title: 'We Build Your System', description: 'Live in 7–14 days. Foundation first, per your Growth Journey stage.' },
+    { number: '03', title: 'You Launch', description: 'We train you — and your team — to actually run it.' },
+    { number: '04', title: 'We Optimize', description: 'As your business grows, we add the next stage — automation, intelligence, custom AI.' },
+  ],
+  ctaLabel = 'Book Your Free Strategy Call',
+  ctaMicrocopy = 'Free. 20 minutes. No pressure.',
+  ctaHref = '#book-call',
+} = Astro.props;
+---
+
+<section class="process" id="process">
+  <div class="inner">
+
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+    </div>
+
+    <div class="step-list">
+      {steps.map((step) => (
+        <div class="step">
+          <div class="step-number">{step.number}</div>
+          <div class="step-body">
+            <h3 class="step-title">{step.title}</h3>
+            <p class="step-desc">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="cta-row">
+      <a href={ctaHref} class="cta">
+        {ctaLabel}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+      <p class="cta-micro">{ctaMicrocopy}</p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .process {
+    background: var(--color-bg-alt);
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 800px; margin: 0 auto; }
+
+  .header { text-align: center; margin: 0 auto var(--space-8); }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 18px;
+  }
+  .headline {
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-fg);
+    margin: 0;
+  }
+
+  .step-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--space-8);
+  }
+  .step {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+    padding-bottom: var(--space-6);
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .step:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .step-number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: var(--color-fg);
+    color: var(--color-primary);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .step-body { flex: 1; padding-top: 4px; }
+  .step-title {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.012em;
+    color: var(--color-fg);
+    margin: 0 0 8px;
+  }
+  .step-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-mid);
+    margin: 0;
+  }
+
+  .cta-row { text-align: center; }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 16px 32px;
+    font-size: 15.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .cta:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+  .cta svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .cta-micro {
+    font-size: 13px;
+    color: var(--color-text-light);
+    margin: var(--space-3) 0 0;
+  }
+
+  @media (max-width: 560px) {
+    .process { padding: var(--space-7) var(--space-5); }
+    .step { flex-direction: column; gap: var(--space-3); }
+  }
+</style>

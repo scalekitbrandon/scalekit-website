@@ -1,0 +1,89 @@
+---
+// "Not Sure Where to Start?" closing CTA card — inset rounded dark card on
+// a light section, structure adapted from a reference layout. Colors/type
+// are ScaleKit's own (black card + lime grid texture + lime pill CTA),
+// not carried over from the reference (which used navy + red).
+interface Props {
+  headline?: string;
+  subheadline?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  headline = 'Not Sure Where to Start?',
+  subheadline = "Book a free strategy call and we'll walk you through the best ROI strategy for your business — no generic pitch, just the moves that'll actually make you money first.",
+  ctaLabel = 'Book Your Free Strategy Call',
+  ctaHref = '#book-call',
+} = Astro.props;
+---
+
+<section class="start-cta">
+  <div class="card">
+    <h2 class="headline">{headline}</h2>
+    <p class="sub">{subheadline}</p>
+    <a href={ctaHref} class="cta">
+      {ctaLabel}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .start-cta {
+    background: var(--color-bg);
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .card {
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: var(--color-dark-bg);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    border-radius: 28px;
+    padding: var(--space-8) var(--space-7);
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  }
+  .headline {
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-dark-fg);
+    margin: 0 0 var(--space-4);
+  }
+  .sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 620px;
+    margin: 0 auto var(--space-6);
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 17px 32px;
+    font-size: 15.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .cta:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+  .cta svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  @media (max-width: 640px) {
+    .start-cta { padding: var(--space-7) var(--space-5); }
+    .card { padding: var(--space-7) var(--space-5); border-radius: 20px; }
+  }
+</style>

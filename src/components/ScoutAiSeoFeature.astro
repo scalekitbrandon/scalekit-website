@@ -1,0 +1,343 @@
+---
+// "Implement AI SEO Strategies for Gemini & ChatGPT" — feature row 5 of
+// "How Scout Works" on /scout. Structure cloned from the reference's
+// diagram (a branded "x AI SEO" pill connecting down to a row of
+// platform icons, with two floating "verified" checkmark badges) —
+// colors, copy, and the pill treatment are ScaleKit's own (lime/black
+// "Scout x AI SEO" pill instead of the reference's purple "paige x AI
+// SEO"). Platform icons follow the same simplified-approximation
+// approach as ScoutCitationsFeature: Google Maps and ChatGPT reuse the
+// exact icon treatment from that section for visual consistency across
+// the page; Gemini is a new 4-point gradient star approximation; the
+// storefront icon represents the Google Business Profile listing itself.
+// Orientation: image right, per direction.
+interface AiPlatform {
+  icon: string;
+  label?: string;
+}
+
+interface Props {
+  headline?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  paragraph3?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  pillLabel?: string;
+  platforms?: AiPlatform[];
+}
+
+const {
+  headline = 'Leverage AI SEO Strategies For ChatGPT & Gemini',
+  paragraph1 = "The way customers search for local businesses is changing. Scout helps your business stay visible across Google's AI-powered search experiences, Gemini, ChatGPT, Perplexity, and other AI search platforms.",
+  paragraph2 = 'Scout automates the ongoing AI SEO work that helps these platforms understand your business, trust your information, and surface you when potential customers are searching for the services you provide.',
+  paragraph3 = 'More visibility across Google and AI search. More opportunities to get discovered. All working automatically.',
+  ctaLabel = 'Get Started',
+  ctaHref = '#book-call',
+  pillLabel = 'Scout',
+  platforms = [
+    { icon: 'gemini' },
+    { icon: 'gbp' },
+    { icon: 'maps' },
+    { icon: 'chatgpt' },
+  ],
+} = Astro.props;
+
+const iconMeta: Record<string, { svg: string; bg: string; fg: string; filled?: boolean; gradient?: boolean; multi?: boolean }> = {
+  gemini: {
+    svg: '<path d="M12 2C12 8 16 12 22 12C16 12 12 16 12 22C12 16 8 12 2 12C8 12 12 8 12 2Z"/>',
+    bg: '#ffffff',
+    fg: 'url(#geminiGrad)',
+    filled: true,
+    gradient: true,
+  },
+  gbp: {
+    svg: '<path d="M4 9l8-5.5L20 9"/><path d="M5 9v11h14V9"/><path d="M9.5 20v-6h5v6"/><rect x="6" y="6.2" width="12" height="2.6" fill="#3B5BDB" stroke="none"/>',
+    bg: '#ffffff',
+    fg: '#3B5BDB',
+  },
+  maps: {
+    // Layered: a light "map card" square behind a solid pin, closer to
+    // Google Maps' actual combined map+pin mark than a bare pin alone.
+    svg: '<rect x="3" y="4" width="16" height="16" rx="3" fill="#E8F0FE" stroke="none"/><path d="M6.5 8.5L11 6.5l4.5 2v8L11 18.5l-4.5-2z" fill="none" stroke="#4285F4" stroke-width="1.1"/><g transform="translate(9.5,6.5)"><path d="M8 20C8 20 15 14.5 15 9C15 4.58 11.87 1 8 1C4.13 1 1 4.58 1 9C1 14.5 8 20 8 20Z" fill="#EA4335" stroke="none"/><circle cx="8" cy="9" r="3" fill="#ffffff" stroke="none"/></g>',
+    bg: '#ffffff',
+    fg: '#EA4335',
+    multi: true,
+  },
+  chatgpt: {
+    // A ring of six petal-circles approximating the OpenAI "flower knot"
+    // mark, instead of a generic sparkle — closer to the reference
+    // without tracing the exact official artwork.
+    svg: '<circle cx="18" cy="12" r="3.4" fill="#6B9080" stroke="none"/><circle cx="15" cy="17.2" r="3.4" fill="#6B9080" stroke="none"/><circle cx="9" cy="17.2" r="3.4" fill="#6B9080" stroke="none"/><circle cx="6" cy="12" r="3.4" fill="#6B9080" stroke="none"/><circle cx="9" cy="6.8" r="3.4" fill="#6B9080" stroke="none"/><circle cx="15" cy="6.8" r="3.4" fill="#6B9080" stroke="none"/><circle cx="12" cy="12" r="3.2" fill="#ffffff" stroke="none"/>',
+    bg: '#ffffff',
+    fg: '#6B9080',
+    multi: true,
+  },
+};
+
+const badgeMeta: Record<string, string> = {
+  gemini: 'Gemini',
+  chatgpt: 'ChatGPT',
+};
+---
+
+<div class="aiseo-feature">
+  <div class="aiseo-copy">
+    <h3 class="aiseo-headline">{headline}</h3>
+    <p class="aiseo-p">{paragraph1}</p>
+    <p class="aiseo-p">{paragraph2}</p>
+    <p class="aiseo-p">{paragraph3}</p>
+    <a href={ctaHref} class="aiseo-cta">
+      {ctaLabel}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+
+  <div class="aiseo-graphic">
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <linearGradient id="geminiGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#4285F4"/>
+          <stop offset="35%" stop-color="#9B72CB"/>
+          <stop offset="70%" stop-color="#D96570"/>
+          <stop offset="100%" stop-color="#F2A93B"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div class="diagram">
+      <span class="pill">
+        <span class="pill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+        </span>
+        {pillLabel} <span class="pill-x">x</span> AI SEO
+      </span>
+      <span class="stem-top"></span>
+      <span class="node-dot"></span>
+      <span class="stem-bottom"></span>
+
+      <div class="platform-row">
+        <span class="row-line"></span>
+        {platforms.map((p) => {
+          const meta = iconMeta[p.icon];
+          return (
+            <span class="platform-icon" style={`background:${meta.bg};`}>
+              {meta.multi ? (
+                <svg viewBox="0 0 24 24" set:html={meta.svg} />
+              ) : (
+                <svg viewBox="0 0 24 24" fill={meta.filled ? meta.fg : 'none'} stroke={meta.gradient ? 'none' : meta.fg} stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={meta.svg} />
+              )}
+            </span>
+          );
+        })}
+      </div>
+
+      <div class="verify-badge verify-gemini">
+        <span class="verify-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </span>
+        {badgeMeta.gemini}
+      </div>
+      <div class="verify-badge verify-chatgpt">
+        <span class="verify-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </span>
+        {badgeMeta.chatgpt}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .aiseo-feature {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--space-8);
+    align-items: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .aiseo-headline {
+    font-size: clamp(28px, 3.4vw, 38px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4);
+  }
+  .aiseo-p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-4);
+    max-width: 480px;
+  }
+  .aiseo-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 16px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    margin-top: var(--space-2);
+    transition: background 0.15s;
+  }
+  .aiseo-cta:hover { background: var(--color-primary-hover); }
+  .aiseo-cta svg { width: 15px; height: 15px; }
+
+  .aiseo-graphic {
+    position: relative;
+    background-color: var(--color-bg-alt);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7) var(--space-6);
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+  }
+
+  .diagram {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-fg);
+    color: #ffffff;
+    border-radius: var(--radius-pill);
+    padding: 12px 26px 12px 12px;
+    font-size: 16px;
+    font-weight: 800;
+    box-shadow: 0 14px 30px rgba(10, 10, 10, 0.18);
+  }
+  .pill-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .pill-icon svg { width: 15px; height: 15px; stroke: var(--color-primary-fg); }
+  .pill-x { opacity: 0.6; font-weight: 600; }
+
+  .stem-top {
+    width: 1px;
+    height: 20px;
+    background: var(--color-border);
+  }
+  .node-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-fg);
+    margin: 2px 0;
+  }
+  .stem-bottom {
+    width: 1px;
+    height: 20px;
+    background: var(--color-border);
+  }
+
+  .platform-row {
+    position: relative;
+    display: flex;
+    gap: 22px;
+    margin-top: 4px;
+  }
+  .row-line {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    right: 8%;
+    height: 1px;
+    background: var(--color-border);
+    z-index: 0;
+  }
+  .platform-icon {
+    position: relative;
+    z-index: 1;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 12px 26px rgba(10, 10, 10, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .platform-icon svg { width: 32px; height: 32px; }
+
+  .verify-badge {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border-radius: var(--radius-pill);
+    padding: 8px 16px 8px 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-fg);
+    box-shadow: 0 12px 26px rgba(10, 10, 10, 0.1);
+  }
+  .verify-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .verify-check svg { width: 10px; height: 10px; }
+  .verify-gemini { left: 8%; bottom: 18px; }
+  .verify-gemini::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    bottom: 100%;
+    width: 1px;
+    height: 22px;
+    background: var(--color-border);
+  }
+  .verify-chatgpt { right: 8%; top: 18px; }
+  .verify-chatgpt::before {
+    content: '';
+    position: absolute;
+    right: 30px;
+    top: 100%;
+    width: 1px;
+    height: 22px;
+    background: var(--color-border);
+  }
+
+  @media (max-width: 900px) {
+    .aiseo-feature { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .aiseo-graphic { padding: var(--space-6) var(--space-4); min-height: 460px; }
+    .platform-row { gap: 12px; }
+    .platform-icon { width: 56px; height: 56px; }
+    .platform-icon svg { width: 24px; height: 24px; }
+    .verify-gemini { left: 4%; bottom: 8px; }
+    .verify-chatgpt { right: 4%; top: 8px; }
+    .verify-badge { font-size: 11.5px; padding: 6px 12px 6px 6px; }
+  }
+</style>

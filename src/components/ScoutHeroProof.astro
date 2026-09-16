@@ -1,0 +1,455 @@
+---
+// Hero "product proof" collage for /scout, placed below the two hero
+// CTAs. Structure cloned from a reference AI-SEO landing page's hero
+// graphic (a "Google Map Ranking" card + a phone mockup of a GBP profile
+// with floating growth/calls stats, a review-summary card, and AI
+// platform badges with dashed connectors) — colors are ScaleKit's own
+// (lime/black instead of purple/blue). Every business name, address,
+// reviewer, and stat is an invented placeholder ("Your Business Name"
+// ranked #1, two generic invented competitors) — not a real company or
+// a fabricated claim about ScaleKit/Scout itself, same discipline as
+// every other mockup on this page. The ChatGPT and Gemini icon
+// treatments are reused verbatim from ScoutAiSeoFeature.astro for visual
+// consistency across the page.
+interface RankItem {
+  name: string;
+  category: string;
+  rating?: string;
+  reviewCount?: string;
+  distance?: string;
+}
+
+interface ReviewItem {
+  name: string;
+  quote: string;
+}
+
+interface Props {
+  ribbonLabel?: string;
+  topBusiness?: RankItem;
+  competitors?: RankItem[];
+  phoneCategory?: string;
+  growthStat?: string;
+  callsStat?: string;
+  ratingSummary?: string;
+  reviewCount?: string;
+  reviews?: ReviewItem[];
+}
+
+const {
+  ribbonLabel = 'AI SEO Included',
+  topBusiness = { name: 'Your Business Name', category: 'Local Service Business', rating: '4.9', reviewCount: '5k', distance: '1.2 mi' },
+  competitors = [
+    { name: 'Coastal Home Services', category: 'Home Services', rating: '4.0', reviewCount: '77', distance: '4.1 mi' },
+    { name: 'Summit Repair Co.', category: 'Home Services' },
+  ],
+  phoneCategory = 'Local Service Business',
+  growthStat = '83%',
+  callsStat = '500+',
+  ratingSummary = '5.0',
+  reviewCount = '340',
+  reviews = [
+    { name: 'Alex R.', quote: 'Great experience from start to finish.' },
+    { name: 'Jamie T.', quote: 'Fast, professional, and easy to work with.' },
+  ],
+} = Astro.props;
+---
+
+<div class="hero-proof">
+  <span class="ribbon">{ribbonLabel}</span>
+
+  <span class="ai-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.8L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.2L12 3z"/></svg>
+  </span>
+
+  <div class="platform-rail">
+    <span class="platform-badge">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="12" r="3.4" fill="#0B0B0B"/><circle cx="15" cy="17.2" r="3.4" fill="#0B0B0B"/><circle cx="9" cy="17.2" r="3.4" fill="#0B0B0B"/><circle cx="6" cy="12" r="3.4" fill="#0B0B0B"/><circle cx="9" cy="6.8" r="3.4" fill="#0B0B0B"/><circle cx="15" cy="6.8" r="3.4" fill="#0B0B0B"/><circle cx="12" cy="12" r="3.2" fill="#ffffff"/></svg>
+    </span>
+    <span class="platform-badge">
+      <svg width="0" height="0" style="position:absolute">
+        <defs>
+          <linearGradient id="heroGeminiGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#4285F4"/>
+            <stop offset="35%" stop-color="#9B72CB"/>
+            <stop offset="70%" stop-color="#D96570"/>
+            <stop offset="100%" stop-color="#F2A93B"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2C12 8 16 12 22 12C16 12 12 16 12 22C12 16 8 12 2 12C8 12 12 8 12 2Z" fill="url(#heroGeminiGrad)"/></svg>
+    </span>
+  </div>
+
+  <div class="main-panel">
+    <div class="ranking-card">
+      <p class="ranking-header">
+        <svg viewBox="0 0 24 24" fill="#EA4335"><path d="M12 21C12 21 19 15.5 19 10C19 5.58 15.87 2 12 2C8.13 2 5 5.58 5 10C5 15.5 12 21 12 21Z"/><circle cx="12" cy="10" r="3" fill="#ffffff"/></svg>
+        Google Map Ranking
+      </p>
+
+      <div class="rank-item is-first">
+        <span class="rank-badge">Rank #1</span>
+        <span class="rank-icon rank-icon-0"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><path d="M4 20h16M7 20V10m5 10V4m5 16v-8"/></svg></span>
+        <div class="rank-info">
+          <p class="rank-name">{topBusiness.name}</p>
+          <p class="rank-cat">{topBusiness.category}</p>
+          <p class="rank-meta">{topBusiness.rating} ★★★★★ ({topBusiness.reviewCount}) · {topBusiness.distance}</p>
+          <p class="rank-address">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="2"><path d="M12 21C12 21 19 15.5 19 10C19 5.58 15.87 2 12 2C8.13 2 5 5.58 5 10C5 15.5 12 21 12 21Z"/></svg>
+            123 Main Street, Your City, ST
+          </p>
+        </div>
+      </div>
+
+      {competitors.map((c, i) => (
+        <div class="rank-item">
+          <span class={`rank-icon rank-icon-${i + 1}`}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="8" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+          </span>
+          <div class="rank-info">
+            <p class="rank-name">{c.name}</p>
+            <p class="rank-cat">{c.category}</p>
+            {c.rating && <p class="rank-meta">{c.rating} ★★★★ ({c.reviewCount}) · {c.distance}</p>}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="phone-mock">
+      <div class="phone-frame">
+        <div class="phone-photo">
+          <!-- Custom illustration of a service business owner at work
+               (worker + wrench + toolbox) rather than a fabricated or
+               unlicensed stock photo — same discipline as the inspector
+               illustration in ScoutSocialFeature.astro. -->
+          <svg viewBox="0 0 320 200" class="worker-illustration" fill="none">
+            <line x1="40" y1="188" x2="280" y2="188" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+            <g stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="150" cy="78" r="18"/>
+              <path d="M150 96v44"/>
+              <path d="M150 108h-26l-10 32"/>
+              <path d="M150 108h28l16-22"/>
+              <path d="M150 140l-16 42"/>
+              <path d="M150 140l16 42"/>
+            </g>
+            <path d="M133 74a17 17 0 0 1 34 0" fill="var(--color-primary)" stroke="none"/>
+            <rect x="163" y="70" width="16" height="6" rx="2" fill="var(--color-primary)"/>
+            <g transform="translate(196,58) rotate(24)">
+              <rect x="-4" y="-16" width="8" height="24" rx="2" fill="var(--color-primary)"/>
+              <circle cx="0" cy="-18" r="7" fill="none" stroke="var(--color-primary)" stroke-width="3"/>
+            </g>
+            <g stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="92" y="154" width="32" height="20" rx="2"/>
+              <path d="M100 154v-6a4 4 0 0 1 8 0v6"/>
+            </g>
+          </svg>
+        </div>
+        <div class="phone-info">
+          <span class="phone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><path d="M4 20h16M7 20V10m5 10V4m5 16v-8"/></svg></span>
+          <div>
+            <p class="phone-name">{topBusiness.name}</p>
+            <p class="phone-meta">{topBusiness.rating} ★★★★★ ({topBusiness.reviewCount}) · {phoneCategory}</p>
+          </div>
+        </div>
+        <div class="phone-tabs">
+          <span class="is-active">Overview</span>
+          <span>Services</span>
+          <span>Reviews</span>
+        </div>
+        <div class="phone-actions">
+          <div class="phone-action"><span class="phone-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="1.8"><path d="M22 16.92V19.92C22.0011 20.4853 21.7669 21.0251 21.3533 21.4132C20.9397 21.8013 20.3871 22.0067 19.823 21.98C16.7428 21.6227 13.7893 20.5805 11.19 18.93C8.77383 17.4233 6.72534 15.3748 5.21801 12.96C3.56226 10.3484 2.51997 7.3801 2.17001 4.28C2.1437 3.71754 2.34727 3.16776 2.73386 2.75523C3.12045 2.34269 3.65653 2.10713 4.22001 2.11H7.22001C8.10561 2.10083 8.86143 2.73545 9.00001 3.61C9.12662 4.48 9.34688 5.33422 9.65001 6.16C9.89284 6.78937 9.7418 7.50207 9.26001 7.98L8.09001 9.15C9.51356 11.6488 11.5712 13.7065 14.07 15.13L15.24 13.96C15.7179 13.4782 16.4306 13.3272 17.06 13.57C17.8858 13.8731 18.74 14.0934 19.61 14.22C20.4969 14.3598 21.1345 15.1302 21.12 16.02L22 16.92Z"/></svg></span><span>Call</span></div>
+          <div class="phone-action"><span class="phone-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="1.8"><path d="M12 21C12 21 19 15.5 19 10C19 5.58 15.87 2 12 2C8.13 2 5 5.58 5 10C5 15.5 12 21 12 21Z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Directions</span></div>
+          <div class="phone-action"><span class="phone-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>Message</span></div>
+          <div class="phone-action"><span class="phone-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--color-fg)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20"/></svg></span><span>Website</span></div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-growth">
+        <p class="stat-label">Growth after Scout</p>
+        <p class="stat-value">{growthStat} <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></p>
+      </div>
+      <div class="stat-card stat-calls">
+        <p class="stat-label">Calls/month</p>
+        <div class="stat-calls-row">
+          <p class="stat-value">{callsStat}</p>
+          <div class="mini-bars">
+            <span style="height:30%"></span><span style="height:45%"></span><span style="height:38%"></span>
+            <span style="height:60%"></span><span style="height:50%"></span><span style="height:75%"></span>
+            <span style="height:68%"></span><span style="height:90%"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-float">
+    <div class="reviews-summary">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#4285F4"/><path d="M8 12l3 3 5-6" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="summary-rating">{ratingSummary}</span>
+      <span class="summary-stars">★★★★★</span>
+      <span class="summary-count">{reviewCount} Reviews</span>
+    </div>
+    {reviews.map((r) => (
+      <div class="review-row">
+        <span class="review-avatar"></span>
+        <div>
+          <p class="review-name">{r.name} <span class="review-stars">★★★★★</span></p>
+          <p class="review-quote">{r.quote}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .hero-proof {
+    position: relative;
+    max-width: 1000px;
+    margin: 64px auto 0;
+    padding: 0 60px 90px;
+  }
+
+  .ribbon {
+    position: absolute;
+    top: -18px;
+    left: 40px;
+    transform: rotate(-6deg);
+    background: var(--color-fg);
+    color: var(--color-primary);
+    font-size: 13px;
+    font-weight: 800;
+    padding: 8px 16px;
+    border-radius: 6px;
+    z-index: 3;
+    white-space: nowrap;
+  }
+
+  .ai-badge {
+    position: absolute;
+    top: -10px;
+    right: 30px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 14px 30px rgba(10, 10, 10, 0.18);
+    z-index: 3;
+  }
+  .ai-badge svg { width: 28px; height: 28px; }
+
+  .platform-rail {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    z-index: 2;
+  }
+  .platform-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 10px 22px rgba(10, 10, 10, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .platform-badge svg { width: 26px; height: 26px; }
+
+  .main-panel {
+    position: relative;
+    background-color: var(--color-bg-alt);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    gap: var(--space-5);
+    text-align: left;
+  }
+
+  .ranking-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    box-shadow: 0 16px 36px rgba(10, 10, 10, 0.1);
+  }
+  .ranking-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-3);
+  }
+  .ranking-header svg { width: 18px; height: 18px; }
+
+  .rank-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+  }
+  .rank-item.is-first {
+    border: 1.5px solid var(--color-fg);
+    background: var(--color-bg);
+  }
+  .rank-badge {
+    position: absolute;
+    top: -10px;
+    right: 8px;
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+  }
+  .rank-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .rank-icon svg { width: 16px; height: 16px; }
+  .rank-icon-0 { background: var(--color-fg); }
+  .rank-icon-1 { background: #6D4FF0; }
+  .rank-icon-2 { background: #3E7BFA; }
+  .rank-name { font-size: 12.5px; font-weight: 800; color: var(--color-fg); margin: 0; }
+  .rank-cat { font-size: 10.5px; color: var(--color-text-light); margin: 1px 0 3px; }
+  .rank-meta { font-size: 10.5px; color: var(--color-text-mid); margin: 0; }
+  .rank-address {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: var(--color-text-light);
+    margin: 3px 0 0;
+  }
+  .rank-address svg { width: 10px; height: 10px; }
+
+  .phone-mock { position: relative; }
+  .phone-frame {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 20px 44px rgba(10, 10, 10, 0.14);
+  }
+  .phone-photo {
+    aspect-ratio: 16 / 10;
+    background: var(--color-fg);
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .phone-photo svg.worker-illustration { width: 100%; height: 100%; display: block; }
+  .phone-info { display: flex; align-items: center; gap: 8px; padding: var(--space-3) var(--space-3) 8px; }
+  .phone-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    background: var(--color-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .phone-icon svg { width: 14px; height: 14px; }
+  .phone-name { font-size: 12.5px; font-weight: 800; color: var(--color-fg); margin: 0; }
+  .phone-meta { font-size: 10px; color: var(--color-text-mid); margin: 1px 0 0; }
+  .phone-tabs {
+    display: flex;
+    gap: 14px;
+    padding: 0 var(--space-3) 8px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--color-text-light);
+  }
+  .phone-tabs .is-active { color: var(--color-fg); }
+  .phone-actions { display: flex; justify-content: space-between; padding: var(--space-3); }
+  .phone-action { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 8.5px; font-weight: 700; color: var(--color-fg); }
+  .phone-action-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.2px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .phone-action-icon svg { width: 12px; height: 12px; }
+
+  .stat-card {
+    position: absolute;
+    background: #ffffff;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    box-shadow: 0 12px 26px rgba(10, 10, 10, 0.12);
+  }
+  .stat-growth { top: 20px; right: -20px; }
+  .stat-calls { bottom: 20px; right: -20px; }
+  .stat-label { font-size: 9.5px; color: var(--color-text-mid); margin: 0 0 2px; }
+  .stat-value {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--color-fg);
+    margin: 0;
+  }
+  .stat-value svg { width: 12px; height: 12px; }
+  .stat-calls-row { display: flex; align-items: flex-end; gap: 8px; }
+  .mini-bars { display: flex; align-items: flex-end; gap: 2px; height: 22px; }
+  .mini-bars span { display: block; width: 3px; background: var(--color-primary); border-radius: 1px; }
+
+  .reviews-float {
+    position: absolute;
+    left: -20px;
+    bottom: 0;
+    width: 260px;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    box-shadow: 0 20px 44px rgba(10, 10, 10, 0.14);
+    text-align: left;
+  }
+  .reviews-summary { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--color-border); }
+  .reviews-summary svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .summary-rating { font-size: 14px; font-weight: 800; color: var(--color-fg); }
+  .summary-stars { font-size: 11px; color: var(--color-primary-outline); }
+  .summary-count { font-size: 10.5px; color: var(--color-text-light); }
+  .review-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  .review-row:last-child { margin-bottom: 0; }
+  .review-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--color-bg-alt); border: 1px solid var(--color-border); flex-shrink: 0; }
+  .review-name { font-size: 11px; font-weight: 700; color: var(--color-fg); margin: 0; }
+  .review-stars { color: var(--color-primary-outline); font-size: 10px; }
+  .review-quote { font-size: 10.5px; color: var(--color-text-mid); margin: 2px 0 0; }
+
+  @media (max-width: 900px) {
+    .hero-proof { padding: 0 20px 60px; }
+    .ribbon { left: 10px; }
+    .ai-badge { right: 0; }
+    .platform-rail { display: none; }
+    .main-panel { grid-template-columns: 1fr; }
+    .stat-growth, .stat-calls { position: static; margin-top: 10px; }
+    .reviews-float { position: static; width: 100%; margin-top: var(--space-4); }
+  }
+</style>

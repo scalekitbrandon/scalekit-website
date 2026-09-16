@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import IndustryHero from '../../components/IndustryHero.astro';
+import TemplateShowcase from '../../components/TemplateShowcase.astro';
+import ProcessCircles from '../../components/ProcessCircles.astro';
+import FinalCta from '../../components/FinalCta.astro';
+import BookCall from '../../components/BookCall.astro';
+import Footer from '../../components/Footer.astro';
+import RoofingSample from '../../components/samples/RoofingSample.astro';
+import AnchorSample from '../../components/samples/AnchorSample.astro';
+import PaintingSample from '../../components/samples/PaintingSample.astro';
+import LandscapingSample from '../../components/samples/LandscapingSample.astro';
+import RestorationSample from '../../components/samples/RestorationSample.astro';
+
+const siteUrl = Astro.site.origin;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Roofing Company Websites & Funnels',
+    name: 'Website Design for Roofing Companies',
+    description: 'ScaleKit builds roofing companies a website and lead-follow-up system built around the insurance claim process.',
+    url: `${siteUrl}/services/roofing`,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+  },
+];
+
+const headerNav = {
+  services: [
+    { label: 'Websites & Funnels', href: '/#websites-funnels' },
+    { label: 'Local SEO', href: '/#local-seo' },
+    { label: 'Google & Meta Ads', href: '/#ads' },
+    { label: 'CRM & Automation', href: '/#automation' },
+    { label: 'Reactivation', href: '/#reactivation' },
+    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+  ],
+  links: [
+    { label: 'Features', href: '/features' },
+    { label: 'How We Work', href: '/#process' },
+    { label: 'Who We Work With', href: '/#built-for' },
+    { label: 'Pricing', href: '/pricing' },
+  ],
+};
+
+const footerGroups = [
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '/#websites-funnels' },
+      { label: 'Local SEO', href: '/#local-seo' },
+      { label: 'Google & Meta Ads', href: '/#ads' },
+      { label: 'CRM & Automation', href: '/#automation' },
+      { label: 'Reactivation', href: '/#reactivation' },
+      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'How We Work', href: '/#process' },
+      { label: 'Who We Work With', href: '/#built-for' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Book Your Free Strategy Call', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout
+  title="Website Design for Roofing Companies | ScaleKit"
+  description="ScaleKit builds roofing companies a website and lead-follow-up system built around the insurance claim process — so storm-season leads don't go cold."
+  structuredData={structuredData}
+>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow="Website Design for Roofing Companies"
+    headline="Turn Roofing Leads Into Booked Jobs — Automatically"
+    subheadline="Storm season floods you with leads, and half of them go cold before you can call back. We build roofing companies a website, a follow-up system, and a lead engine that works while you're on the roof."
+    checklist={[
+      'Lightning-fast load times',
+      'Mobile-first on every device',
+      'Technical SEO from day one',
+      'Ranks in Google & AI search',
+      'Live in days, not months',
+      'High-conversion copywriting',
+      'Built to convert, not just look good',
+      'Unlimited review requests',
+      'Connected straight to your CRM',
+      'Instant lead form engagement',
+    ]}
+  />
+
+  <TemplateShowcase
+    addressLabel="yourroofingcompany.com"
+    sampleLabels={[
+      'yourhomeservicesco.com',
+      'brushhourpaintingtexas.com',
+      'yourlandscapingco.com',
+      'yourrestorationco.com',
+    ]}
+  >
+    <RoofingSample />
+    <Fragment slot="sample-1"><AnchorSample /></Fragment>
+    <Fragment slot="sample-2"><PaintingSample /></Fragment>
+    <Fragment slot="sample-3"><LandscapingSample /></Fragment>
+    <Fragment slot="sample-4"><RestorationSample /></Fragment>
+  </TemplateShowcase>
+
+  <ProcessCircles />
+
+  <FinalCta
+    eyebrow="Run Your Own Numbers"
+    headline="What's One More Booked Roofing Job Actually Worth?"
+    subheadline="Every missed callback is a job you already paid to generate the lead for. ScaleKit makes sure it doesn't happen again."
+  />
+
+  <BookCall />
+
+  <Footer slot="footer" logoText="ScaleKit" groups={footerGroups} />
+</BaseLayout>

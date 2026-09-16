@@ -1,0 +1,125 @@
+---
+// Therapists & Advisors industry template — FAQ. Added beyond
+// README.md's original deferred list, matching the quality bar of a
+// full launchable home page (same reasoning as the Home Services
+// template's FAQ.astro addition). Same zero-JS accordion pattern used
+// site-wide on scalekit.io. Answers are practical/logistics-focused
+// (insurance, confidentiality, telehealth) — no clinical claims, no
+// guaranteed outcomes.
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  items?: FaqItem[];
+}
+
+const {
+  eyebrow = 'Good to Know',
+  headline = 'Questions Before You Reach Out',
+  items = [
+    {
+      question: 'Do you accept insurance?',
+      answer: 'Coverage varies by plan — reach out and I\'ll help you figure out what applies before your first session, not after.',
+    },
+    {
+      question: 'Is everything I share confidential?',
+      answer: 'Yes. What you share stays between us, within the standard legal and ethical limits any licensed practice follows.',
+    },
+    {
+      question: 'What happens in a first session?',
+      answer: 'No pressure, no script — just a conversation about what brought you here and what you\'re hoping to get out of working together.',
+    },
+    {
+      question: 'Do you offer telehealth?',
+      answer: 'Yes. Both in-person and virtual sessions are available, whichever fits your schedule better.',
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="ther-faq">
+  <div class="faq-inner">
+    <div class="header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <span class="underline"></span>
+    </div>
+
+    <div class="faq-list">
+      {items.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            {item.question}
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="faq-answer">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ther-faq {
+    font-family: 'Karla', -apple-system, sans-serif;
+    background: #E9EFED;
+    padding: 84px 40px;
+  }
+  .faq-inner { max-width: 720px; margin: 0 auto; }
+
+  .header { text-align: center; margin: 0 auto 44px; }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #3B5A4E;
+    margin: 0 0 14px;
+  }
+  .headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 3.4vw, 36px);
+    font-weight: 600;
+    color: #2C3B35;
+    margin: 0 0 16px;
+  }
+  .underline { display: block; width: 48px; height: 2px; background: #3B5A4E; margin: 0 auto; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px 24px;
+  }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #2C3B35;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .chevron { width: 17px; height: 17px; flex-shrink: 0; color: #A9B5AE; transition: transform 0.2s; }
+  .faq-item[open] .chevron { transform: rotate(180deg); }
+  .faq-answer {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: #6B7D75;
+    margin: 12px 0 0;
+    padding-right: 30px;
+  }
+
+  @media (max-width: 560px) {
+    .ther-faq { padding: 56px 20px; }
+    .faq-item { padding: 16px 18px; }
+  }
+</style>

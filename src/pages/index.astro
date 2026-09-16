@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Statement from '../components/Statement.astro';
+import Problem from '../components/Problem.astro';
+import WebsitesFunnels from '../components/WebsitesFunnels.astro';
+import GetFound from '../components/GetFound.astro';
+import GetMoreLeads from '../components/GetMoreLeads.astro';
+import StopLosingLeads from '../components/StopLosingLeads.astro';
+import RecoverOldLeads from '../components/RecoverOldLeads.astro';
+import SaveTimeScale from '../components/SaveTimeScale.astro';
+import StartCta from '../components/StartCta.astro';
+import BuiltFor from '../components/BuiltFor.astro';
+import ProcessCircles from '../components/ProcessCircles.astro';
+import FinalCta from '../components/FinalCta.astro';
+import BookCall from '../components/BookCall.astro';
+import Footer from '../components/Footer.astro';
+
+const siteUrl = Astro.site.origin;
+
+const services = [
+  { name: 'Websites & Funnels', slug: 'websites-funnels', description: 'Conversion-focused websites and funnels built to rank and convert.' },
+  { name: 'Local SEO', slug: 'local-seo', description: 'Google Business Profile optimization, citations, on-page SEO, and review generation to get found before your competitors.' },
+  { name: 'Google & Meta Ads', slug: 'ads', description: 'Search, Local Services, and Meta ad campaigns built to drive qualified leads, not just clicks.' },
+  { name: 'CRM & Automation', slug: 'automation', description: 'Instant lead response, missed-call text-back, and automated follow-up so no lead falls through the cracks.' },
+  { name: 'Reactivation', slug: 'reactivation', description: 'Database reactivation campaigns that turn old, dormant leads back into revenue.' },
+  { name: 'AI Agents & Solutions', slug: 'ai-agents', description: 'AI voice agents, chat agents, and custom agentic workflows that save time and let you scale without hiring more staff.' },
+];
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'ScaleKit',
+  url: siteUrl,
+  description: 'ScaleKit helps service businesses get found, convert more leads, automate the work that slows them down, and scale with AI.',
+  areaServed: 'US',
+  sameAs: [],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'ScaleKit',
+  url: siteUrl,
+};
+
+const serviceSchemas = services.map((s) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: s.name,
+  name: s.name,
+  description: s.description,
+  url: `${siteUrl}/#${s.slug}`,
+  provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
+}));
+
+const structuredData = [organizationSchema, websiteSchema, ...serviceSchemas];
+
+const footerGroups = [
+  {
+    heading: 'Company',
+    links: [
+      { label: 'Home', href: '#home' },
+      { label: 'How We Work', href: '#process' },
+      { label: 'Who We Work With', href: '#built-for' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Websites & Funnels', href: '#websites-funnels' },
+      { label: 'Local SEO', href: '#local-seo' },
+      { label: 'Google & Meta Ads', href: '#ads' },
+      { label: 'CRM & Automation', href: '#automation' },
+      { label: 'Reactivation', href: '#reactivation' },
+      { label: 'AI Agents & Solutions', href: '#ai-agents' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [{ label: 'Book Your Free Strategy Call', href: '#book-call' }],
+  },
+];
+---
+
+<BaseLayout title="ScaleKit — Growth & Automation for Service Businesses" description="ScaleKit helps service businesses get found, convert more leads, automate the work that slows them down, and scale with AI." structuredData={structuredData}>
+  <Header slot="header" />
+
+  <Hero />
+
+  <Statement />
+
+  <!-- Section 2b (VSL) intentionally skipped per direction — revisit later if wanted. -->
+
+  <Problem />
+
+  <BuiltFor />
+
+  <WebsitesFunnels />
+
+  <GetFound />
+
+  <GetMoreLeads />
+
+  <StopLosingLeads />
+
+  <RecoverOldLeads />
+
+  <SaveTimeScale />
+
+  <ProcessCircles
+    headline="Simple To Start. Built To Grow With You."
+    steps={[
+      { number: '01', title: 'Book Your Call', description: '20 minutes. We map your leads, your gaps, and what\'s possible.' },
+      { number: '02', title: 'We Build Your System', description: 'Live in 7–14 days. Foundation first, per your Growth Journey stage.' },
+      { number: '03', title: 'You Launch', description: 'We train you — and your team — to actually run it.' },
+      { number: '04', title: 'We Optimize', description: 'As your business grows, we add the next stage — automation, intelligence, custom AI.' },
+    ]}
+    ctaLabel="Book Your Free Strategy Call"
+    ctaMicrocopy="Free. 20 minutes. No pressure."
+    ctaHref="#book-call"
+  />
+
+  <StartCta />
+
+  <!-- Proof ("See It In Action") intentionally removed for now — no real
+       product screenshots exist yet and the placeholder "Coming Soon"
+       boxes weren't earning their place on the page. Revisit once real
+       screenshots exist; component file is untouched, just unused. -->
+
+  <!-- WhatChanges ("What Changes When Your Business Runs On One System")
+       removed per explicit direction — too repetitive with the earlier
+       per-service sections already covering these same points. Component
+       file is untouched, just unused. -->
+
+  <FinalCta />
+
+  <BookCall />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>
