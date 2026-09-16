@@ -1,39 +1,40 @@
 ---
-// "Websites & Funnels That Convert & Rank" — industry showcase grid.
-// Structure adapted from a reference layout (eyebrow / 2-line accent
-// headline / subhead / 3x2 mockup card grid); colors, type, and copy are
-// ScaleKit's own, not carried over from the reference.
-// NOTE: no real mockup screenshots exist yet — most cards use placeholder
-// preview boxes. The Roofing card renders the REAL industry-template
-// components (~/Astro-Sites/_industry-templates/roofing/) at full size,
-// scaled down via CSS transform inside a clipped frame — same technique
-// as .sk-mini-page in funnel-library/scalekit-main-landing-page/styles.css.
-// This is the actual design, just small — not an abstraction, not a
-// fabricated fake screenshot.
-import RoofingHeader from '../vendor/industry-templates/roofing/Header.astro';
-import RoofingHero from '../vendor/industry-templates/roofing/Hero.astro';
-import RoofingServices from '../vendor/industry-templates/roofing/Services.astro';
-import LandscapingHeader from '../vendor/industry-templates/landscaping/Header.astro';
-import LandscapingHero from '../vendor/industry-templates/landscaping/Hero.astro';
-import LandscapingGallery from '../vendor/industry-templates/landscaping/Gallery.astro';
-import RestorationHeader from '../vendor/industry-templates/restoration/Header.astro';
-import RestorationHero from '../vendor/industry-templates/restoration/Hero.astro';
-import RestorationServices from '../vendor/industry-templates/restoration/Services.astro';
-import AgencyHeader from '../vendor/industry-templates/agency/Header.astro';
-import AgencyHero from '../vendor/industry-templates/agency/Hero.astro';
-import AgencyFeatures from '../vendor/industry-templates/agency/Features.astro';
-import HomeServicesHeader from '../vendor/anchor-home-services/Header.astro';
-import HomeServicesHero from '../vendor/anchor-home-services/Hero.astro';
-import HomeServicesServices from '../vendor/anchor-home-services/Services.astro';
-import TherapistsHeader from '../vendor/industry-templates/therapists-advisors/Header.astro';
-import TherapistsHero from '../vendor/industry-templates/therapists-advisors/Hero.astro';
-import TherapistsSpecialties from '../vendor/industry-templates/therapists-advisors/Specialties.astro';
-import TherapistsIntro from '../vendor/industry-templates/therapists-advisors/Intro.astro';
-
+// "Websites & Funnels That Convert & Rank" — industry showcase carousel.
+// Structure now modeled directly on a template-marketplace reference
+// Brandon supplied (clean image card: rounded thumbnail, name below,
+// horizontal scroll with left/right arrows) — colors, type, and copy
+// stay ScaleKit's own.
+// Card thumbnails are REAL screenshots of each real industry template's
+// actual nav+hero (captured via a headless browser against this same
+// site's own real components — not a fabricated/stock image, not an
+// AI-generated mockup). This replaces two earlier live-DOM approaches
+// (a width:400%/transform:scale "mini-page" hack, and later a natural-
+// render browser-chrome frame) that each required guessing at CSS
+// numbers with no way to see the real rendered result and kept coming
+// out wrong. A real screenshot is what the reference itself uses, is
+// pixel-exact by construction, and needs zero per-template tuning.
+// Every screenshot is captured at the exact same fixed crop — 1440px
+// wide x 820px tall, from the top of the page — not each template's own
+// natural hero height. Natural height varies a lot per template (a
+// floating-nav template like Therapists is much shorter than one with a
+// tall embedded lead form like Roofing); cropping each to its own
+// natural height, or letting the img keep its own ratio, both produced
+// visibly different-sized cards in the same row. A single fixed crop
+// means every card is identically sized — for shorter templates that
+// crop dips slightly into the section after the hero, which is fine.
+// Regenerating a thumbnail (after a template's hero copy/design
+// changes): spin up a throwaway page rendering that template's
+// <Header /><Hero /> (plus whatever section comes after the hero, so
+// there's real content to show if the crop runs past it — see git
+// history on this file for the exact pages used), screenshot it with
+// Playwright at viewport width 1440, `clip: { x: 0, y: 0, width: 1440,
+// height: 820 }`, save over the matching file in
+// public/images/template-previews/, delete the throwaway page.
 interface Card {
   industry: string;
   description: string;
   slug: string;
+  image: string;
 }
 
 interface Props {
@@ -52,12 +53,12 @@ const {
   headlineLine2 = 'Built to Rank and Convert',
   subheadline = 'Your website needs to build trust, establish authority, and turn visitors into customers. We build the sites that do exactly that. Start from our proven structures and we customize everything from there.',
   cards = [
-    { industry: 'Home Services', description: 'Bold video-hero layout built to turn browsers into booked estimates.', slug: 'home-services' },
-    { industry: 'Roofing', description: 'Storm-damage focused, built around the insurance claim process.', slug: 'roofing' },
-    { industry: 'Therapists & Advisors', description: 'A warm, elegant design built to build trust before the first conversation.', slug: 'therapists-advisors' },
-    { industry: 'Landscaping', description: 'Portfolio-first design built to showcase real project photos.', slug: 'landscaping' },
-    { industry: 'Agency & Consultant', description: 'AI-powered SaaS positioning built to convert agencies and consultants.', slug: 'agency-consultant' },
-    { industry: 'Restoration', description: '24/7 emergency response front and center, claims-ready.', slug: 'restoration' },
+    { industry: 'Home Services', description: 'Bold video-hero layout built to turn browsers into booked estimates.', slug: 'home-services', image: '/images/template-previews/home-services.jpg' },
+    { industry: 'Roofing', description: 'Storm-damage focused, built around the insurance claim process.', slug: 'roofing', image: '/images/template-previews/roofing.jpg' },
+    { industry: 'Therapists & Advisors', description: 'A warm, elegant design built to build trust before the first conversation.', slug: 'therapists-advisors', image: '/images/template-previews/therapists-advisors.jpg' },
+    { industry: 'Landscaping', description: 'Portfolio-first design built to showcase real project photos.', slug: 'landscaping', image: '/images/template-previews/landscaping.jpg' },
+    { industry: 'Agency & Consultant', description: 'AI-powered SaaS positioning built to convert agencies and consultants.', slug: 'agency-consultant', image: '/images/template-previews/agency-consultant.jpg' },
+    { industry: 'Restoration', description: '24/7 emergency response front and center, claims-ready.', slug: 'restoration', image: '/images/template-previews/restoration.jpg' },
   ],
   // NOTE: dedicated service page doesn't exist yet — placeholder path,
   // wire up once /services/websites-funnels (or similar) is built.
@@ -78,91 +79,32 @@ const {
       <p class="sub">{subheadline}</p>
     </div>
 
-    <div class="card-grid">
-      {cards.map((card) => (
-        <div class="card">
-          {card.industry === 'Therapists & Advisors' ? (
-            <div class="card-preview therapists-preview" aria-hidden="true">
-              <div class="mini-page-wrap">
-                <div class="mini-page">
-                  <TherapistsHeader />
-                  <TherapistsHero heroImageUrl="https://assets.cdn.filesafe.space/xqDaZG0jn1TlXwXyX8Jk/media/6aa6fbbf85b9b36bdb29026e.jpg" />
-                  <TherapistsSpecialties />
-                  <TherapistsIntro />
-                </div>
-              </div>
+    <div class="carousel-row">
+      <button type="button" class="carousel-arrow prev" data-carousel-prev aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      <div class="carousel-track" data-carousel-track>
+        {cards.map((card) => (
+          <a href={`/services/${card.slug}`} class="card">
+            <div class="card-thumb">
+              <img src={card.image} alt={`${card.industry} website template preview`} loading="lazy" />
             </div>
-          ) : card.industry === 'Home Services' ? (
-            <div class="card-preview home-services-preview" aria-hidden="true">
-              <div class="mini-page-wrap">
-                <div class="mini-page">
-                  <HomeServicesHeader />
-                  <HomeServicesHero />
-                  <HomeServicesServices />
-                </div>
-              </div>
+            <div class="card-body">
+              <h3 class="industry">{card.industry}</h3>
+              <p class="description">{card.description}</p>
+              <span class="learn-more">
+                See How We'd Build This For You
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+              </span>
             </div>
-          ) : card.industry === 'Roofing' ? (
-            <div class="card-preview roofing-preview" aria-hidden="true">
-              <div class="mini-page-wrap">
-                <div class="mini-page">
-                  <RoofingHeader />
-                  <RoofingHero />
-                  <RoofingServices />
-                </div>
-              </div>
-            </div>
-          ) : card.industry === 'Landscaping' ? (
-            <div class="card-preview landscaping-preview" aria-hidden="true">
-              <div class="mini-page-wrap">
-                <div class="mini-page">
-                  <LandscapingHeader />
-                  <LandscapingHero />
-                  <LandscapingGallery />
-                </div>
-              </div>
-            </div>
-          ) : card.industry === 'Restoration' ? (
-            <div class="card-preview restoration-preview" aria-hidden="true">
-              <div class="mini-page-wrap">
-                <div class="mini-page">
-                  <RestorationHeader />
-                  <RestorationHero />
-                  <RestorationServices />
-                </div>
-              </div>
-            </div>
-          ) : card.industry === 'Agency & Consultant' ? (
-            <div class="card-preview agency-preview" aria-hidden="true">
-              <div class="mini-page-wrap">
-                <div class="mini-page">
-                  <AgencyHeader />
-                  <AgencyHero />
-                  <AgencyFeatures />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div class="card-preview" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="M2 8h20"/>
-                <circle cx="5" cy="6" r="0.5" fill="currentColor"/>
-                <circle cx="7" cy="6" r="0.5" fill="currentColor"/>
-              </svg>
-              <span class="preview-label">Preview Coming Soon</span>
-            </div>
-          )}
-          <div class="card-body">
-            <h3 class="industry">{card.industry}</h3>
-            <p class="description">{card.description}</p>
-            <a href={`/services/${card.slug}`} class="learn-more">
-              See How We'd Build This For You
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-            </a>
-          </div>
-        </div>
-      ))}
+          </a>
+        ))}
+      </div>
+
+      <button type="button" class="carousel-arrow next" data-carousel-next aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
 
     <div class="cta-row">
@@ -216,157 +158,84 @@ const {
     margin: 0;
   }
 
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-5);
-    /* Roofing's preview is intentionally taller than the others (see
-       .roofing-preview below) — align-items:start keeps that from
-       stretching sibling cards' height to match. */
-    align-items: start;
+  .carousel-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
   }
+  .carousel-arrow {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border);
+    background: #ffffff;
+    color: var(--color-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .carousel-arrow svg { width: 19px; height: 19px; }
+  .carousel-arrow:hover { background: var(--color-primary); border-color: var(--color-primary); }
+  .carousel-arrow:disabled { opacity: 0.35; cursor: default; }
+  .carousel-arrow:disabled:hover { background: #ffffff; border-color: var(--color-border); }
+
+  .carousel-track {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    /* Cards are naturally different heights now (see .card-thumb img
+       comment) — flex-start keeps each one its own height instead of
+       stretching to match the tallest and leaving blank space below
+       the shorter ones. */
+    align-items: flex-start;
+    gap: var(--space-5);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }
+
   .card {
+    flex: 0 0 calc(33.333% - var(--space-5) * 2 / 3);
+    scroll-snap-align: start;
+    min-width: 280px;
     background: #ffffff;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     overflow: hidden;
+    text-decoration: none;
+    transition: box-shadow 0.15s, transform 0.15s;
   }
-  .card-preview {
-    aspect-ratio: 4 / 3;
+  .card:hover {
+    box-shadow: 0 16px 32px rgba(10, 10, 10, 0.1);
+    transform: translateY(-2px);
+  }
+  .card-thumb {
+    /* All 6 screenshots were captured at the same fixed 1440x820 crop
+       (see the file-header comment) — some show a bit of the section
+       after the hero, some don't, but every card ends up the same size,
+       matching the reference exactly. aspect-ratio here is just a
+       responsive-width safety net since the images already match it. */
+    aspect-ratio: 1440 / 820;
+    overflow: hidden;
     background: var(--color-bg-alt);
     border-bottom: 1px solid var(--color-border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    color: var(--color-text-light);
   }
-  .card-preview svg { width: 40px; height: 40px; opacity: 0.5; }
-  .preview-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-text-light);
-  }
-  /*
-    Roofing mini preview — renders the REAL industry-template components
-    (~/Astro-Sites/_industry-templates/roofing/Header.astro + Hero.astro)
-    at their actual full-desktop layout width, then scales the whole
-    thing down to fit the card. Same technique as .sk-mini-page in
-    funnel-library/scalekit-main-landing-page/styles.css: the inner
-    element is sized at 300% of its (card-sized) container and scaled by
-    exactly 1/3, so it renders as if in a ~3x-wider viewport — comfortably
-    past this component's own mobile breakpoints — then shrinks back to
-    precisely fit the card at any card size, responsively.
-  */
-  .roofing-preview {
+  .card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    padding: 0;
-    position: relative;
-    background: #ffffff;
-    /* Back to the same 4/3 box every other card uses (inherited from
-       .card-preview) — the taller crop showed more of the page but made
-       this card visibly bigger than its siblings. */
-  }
-  /* Landscaping mini preview — same live-component-scaled recipe as
-     Roofing above (real Header.astro + Hero.astro from
-     _industry-templates/landscaping/, scaled via .mini-page-wrap /
-     .mini-page). Its own class names (.nav-links, .headline, .sub)
-     match Roofing's, so the shared :global() overrides below apply to
-     both automatically — no separate override block needed. */
-  .landscaping-preview {
-    display: block;
-    padding: 0;
-    position: relative;
-    background: #ffffff;
-  }
-  /* Restoration mini preview — same recipe again (Header + Hero +
-     Services from _industry-templates/restoration/). Its Hero headline
-     and Services headline both use class="headline" too, so they pick
-     up the same font-size cap automatically. */
-  .restoration-preview {
-    display: block;
-    padding: 0;
-    position: relative;
-    background: #ffffff;
-  }
-  /* Agency & Consultant mini preview — same recipe (Header + Hero +
-     Features from _industry-templates/agency/). First non-trade
-     template in the set; still shares the .headline/.nav-links class
-     names so the existing overrides apply without changes. */
-  .agency-preview {
-    display: block;
-    padding: 0;
-    position: relative;
-    background: #ffffff;
-  }
-  /* Home Services mini preview — same recipe (Header + Hero + Services
-     from anchor-home-services/src/components/). Its Hero.astro has a real
-     <video> background, but the placeholder heroVideoUrl never resolves
-     to a real source, so the thumbnail shows the navy gradient fallback
-     — same graceful-degradation behavior the full-size page gets before
-     a real client video is supplied. */
-  .home-services-preview {
-    display: block;
-    padding: 0;
-    position: relative;
-    background: #ffffff;
-  }
-  /* Therapists & Advisors mini preview — same recipe (Header + Hero +
-     Specialties from _industry-templates/therapists-advisors/). This
-     template's Header.astro is itself `position: absolute` (it floats
-     over Hero's photo by design), which resolves correctly against
-     .mini-page below since .mini-page is also positioned — no extra
-     override needed for that to line up inside the thumbnail. */
-  .therapists-preview {
-    display: block;
-    padding: 0;
-    position: relative;
-    background: #ffffff;
-  }
-  .mini-page-wrap {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-  }
-  .mini-page {
-    position: absolute;
-    top: 0;
-    left: 0;
-    /* 400%/0.25 instead of 300%/0.3333 — renders as if the card were 4x
-       wider, giving real margin above the header's own 980px
-       nav-collapse breakpoint (390px-ish cards were landing right at
-       ~980px effective width, too tight — nav labels wrapped and the
-       CTA overflowed). Also makes every element read smaller/more
-       proportionate at thumbnail size, which helps the oversized
-       headline too. */
-    width: 400%;
-    transform: scale(0.25);
-    transform-origin: top left;
-    pointer-events: none;
-    -webkit-font-smoothing: antialiased;
-  }
-  /* Nav links (Home/About/Residential/etc.) aren't legible at thumbnail
-     size regardless of width — hiding them removes the wrapping risk
-     entirely and leaves room for logo + phone + CTA to breathe. */
-  .mini-page :global(.nav-links) {
-    display: none !important;
-  }
-  /* Hero headline was still visually dominating the small preview even
-     at the wider effective render — sized down explicitly rather than
-     relying on the component's own desktop clamp() scale. */
-  .mini-page :global(.headline) {
-    font-size: 34px !important;
-  }
-  .mini-page :global(.sub) {
-    font-size: 15px !important;
   }
 
   .card-body { padding: var(--space-5); }
   .industry {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: var(--font-weight-max);
     letter-spacing: -0.01em;
     color: var(--color-fg);
@@ -374,7 +243,7 @@ const {
     margin: 0 0 8px;
   }
   .description {
-    font-size: 15px;
+    font-size: 14.5px;
     line-height: 1.55;
     color: var(--color-text-mid);
     margin: 0 0 18px;
@@ -386,12 +255,9 @@ const {
     font-size: 13.5px;
     font-weight: 700;
     color: var(--color-fg);
-    text-decoration: none;
     border-bottom: 1.5px solid var(--color-primary);
     padding-bottom: 2px;
-    transition: opacity 0.15s;
   }
-  .learn-more:hover { opacity: 0.7; }
   .learn-more svg { width: 13px; height: 13px; flex-shrink: 0; }
 
   .cta-row {
@@ -419,10 +285,38 @@ const {
   .cta svg { width: 15px; height: 15px; flex-shrink: 0; }
 
   @media (max-width: 900px) {
-    .card-grid { grid-template-columns: repeat(2, 1fr); }
+    .card { flex-basis: calc(50% - var(--space-5) / 2); }
   }
   @media (max-width: 560px) {
     .showcase { padding: var(--space-7) var(--space-5); }
-    .card-grid { grid-template-columns: 1fr; }
+    .carousel-row { gap: var(--space-3); }
+    .carousel-arrow { width: 38px; height: 38px; }
+    .carousel-arrow svg { width: 16px; height: 16px; }
+    .card { flex-basis: 84%; min-width: 0; }
   }
 </style>
+
+<script>
+  const track = document.querySelector('[data-carousel-track]');
+  const prevBtn = document.querySelector('[data-carousel-prev]');
+  const nextBtn = document.querySelector('[data-carousel-next]');
+
+  function scrollStep() {
+    const card = track?.querySelector('.card');
+    const gap = 24;
+    return card ? card.getBoundingClientRect().width + gap : 320;
+  }
+
+  function updateArrows() {
+    if (!track || !(prevBtn instanceof HTMLButtonElement) || !(nextBtn instanceof HTMLButtonElement)) return;
+    const maxScroll = track.scrollWidth - track.clientWidth - 2;
+    prevBtn.disabled = track.scrollLeft <= 0;
+    nextBtn.disabled = track.scrollLeft >= maxScroll;
+  }
+
+  prevBtn?.addEventListener('click', () => track?.scrollBy({ left: -scrollStep(), behavior: 'smooth' }));
+  nextBtn?.addEventListener('click', () => track?.scrollBy({ left: scrollStep(), behavior: 'smooth' }));
+  track?.addEventListener('scroll', updateArrows, { passive: true });
+  window.addEventListener('resize', updateArrows);
+  updateArrows();
+</script>

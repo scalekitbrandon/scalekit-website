@@ -6,26 +6,22 @@
 // our existing real "home services" category templates as a stand-in
 // ("use the home services templates for now") — Home Services/Anchor,
 // Roofing, Landscaping, Restoration, and the real Brush Hour Painting
-// client build. Same live-scaled-render technique as
-// WebsitesFunnels.astro's homepage cards (.mini-page: render the real
-// component at 400% width, scale(0.25)) — not a fabricated screenshot.
-// Left/right arrows scroll the row; only 3 of the 5 are visible at once
-// on desktop.
-import HomeServicesHeader from '../vendor/anchor-home-services/Header.astro';
-import HomeServicesHero from '../vendor/anchor-home-services/Hero.astro';
-import HomeServicesServices from '../vendor/anchor-home-services/Services.astro';
-import RoofingHeader from '../vendor/industry-templates/roofing/Header.astro';
-import RoofingHero from '../vendor/industry-templates/roofing/Hero.astro';
-import RoofingServices from '../vendor/industry-templates/roofing/Services.astro';
-import LandscapingHeader from '../vendor/industry-templates/landscaping/Header.astro';
-import LandscapingHero from '../vendor/industry-templates/landscaping/Hero.astro';
-import LandscapingGallery from '../vendor/industry-templates/landscaping/Gallery.astro';
-import RestorationHeader from '../vendor/industry-templates/restoration/Header.astro';
-import RestorationHero from '../vendor/industry-templates/restoration/Hero.astro';
-import RestorationServices from '../vendor/industry-templates/restoration/Services.astro';
-import PaintingHeader from '../vendor/brush-hour-painting/Header.astro';
-import PaintingHero from '../vendor/brush-hour-painting/Hero.astro';
-import PaintingFeatureGrid from '../vendor/brush-hour-painting/FeatureGrid.astro';
+// client build.
+// Standardized to the same real-screenshot approach as WebsitesFunnels.astro
+// (see that file's header comment for the full reasoning) — this used to
+// use the .mini-page live-scaled-render technique (400% width + transform:
+// scale(0.25)), the same fragile pattern that caused repeated sizing
+// problems on the homepage. Same fixed 1440x820 crop convention as the
+// homepage's images (see public/images/template-previews/), so any
+// template reused in both places (Home Services, Roofing, Landscaping,
+// Restoration) uses the exact same image file — no duplicate screenshots.
+const thumbs = [
+  { label: 'Home Services', image: '/images/template-previews/home-services.jpg' },
+  { label: 'Roofing', image: '/images/template-previews/roofing.jpg' },
+  { label: 'Landscaping', image: '/images/template-previews/landscaping.jpg' },
+  { label: 'Restoration', image: '/images/template-previews/restoration.jpg' },
+  { label: 'Painting', image: '/images/template-previews/painting.jpg' },
+];
 ---
 
 <div class="thumb-carousel">
@@ -34,91 +30,14 @@ import PaintingFeatureGrid from '../vendor/brush-hour-painting/FeatureGrid.astro
   </button>
 
   <div class="thumb-track" data-thumb-track>
-    <div class="thumb">
-      <div class="thumb-preview home-services-preview" aria-hidden="true">
-        <div class="mini-page-wrap">
-          <div class="mini-page">
-            <HomeServicesHeader />
-            <HomeServicesHero />
-            <HomeServicesServices />
-          </div>
+    {thumbs.map((thumb) => (
+      <div class="thumb">
+        <div class="thumb-preview">
+          <img src={thumb.image} alt={`${thumb.label} website template preview`} loading="lazy" />
         </div>
+        <p class="thumb-label">{thumb.label}</p>
       </div>
-      <p class="thumb-label">Home Services</p>
-    </div>
-
-    <div class="thumb">
-      <div class="thumb-preview roofing-preview" aria-hidden="true">
-        <div class="mini-page-wrap">
-          <div class="mini-page">
-            <RoofingHeader />
-            <RoofingHero />
-            <RoofingServices />
-          </div>
-        </div>
-      </div>
-      <p class="thumb-label">Roofing</p>
-    </div>
-
-    <div class="thumb">
-      <div class="thumb-preview landscaping-preview" aria-hidden="true">
-        <div class="mini-page-wrap">
-          <div class="mini-page">
-            <LandscapingHeader />
-            <LandscapingHero />
-            <LandscapingGallery />
-          </div>
-        </div>
-      </div>
-      <p class="thumb-label">Landscaping</p>
-    </div>
-
-    <div class="thumb">
-      <div class="thumb-preview restoration-preview" aria-hidden="true">
-        <div class="mini-page-wrap">
-          <div class="mini-page">
-            <RestorationHeader />
-            <RestorationHero />
-            <RestorationServices />
-          </div>
-        </div>
-      </div>
-      <p class="thumb-label">Restoration</p>
-    </div>
-
-    <div class="thumb">
-      <div class="thumb-preview painting-preview" aria-hidden="true">
-        <div class="mini-page-wrap">
-          <div class="mini-page">
-            <PaintingHeader
-              logoText="Brush Hour Painting"
-              links={[{ label: 'Services', href: '/#services' }]}
-              ctaLabel="512-552-7519"
-              ctaHref="tel:5125527519"
-            />
-            <PaintingHero
-              backgroundSrc="/images/hero-bg-premium-home.jpg"
-              headline="Your Expert Painting Company in Austin, TX Since 2008"
-              subheadline="Interior, exterior, and commercial painting for Austin-area homes and businesses."
-              primaryLabel="Get Free Quote"
-              primaryHref="#quote"
-              badges={[{ icon: 'star', title: 'Licensed & Insured', subtitle: 'On every job' }]}
-            />
-            <PaintingFeatureGrid
-              heading="Why Choose Brush Hour Painting"
-              columns={4}
-              items={[
-                { icon: 'shield', title: 'Licensed & Insured', description: 'Full coverage on every job, no exceptions.' },
-                { icon: 'pin', title: 'Austin Local', description: 'Serving the greater Austin area since 2008.' },
-                { icon: 'award', title: 'Expert Craftsmanship', description: 'Proper prep work on every job, big or small.' },
-                { icon: 'tag', title: 'Free, No-Pressure Quotes', description: 'No obligation, just an honest estimate.' },
-              ]}
-            />
-          </div>
-        </div>
-      </div>
-      <p class="thumb-label">Painting</p>
-    </div>
+    ))}
   </div>
 
   <button type="button" class="thumb-arrow next" data-thumb-next aria-label="Next">
@@ -170,13 +89,18 @@ import PaintingFeatureGrid from '../vendor/brush-hour-painting/FeatureGrid.astro
     min-width: 260px;
   }
   .thumb-preview {
-    aspect-ratio: 4 / 3;
-    background: #ffffff;
+    aspect-ratio: 1440 / 820;
+    background: var(--color-bg-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     overflow: hidden;
-    position: relative;
     margin: 0 0 var(--space-3);
+  }
+  .thumb-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .thumb-label {
     font-size: 13.5px;
@@ -185,71 +109,6 @@ import PaintingFeatureGrid from '../vendor/brush-hour-painting/FeatureGrid.astro
     text-align: center;
     margin: 0;
   }
-
-  .mini-page-wrap {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-  }
-  .mini-page {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 400%;
-    transform: scale(0.25);
-    transform-origin: top left;
-    pointer-events: none;
-    -webkit-font-smoothing: antialiased;
-  }
-  .mini-page :global(.nav-links) { display: none !important; }
-  .mini-page :global(.headline) { font-size: 34px !important; }
-  .mini-page :global(.sub) { font-size: 15px !important; }
-
-  /* Painting thumb needs its own real brand tokens, same fix as
-     WebsitesFunnels.astro's .painting-preview — its components read
-     CSS custom properties from a tokens.css this build never loads. */
-  .painting-preview {
-    --color-bg: #ffffff;
-    --color-fg: #2b2b2a;
-    --color-primary: #962107;
-    --color-primary-fg: #ffffff;
-    --color-accent: #f6520e;
-    --color-muted: #f5f0ee;
-    --color-border: #e6e0dd;
-    --font-heading: 'Roboto Slab', serif;
-    --font-body: 'Poppins', sans-serif;
-    --font-weight-max: 700;
-    --font-weight-button: 600;
-    --text-sm: 0.875rem;
-    --text-base: 1rem;
-    --text-lg: 1.25rem;
-    --text-xl: 1.563rem;
-    --text-2xl: 1.953rem;
-    --text-3xl: 2.441rem;
-    --text-4xl: 3.052rem;
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 16px;
-    --space-1: 4px;
-    --space-2: 8px;
-    --space-3: 16px;
-    --space-4: 24px;
-    --space-5: 32px;
-    --space-6: 48px;
-    --space-7: 64px;
-    --space-8: 96px;
-    --container-max: 1440px;
-  }
-  .painting-preview :global(h1),
-  .painting-preview :global(h2),
-  .painting-preview :global(h3) {
-    font-family: var(--font-heading);
-    font-weight: var(--font-weight-max);
-    margin: 0;
-  }
-  .painting-preview :global(nav) { display: none !important; }
-  .painting-preview :global(h1) { font-size: 34px !important; }
-  .painting-preview :global(.subheadline) { font-size: 15px !important; }
 
   @media (max-width: 900px) {
     .thumb { flex-basis: calc(50% - var(--space-4) / 2); }
