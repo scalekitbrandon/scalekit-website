@@ -12,7 +12,6 @@ import PaintingSample from '../../components/samples/PaintingSample.astro';
 import RoofingSample from '../../components/samples/RoofingSample.astro';
 import LandscapingSample from '../../components/samples/LandscapingSample.astro';
 import RestorationSample from '../../components/samples/RestorationSample.astro';
-import HomeServicesTwoSample from '../../components/samples/HomeServicesTwoSample.astro';
 
 const siteUrl = Astro.site.origin;
 
@@ -99,11 +98,9 @@ const footerGroups = [
 
   <!--
     Single showcase for this page — cross-industry samples (Painting,
-    Roofing, Landscaping, Restoration) plus Harborline (home-services-2)
-    folded in as another home-services variant, rather than a second
-    stacked showcase section. Add home-services-3 through -8 here as
-    more variants land (7 named slots total are wired in
-    TemplateShowcase.astro).
+    Roofing, Landscaping, Restoration). Harborline (home-services-2) was
+    removed per explicit direction. Add more variants here as they land
+    (7 named slots total are wired in TemplateShowcase.astro).
   -->
   <TemplateShowcase
     addressLabel="yourhomeservicesco.com"
@@ -112,7 +109,6 @@ const footerGroups = [
       'yourroofingcompany.com',
       'yourlandscapingco.com',
       'yourrestorationco.com',
-      'harborlinehomeco.com',
     ]}
   >
     <AnchorSample />
@@ -120,7 +116,6 @@ const footerGroups = [
     <Fragment slot="sample-2"><RoofingSample /></Fragment>
     <Fragment slot="sample-3"><LandscapingSample /></Fragment>
     <Fragment slot="sample-4"><RestorationSample /></Fragment>
-    <Fragment slot="sample-5"><HomeServicesTwoSample /></Fragment>
   </TemplateShowcase>
 
   <ProcessCircles />

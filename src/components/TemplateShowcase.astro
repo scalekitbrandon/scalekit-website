@@ -1,12 +1,18 @@
 ---
 // Frames a real industry-template component (from ~/Astro-Sites/_industry-templates/)
-// inside a browser-chrome mockup on the per-industry service pages. Unlike
-// the tiny homepage card preview (WebsitesFunnels.astro's .mini-page
-// technique, which scales components down to ~25% because it only has a
-// few hundred pixels to work with), this page has real room — so the
+// inside a browser-chrome mockup on the per-industry service pages. The
 // real template components render at their natural, fully responsive
-// size, just clipped inside a rounded browser frame. No transform-scale
-// hack needed here.
+// size at every breakpoint — including mobile — just clipped inside a
+// rounded browser frame. This is deliberate: on a real phone, a visitor
+// should see the site's actual, real mobile design (single-column,
+// stacked sections), not a shrunk-down desktop view — two different
+// scale/zoom-based approaches were tried and rejected here for exactly
+// that reason (confirmed live on an iPhone against a real reference
+// site's natural mobile layout).
+// Any element that overflows the frame at a real phone width is a real
+// bug in that specific template's own mobile CSS (see e.g. Anchor Home
+// Services' Header.astro, fixed directly rather than papered over here)
+// — fix it at the source, not by scaling this preview.
 // Optional extra samples: pass `sampleLabels` (address-bar text for each
 // extra sample, in order) + content in named slots "sample-1",
 // "sample-2", etc. (matching sampleLabels' index + 1) to get a
@@ -242,10 +248,26 @@ const hasMultiple = allLabels.length > 1;
   }
 
   @media (max-width: 560px) {
-    .showcase { padding: 0 var(--space-5) var(--space-7); }
+    .showcase { padding: 0 var(--space-3) var(--space-7); }
     .browser-body { max-height: 520px; }
-    .browser-row { gap: var(--space-2); }
-    .sample-arrow { width: 34px; height: 34px; }
+
+    /* The frame needs to render at close to the device's real width so
+       the responsive sample site inside it looks accurate, not squished.
+       Take the prev/next arrows out of the flex row (which was stealing
+       ~84px of width from the frame) and float them over the frame's
+       edges instead, like a normal carousel overlay. */
+    .browser-row { position: relative; gap: 0; }
+    .sample-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 34px;
+      height: 34px;
+      opacity: 0.9;
+    }
+    .sample-arrow.prev { left: 6px; }
+    .sample-arrow.next { right: 6px; }
     .sample-arrow svg { width: 15px; height: 15px; }
   }
 </style>

@@ -146,4 +146,19 @@ const {
     .header-inner { padding: 0 20px; }
     .cta { margin-left: auto; }
   }
+
+  /* Real bug, not a preview-scaling issue: below ~980px only .nav-links
+     hides — the logo block (icon + name + tagline) and the full-size CTA
+     button were never given their own narrower treatment, so on an
+     actual phone width they still overflow and get clipped. Shrink both
+     down (drop the tagline, smaller badge/name, smaller CTA) so the row
+     genuinely fits at real mobile widths. */
+  @media (max-width: 480px) {
+    .header-inner { padding: 0 16px; gap: 12px; height: 76px; }
+    .logo-badge { width: 34px; height: 34px; }
+    .logo-badge svg { width: 17px; height: 17px; }
+    .logo-name { font-size: 16px; }
+    .logo-tagline { display: none; }
+    .cta { padding: 10px 16px; font-size: 13px; }
+  }
 </style>

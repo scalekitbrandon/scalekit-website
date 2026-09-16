@@ -290,6 +290,16 @@ const {
       navToggle.classList.toggle('is-open', isOpen);
       navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
+
+    // Close the mobile menu once a visitor actually picks a link, instead
+    // of leaving it open until they manually tap the hamburger again.
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('is-open');
+        navToggle.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
   }
 
   // Click-to-toggle fallback for the Services dropdown (hover already

@@ -177,4 +177,18 @@ const {
     .nav-links { display: none; }
     .header-inner { padding: 0 20px; }
   }
+
+  /* Real bug: below 980px only nav-links hides — logo, phone number, and
+     the CTA button all stay full-size with no wrap, and overflow a real
+     phone-width screen. */
+  @media (max-width: 480px) {
+    .header-inner { padding: 0 16px; gap: 16px; height: 80px; }
+    .logo-badge { width: 38px; height: 38px; }
+    .logo-badge svg { width: 19px; height: 19px; }
+    .logo-name { font-size: 14px; }
+    .logo-tagline { display: none; }
+    .header-right { gap: 10px; }
+    .phone { display: none; }
+    .cta { padding: 10px 16px; font-size: 12px; }
+  }
 </style>

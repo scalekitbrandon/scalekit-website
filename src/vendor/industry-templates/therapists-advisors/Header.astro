@@ -109,4 +109,13 @@ const {
     .nav-links { display: none; }
     .header-inner { padding: 22px 20px; }
   }
+
+  /* Real bug: below 860px, the logo name + full CTA button (e.g. "Book a
+     Consultation") stay full size with no gap fallback and can overflow
+     a real phone-width screen, especially with a longer business name. */
+  @media (max-width: 400px) {
+    .header-inner { padding: 18px 16px; }
+    .logo { font-size: 15px; letter-spacing: 0.04em; }
+    .cta { padding: 8px 14px; font-size: 11.5px; }
+  }
 </style>
