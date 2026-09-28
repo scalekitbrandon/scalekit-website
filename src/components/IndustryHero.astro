@@ -79,7 +79,11 @@ const {
 <style>
   .industry-hero {
     background: var(--color-bg);
-    padding: var(--space-8) var(--space-6) var(--space-7);
+    /* Top padding must clear the fixed 72px header (see Header.astro)
+       with room to spare — space-8 (80px) alone left the eyebrow pill
+       almost touching the nav on desktop and hidden behind it on
+       mobile once the 560px breakpoint dropped to space-7 (48px). */
+    padding: 112px var(--space-6) var(--space-7);
     font-family: var(--font-body);
   }
   .inner { max-width: 780px; margin: 0 auto; text-align: center; }
@@ -163,7 +167,7 @@ const {
   .pain-point svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
 
   @media (max-width: 560px) {
-    .industry-hero { padding: var(--space-7) var(--space-5) var(--space-6); }
+    .industry-hero { padding: 96px var(--space-5) var(--space-6); }
     .hero-checklist { grid-template-columns: 1fr; }
   }
 </style>
