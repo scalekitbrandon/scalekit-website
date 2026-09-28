@@ -5,6 +5,8 @@ import ScoutHero from '../components/ScoutHero.astro';
 import HowScoutWorks from '../components/HowScoutWorks.astro';
 import ScoutDemoVideoSection from '../components/ScoutDemoVideoSection.astro';
 import ScoutFaq from '../components/ScoutFaq.astro';
+import ScoutGetStarted from '../components/ScoutGetStarted.astro';
+import BookCall from '../components/BookCall.astro';
 import Footer from '../components/Footer.astro';
 
 const siteUrl = Astro.site.origin;
@@ -60,7 +62,7 @@ const footerGroups = [
   },
   {
     heading: 'Get Started',
-    links: [{ label: 'Get Started', href: '#book-call' }],
+    links: [{ label: 'Get Started', href: '#get-started' }],
   },
 ];
 ---
@@ -79,6 +81,14 @@ const footerGroups = [
   <ScoutDemoVideoSection />
 
   <ScoutFaq />
+
+  <ScoutGetStarted />
+
+  <BookCall
+    eyebrow="Get Started"
+    headline="Let's Get Scout Working For You"
+    subheadline="Tell us a bit about your business, then pick a time — or if you're ready to buy, we'll reach out right away to get you set up."
+  />
 
   <Footer
     slot="footer"
