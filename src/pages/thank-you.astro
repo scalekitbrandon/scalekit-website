@@ -35,7 +35,11 @@ const footerGroups = [
   },
 ];
 
-const CHECK_ICON = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 16.5L12.5 23L26 9" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+// Set to the GHL services-interest form ID once it exists. Empty keeps the
+// services section hidden on production (a dev-only placeholder shows locally).
+const SERVICES_FORM_ID = '';
+
+const CHECK_ICON =`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 16.5L12.5 23L26 9" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 ---
 
 <BaseLayout
@@ -60,6 +64,32 @@ const CHECK_ICON = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" 
       </div>
     </div>
   </section>
+
+  {SERVICES_FORM_ID && (
+    <section class="services-section">
+      <div class="inner">
+        <h2 class="services-heading">Pick your services, then pick your time.</h2>
+        <div class="services-embed">
+          <iframe
+            src={`https://api.leadconnectorhq.com/widget/form/${SERVICES_FORM_ID}`}
+            style="width: 100%; height: 520px; border: none; overflow: hidden;"
+            id={`inline-${SERVICES_FORM_ID}`}
+            data-form-id={SERVICES_FORM_ID}
+            title="Services you're interested in"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {!SERVICES_FORM_ID && import.meta.env.DEV && (
+    <section class="services-section">
+      <div class="inner">
+        <h2 class="services-heading">Pick your services, then pick your time.</h2>
+        <div class="services-placeholder">Services form goes here (SERVICES_FORM_ID not set yet).</div>
+      </div>
+    </section>
+  )}
 
   <section class="calendar-section">
     <div class="inner">
@@ -174,6 +204,31 @@ const CHECK_ICON = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" 
   }
   @media (prefers-reduced-motion: reduce) {
     .scroll-arrow { animation: none; }
+  }
+
+  /* Services */
+  .services-section {
+    background: var(--color-bg);
+    padding: var(--space-8) var(--space-6) var(--space-6);
+    text-align: center;
+  }
+  .services-section .inner { max-width: 720px; }
+  .services-heading {
+    font-size: clamp(26px, 3.4vw, 40px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-5);
+  }
+  .services-embed { width: 100%; border-radius: var(--radius-md); overflow: hidden; }
+  .services-embed iframe { display: block; width: 100%; }
+  .services-placeholder {
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-7) var(--space-5);
+    color: var(--color-text-light);
+    font-size: 14px;
   }
 
   /* Calendar */
