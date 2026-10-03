@@ -1,15 +1,10 @@
 ---
-// Post-booking confirmation page — the redirect destination once a
-// visitor finishes both steps of <BookCall /> (contact form, then the
-// LeadConnector calendar embed). Content/structure ported faithfully
-// from the old GHL page (content/scalekit-pages/thank-you.html in the
-// funnel-library repo): confirmation hero, "What happens next" 3-step,
-// a dark "don't forget your calendar invite" reminder, a "while you
-// wait" link grid, and a founder sign-off — same real headshot asset.
-// NOTE: this page itself doesn't trigger anything — the LeadConnector
-// booking widget's own "redirect after booking" setting (in GHL,
-// on the calendar itself) needs to be pointed at /thank-you for
-// visitors to actually land here after booking.
+// Landing page after the contact form is submitted: the GHL booking
+// calendar is embedded here so the visitor picks a time on the same
+// page. Content otherwise ported from the old GHL page
+// (content/scalekit-pages/thank-you.html in the funnel-library repo).
+// The form's own "redirect after submit" setting in GHL should point
+// at this page.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -88,22 +83,37 @@ const CHECK_ICON = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" 
 ---
 
 <BaseLayout
-  title="Call Confirmed | ScaleKit"
-  description="Your strategy call is booked. Here's what happens next."
+  title="Pick Your Time | ScaleKit"
+  description="Your details are in. Pick a time for your free strategy call."
 >
   <Header slot="header" />
 
   <section class="confirm-hero">
     <div class="inner">
       <span class="check-icon" set:html={CHECK_ICON} />
-      <p class="eyebrow">You're Booked</p>
+      <p class="eyebrow">Info Received</p>
       <h1 class="headline">
-        Call confirmed.<br />
-        <span class="highlight">We'll see you soon.</span>
+        Thanks — you're one step away.<br />
+        <span class="highlight">Pick your time below.</span>
       </h1>
       <p class="sub">
-        Check your inbox — a confirmation email is on its way. Here's what happens between now and your call.
+        We have your details. Choose a time for your free strategy call and we'll use your answers to prep for it.
       </p>
+    </div>
+  </section>
+
+  <section class="calendar-section">
+    <div class="inner">
+      <div class="calendar-embed">
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/booking/miZCiSMB6B4a91VTW2Vp"
+          style="width: 100%; height: 700px; border: none; overflow: hidden;"
+          scrolling="no"
+          id="miZCiSMB6B4a91VTW2Vp_booking"
+          title="Book your free strategy call"
+        ></iframe>
+      </div>
+      <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
     </div>
   </section>
 
@@ -122,24 +132,6 @@ const CHECK_ICON = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" 
             <p class="step-desc">{step.desc}</p>
           </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="reminder-section">
-    <div class="inner">
-      <div class="reminder-card">
-        <p class="reminder-icon">📅</p>
-        <p class="eyebrow eyebrow-dark">Don't Forget</p>
-        <h3 class="reminder-title">Add it to your calendar</h3>
-        <p class="reminder-desc">
-          You should have received a calendar invite. If you don't see it, check spam — or reply to your confirmation email and we'll resend it.
-        </p>
-        <div class="reminder-checklist">
-          <span><i></i>Check your email</span>
-          <span><i></i>Add to calendar</span>
-          <span><i></i>Show up ready</span>
-        </div>
       </div>
     </div>
   </section>
@@ -288,29 +280,18 @@ const CHECK_ICON = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" 
   .step-desc { font-size: 13px; line-height: 1.6; color: var(--color-text-mid); margin: 0; }
   .step-card.is-final .step-desc { color: rgba(0, 0, 0, 0.6); }
 
-  /* Calendar reminder */
-  .reminder-section { background: var(--color-bg); padding: var(--space-7) var(--space-6); }
-  .reminder-section .inner { max-width: 680px; }
-  .reminder-card {
-    background: var(--color-dark-bg);
-    border-radius: var(--radius-lg);
-    padding: 40px 44px;
-    text-align: center;
-    box-sizing: border-box;
+  /* Calendar */
+  .calendar-section {
+    background: #ffffff;
+    padding: var(--space-6) var(--space-6) var(--space-8);
   }
-  .reminder-icon { font-size: 22px; margin: 0 0 16px; }
-  .eyebrow-dark { color: rgba(255, 255, 255, 0.3); }
-  .reminder-title { font-size: 20px; font-weight: var(--font-weight-max); color: var(--color-dark-fg); margin: 0 0 12px; letter-spacing: -0.02em; }
-  .reminder-desc {
-    font-size: 14px;
-    line-height: 1.65;
-    color: rgba(255, 255, 255, 0.5);
-    max-width: 420px;
-    margin: 0 auto var(--space-5);
+  .calendar-section .inner { max-width: 720px; }
+  .calendar-embed {
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
   }
-  .reminder-checklist { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
-  .reminder-checklist span { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255, 255, 255, 0.4); }
-  .reminder-checklist i { width: 6px; height: 6px; background: var(--color-primary); border-radius: 50%; flex-shrink: 0; }
+  .calendar-embed iframe { display: block; width: 100%; }
 
   /* While you wait */
   .wait-section {
