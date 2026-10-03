@@ -92,25 +92,6 @@ const CHECK_ICON =`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" x
             </div>
           </fieldset>
 
-          <div class="contact-row">
-            <label class="field">
-              <span class="field-label">First name</span>
-              <input type="text" name="first_name" autocomplete="given-name" required />
-            </label>
-            <label class="field">
-              <span class="field-label">Email</span>
-              <input type="email" name="email" autocomplete="email" required />
-            </label>
-          </div>
-
-          <p class="services-error" role="alert" hidden></p>
-
-          <button type="submit" class="services-submit">
-            Continue to Calendar
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-          </button>
-
-          <p class="services-saved" hidden>Saved. Now pick a time below.</p>
         </form>
       )}
 
@@ -127,57 +108,6 @@ const CHECK_ICON =`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" x
     </div>
   </section>
 
-  <script>
-    const form = document.querySelector<HTMLFormElement>('.services-form');
-    const errorEl = document.querySelector<HTMLElement>('.services-error');
-    const savedEl = document.querySelector<HTMLElement>('.services-saved');
-
-    form?.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      if (!errorEl || !savedEl) return;
-      errorEl.hidden = true;
-      savedEl.hidden = true;
-
-      const data = new FormData(form);
-      const services = data.getAll('services') as string[];
-      const firstName = String(data.get('first_name') ?? '').trim();
-      const email = String(data.get('email') ?? '').trim();
-      const url = form.dataset.webhook;
-
-      if (!firstName || !email) {
-        errorEl.textContent = 'Add your first name and email so we can match this to your inquiry.';
-        errorEl.hidden = false;
-        return;
-      }
-      if (services.length === 0) {
-        errorEl.textContent = 'Pick at least one service so we know what to prep for.';
-        errorEl.hidden = false;
-        return;
-      }
-      if (!url) {
-        errorEl.textContent = 'This form is not connected yet.';
-        errorEl.hidden = false;
-        return;
-      }
-
-      const submit = form.querySelector<HTMLButtonElement>('.services-submit');
-      if (submit) submit.disabled = true;
-      try {
-        await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ first_name: firstName, email, services }),
-        });
-        savedEl.hidden = false;
-        document.querySelector('.calendar-embed')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } catch {
-        errorEl.textContent = 'Something went wrong. Please try again.';
-        errorEl.hidden = false;
-      } finally {
-        if (submit) submit.disabled = false;
-      }
-    });
-  </script>
 
   <section class="signoff-section">
     <div class="inner">
@@ -346,59 +276,8 @@ const CHECK_ICON =`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" x
     color: var(--color-fg);
     line-height: 1.3;
   }
-  .contact-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-3);
-    margin-bottom: var(--space-5);
-  }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field-label { font-size: 13px; font-weight: 700; color: var(--color-fg); }
-  .field input {
-    font: inherit;
-    font-size: 15px;
-    color: var(--color-fg);
-    height: 48px;
-    padding: 0 14px;
-    background: #ffffff;
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .field input:focus { border-color: var(--color-fg); }
-  .services-error {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-danger);
-    margin: 0 0 var(--space-4);
-  }
-  .services-submit {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 28px;
-    background: var(--color-primary);
-    color: var(--color-primary-fg);
-    font: inherit;
-    font-size: 15px;
-    font-weight: var(--font-weight-button);
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .services-submit:hover { background: var(--color-primary-hover); }
-  .services-submit:disabled { opacity: 0.6; cursor: default; }
-  .services-submit svg { width: 16px; height: 16px; }
-  .services-saved {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--color-fg);
-    margin: var(--space-4) 0 0;
-  }
   @media (max-width: 560px) {
-    .service-grid, .contact-row { grid-template-columns: 1fr; }
+    .service-grid { grid-template-columns: 1fr; }
   }
 
   .calendar-embed {
