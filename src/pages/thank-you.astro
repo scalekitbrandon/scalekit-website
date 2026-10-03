@@ -48,18 +48,16 @@ const CHECK_ICON =`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" x
 >
   <Header slot="header" />
 
-  <section class="confirm-hero">
+  <section class="hero">
     <div class="inner">
-      <span class="check-icon" set:html={CHECK_ICON} />
-      <p class="eyebrow">Info Received</p>
-      <h1 class="headline">
-        Great!<br />
-        <span class="highlight">Now just Pick Your Services and Book Your Call</span>
+      <p class="hero-badge"><span class="hero-badge-icon" set:html={CHECK_ICON} />Great!</p>
+      <h1 class="hero-title">
+        Now just <mark>Pick Your Services</mark> and <mark>Book Your Call</mark>
       </h1>
-      <p class="sub">
+      <p class="hero-sub">
         We have your details. Choose a time for your free strategy call.
       </p>
-      <div class="scroll-arrow" aria-hidden="true">
+      <div class="hero-arrow" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>
       </div>
     </div>
@@ -69,7 +67,6 @@ const CHECK_ICON =`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" x
     <div class="inner">
       {SERVICES_FORM_ID && (
         <>
-          <h2 class="booking-heading">Pick your services, then pick your time.</h2>
           <div class="services-embed">
             <iframe
               src={`https://api.leadconnectorhq.com/widget/form/${SERVICES_FORM_ID}`}
@@ -84,7 +81,6 @@ const CHECK_ICON =`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" x
 
       {!SERVICES_FORM_ID && import.meta.env.DEV && (
         <>
-          <h2 class="booking-heading">Pick your services, then pick your time.</h2>
           <div class="services-placeholder">Services form goes here (SERVICES_FORM_ID not set yet).</div>
         </>
       )}
@@ -130,76 +126,71 @@ const CHECK_ICON =`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" x
   .inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); box-sizing: border-box; }
   section { font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
 
-  .eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-text-light);
-    margin: 0 0 14px;
-  }
-
   /* Hero */
-  .confirm-hero {
-    background: var(--color-bg);
+  .hero {
+    background-color: var(--color-bg);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
     padding: var(--space-hero-top) var(--space-6) var(--space-7);
     text-align: center;
   }
-  .confirm-hero .inner { max-width: 720px; }
-  .check-icon {
-    width: 72px;
-    height: 72px;
-    background: var(--color-primary);
-    border-radius: 50%;
-    display: flex;
+  .hero .inner { max-width: 760px; }
+  .hero-badge {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-5);
-  }
-  .headline {
-    font-size: clamp(32px, 4.5vw, 54px);
-    font-weight: var(--font-weight-max);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
+    gap: 8px;
+    background: var(--color-primary);
     color: var(--color-fg);
-    margin: 0 0 20px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 16px 8px 12px;
+    border-radius: var(--radius-pill);
+    margin: 0 0 var(--space-5);
   }
-  .highlight {
-    color: var(--color-primary);
-    background: var(--color-fg);
-    padding: 2px 12px 4px;
-    border-radius: 8px;
-    display: inline-block;
-    margin-top: 6px;
+  .hero-badge-icon { display: flex; }
+  .hero-badge-icon :global(svg) { width: 16px; height: 16px; }
+  .hero-title {
+    font-size: clamp(30px, 4.2vw, 48px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+    margin: 0 auto var(--space-4);
+    max-width: 640px;
   }
-  .sub {
-    font-size: clamp(16px, 1.8vw, 19px);
-    line-height: 1.65;
+  .hero-title mark {
+    background: linear-gradient(transparent 58%, var(--color-primary) 58%, var(--color-primary) 92%, transparent 92%);
+    color: inherit;
+    padding: 0 2px;
+  }
+  .hero-sub {
+    font-size: clamp(16px, 1.6vw, 18px);
+    line-height: 1.6;
     color: var(--color-text-mid);
-    max-width: 520px;
+    max-width: 480px;
     margin: 0 auto;
   }
-
-  .scroll-arrow {
-    width: 44px;
-    height: 44px;
-    margin: var(--space-5) auto 0;
-    background: var(--color-primary);
-    color: var(--color-fg);
-    border: 2px solid var(--color-fg);
+  .hero-arrow {
+    width: 40px;
+    height: 40px;
+    margin: var(--space-6) auto 0;
+    background: var(--color-fg);
+    color: var(--color-primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     animation: bob 1.6s ease-in-out infinite;
   }
-  .scroll-arrow svg { width: 20px; height: 20px; }
+  .hero-arrow svg { width: 18px; height: 18px; }
   @keyframes bob {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(6px); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .scroll-arrow { animation: none; }
+    .hero-arrow { animation: none; }
   }
 
   /* Booking: services form, then calendar */
@@ -209,14 +200,6 @@ const CHECK_ICON =`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" x
     text-align: center;
   }
   .booking-section .inner { max-width: 720px; }
-  .booking-heading {
-    font-size: clamp(26px, 3.4vw, 40px);
-    font-weight: var(--font-weight-max);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: var(--color-fg);
-    margin: 0 0 var(--space-5);
-  }
   .services-embed { width: 100%; border-radius: var(--radius-md); overflow: hidden; margin-bottom: var(--space-6); }
   .services-embed iframe { display: block; width: 100%; }
   .services-placeholder {
