@@ -1,0 +1,72 @@
+---
+// Primary keyword: travel advisor website design. Follows the
+// /industries/<trade>/ = "<trade> website design" rule in decisions.md.
+import KeywordPage from '../../../components/KeywordPage.astro';
+---
+
+<KeywordPage
+  kind="service"
+  title="Travel Advisor Website Design & Lead Follow-Up | ScaleKit"
+  description="Website design for travel advisors and travel agents: a site that turns trip inquiries into booked consultations, with automatic follow-up on every quote."
+  serviceType="Travel advisor website design"
+  audience="Travel advisors and travel agents"
+  breadcrumbs={[{ name: 'Travel Advisors', path: '/industries/travel-advisors/' }, { name: 'Website Design' }]}
+  hero={{
+    eyebrow: 'For Travel Advisors',
+    headline: 'Travel Advisor Website Design That Books More Trips',
+    subheadline: 'A website that shows travelers why they should book with you instead of an online booking site, plus follow-up that keeps every trip inquiry moving until it books.',
+    checklist: [
+      "A site that shows why travelers should book with you",
+      "Pages for the trips you specialize in",
+      "Every trip inquiry answered instantly",
+      "More quotes turned into booked trips",
+    ],
+  }}
+  blocks={[
+    {
+      eyebrow: 'Why It Matters',
+      heading: 'Give Travelers a Reason to Book With You',
+      paragraphs: [
+        "Your clients can book a cruise or resort online in a few minutes. What they can't get online is your knowledge, your supplier relationships and someone to call when plans change. Your website has to make that clear in the first few seconds.",
+        'We build travel advisor websites around the trips you actually sell, with your specialties, destinations and personal story front and center, so visitors see a trusted advisor and not a booking engine.',
+      ],
+    },
+    {
+      eyebrow: "What's Included",
+      heading: 'What Your Travel Advisor Website Includes',
+      list: [
+        'Pages for your specialties: cruises, all-inclusive resorts, honeymoons, group travel and more',
+        'A trip inquiry form that asks the right questions up front',
+        'Booking link for discovery calls straight into your calendar',
+        'Your story and credentials, so travelers know who they are trusting',
+        'Reviews from past travelers shown where they help most',
+        'Built to show up when people search for a travel advisor near them',
+      ],
+    },
+    {
+      eyebrow: 'Follow-Up',
+      heading: 'Follow-Up for Every Quote and Inquiry',
+      paragraphs: [
+        "Trip planning takes time, and travelers compare options. Every inquiry gets an instant reply, every quote gets a follow-up sequence, and past clients get a check-in before their next anniversary, birthday or travel season. It all runs in the background while you plan trips.",
+      ],
+    },
+  ]}
+  faqHeadline="Travel Advisor Website Questions"
+  faq={[
+    { question: 'I already have a website from my host agency. Do I need a new one?', answer: "Host agency sites are a good start, but they usually look the same as every other advisor's. A site built around your specialties and story helps you stand out and rank for the trips you want to sell." },
+    { question: 'Can the site show my specialties and destinations?', answer: 'Yes. We build pages for the trips you focus on, whether that is cruises, river cruises, Disney, honeymoons, group trips or luxury travel.' },
+    { question: 'Will it follow up with travelers who request a quote?', answer: 'Yes. Every inquiry gets an instant reply, and every quote gets follow-up by text and email until the traveler books or decides not to.' },
+    { question: 'Who builds and maintains it?', answer: 'We do. We build the site, connect your forms and calendar, and keep everything running.' },
+  ]}
+  related={[
+    { label: 'Marketing Automation for Travel Advisors', href: '/industries/travel-advisors/', description: 'Everything we do for travel advisors, in one system.' },
+    { label: 'Lead Follow-Up Automation', href: '/services/lead-follow-up-automation/', description: 'Follow up on every trip quote until it books.' },
+    { label: 'Google Review Automation', href: '/services/google-review-automation/', description: 'Ask every returning traveler for a review.' },
+    { label: 'Database Reactivation', href: '/services/reactivation/', description: 'Reconnect with past clients before their next trip.' },
+  ]}
+  finalCta={{
+    eyebrow: 'Run Your Own Numbers',
+    headline: 'What Is One More Booked Trip Worth?',
+    subheadline: "Let's look at how inquiries reach you today and where they slip away.",
+  }}
+/>

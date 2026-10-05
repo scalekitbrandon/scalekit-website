@@ -12,6 +12,13 @@ interface NavLink {
 interface Props {
   homeHref?: string;
   services?: NavLink[];
+  // Feature pages shown under a Features dropdown. "Features" itself
+  // stays a real link to /features/; any plain "Features" entry passed in
+  // `links` is dropped so it isn't rendered twice.
+  features?: NavLink[];
+  // Industry pages shown under the "Who We Work With" dropdown, which
+  // replaces any plain "Who We Work With" entry passed in `links`.
+  industries?: NavLink[];
   links?: NavLink[];
   ctaLabel?: string;
   ctaHref?: string;
@@ -21,11 +28,29 @@ const {
   homeHref = '#home',
   services = [
     { label: 'Websites & Funnels', href: '#websites-funnels' },
-    { label: 'Local SEO', href: '#local-seo' },
-    { label: 'Google & Meta Ads', href: '#ads' },
-    { label: 'CRM & Automation', href: '#automation' },
-    { label: 'Reactivation', href: '#reactivation' },
-    { label: 'AI Agents & Solutions', href: '#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
+  ],
+  features = [
+    { label: 'All Features', href: '/features/' },
+    { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/' },
+    { label: 'Lead Follow-Up Automation', href: '/services/lead-follow-up-automation/' },
+    { label: 'Google Review Automation', href: '/services/google-review-automation/' },
+    { label: 'Google Business Profile Management', href: '/services/google-business-profile-management/' },
+  ],
+  industries = [
+    { label: 'All Industries', href: '/#built-for' },
+    { label: 'Roofing', href: '/industries/roofing/' },
+    { label: 'Restoration', href: '/industries/restoration/' },
+    { label: 'Landscaping', href: '/industries/landscaping/' },
+    { label: 'Home Services', href: '/industries/home-services/' },
+    { label: 'Public Adjusters', href: '/industries/public-adjusters/' },
+    { label: 'Therapists', href: '/industries/therapists/' },
+    { label: 'Travel Advisors', href: '/industries/travel-advisors/' },
+    { label: 'Coaches & Consultants', href: '/industries/agency-consultant/' },
   ],
   links = [
     { label: 'Features', href: '/features' },
@@ -36,6 +61,13 @@ const {
   ctaLabel = 'Book Your Free Strategy Call',
   ctaHref = '#book-call',
 } = Astro.props;
+
+// Labels that render as dropdowns in place of a plain link, keeping the
+// position each page's `links` order gives them.
+const menus: Record<string, { href: string; items: NavLink[] }> = {
+  Features: { href: '/features/', items: features },
+  'Who We Work With': { href: '/#built-for', items: industries },
+};
 ---
 
 <header class="site-header">
@@ -47,27 +79,50 @@ const {
     <div class="nav-links" id="navLinks">
       <a href={homeHref} class="nav-link">Home</a>
 
-      <div class="dropdown" id="servicesDropdown">
-        <button type="button" class="nav-link dropdown-trigger" id="servicesTrigger" aria-expanded="false" aria-haspopup="true">
+      <div class="dropdown">
+        <button type="button" class="nav-link dropdown-trigger" aria-expanded="false" aria-haspopup="true">
           Services
           <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="dropdown-menu" id="servicesMenu">
+        <div class="dropdown-menu">
           {services.map((s) => (
             <a href={s.href} class="dropdown-link">{s.label}</a>
           ))}
         </div>
       </div>
 
-      {links.map((link) => (
-        <a href={link.href} class="nav-link">{link.label}</a>
-      ))}
+      {links.map((link) => {
+        const menu = menus[link.label];
+        return menu ? (
+          <div class="dropdown">
+            <a href={menu.href} class="nav-link dropdown-trigger" aria-haspopup="true">
+              {link.label}
+              <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              {menu.items.map((item) => (
+                <a href={item.href} class="dropdown-link">{item.label}</a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={link.href} class="nav-link">{link.label}</a>
+        );
+      })}
 
       <!-- Mobile-only services list (no dropdown at this width) -->
       <div class="mobile-services">
         <p class="mobile-services-label">Services</p>
         {services.map((s) => (
           <a href={s.href} class="nav-link mobile-service-link">{s.label}</a>
+        ))}
+        <p class="mobile-services-label">Features</p>
+        {features.map((f) => (
+          <a href={f.href} class="nav-link mobile-service-link">{f.label}</a>
+        ))}
+        <p class="mobile-services-label">Who We Work With</p>
+        {industries.map((i) => (
+          <a href={i.href} class="nav-link mobile-service-link">{i.label}</a>
         ))}
       </div>
 
@@ -151,6 +206,7 @@ const {
   .dropdown { position: relative; }
   .dropdown-trigger svg { width: 10px; height: 10px; transition: transform 0.15s; }
   .dropdown:hover .dropdown-trigger svg,
+  .dropdown:focus-within .dropdown-trigger svg,
   .dropdown-trigger[aria-expanded='true'] svg { transform: rotate(180deg); }
   .dropdown-menu {
     /* Flush against the trigger (top: 100%, no gap) with the visual
@@ -173,15 +229,26 @@ const {
     min-width: 220px;
     display: flex;
     flex-direction: column;
+    /* Closed menu is hidden from the pointer too: an invisible but
+       hit-testable box sat under the trigger and opened the menu when the
+       cursor merely passed over the page below it. The menu opens only
+       from the trigger, then stays open while the cursor moves into it
+       (it's flush with the trigger, so there's no gap to cross).
+       Visibility flips after the fade on close, immediately on open. */
     opacity: 0;
-    pointer-events: auto;
+    visibility: hidden;
+    pointer-events: none;
     transform: translateX(-50%) translateY(-6px);
-    transition: opacity 0.15s, transform 0.15s;
+    transition: opacity 0.15s, transform 0.15s, visibility 0s linear 0.15s;
   }
   .dropdown:hover .dropdown-menu,
+  .dropdown:focus-within .dropdown-menu,
   .dropdown-menu.is-open {
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     transform: translateX(-50%) translateY(0);
+    transition-delay: 0s;
   }
   .dropdown-link {
     padding: 10px 14px;
@@ -303,19 +370,21 @@ const {
   }
 
   // Click-to-toggle fallback for the Services dropdown (hover already
-  // works via CSS; this adds keyboard/touch support).
-  const trigger = document.getElementById('servicesTrigger');
-  const menu = document.getElementById('servicesMenu');
-  if (trigger && menu) {
+  // works via CSS; this adds touch support). The Features trigger is a real
+  // link to /features/, so it navigates on click instead.
+  document.querySelectorAll('.dropdown').forEach((dropdown) => {
+    const trigger = dropdown.querySelector('button.dropdown-trigger');
+    const menu = dropdown.querySelector('.dropdown-menu');
+    if (!trigger || !menu) return;
     trigger.addEventListener('click', () => {
       const isOpen = menu.classList.toggle('is-open');
       trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
     document.addEventListener('click', (e) => {
-      if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+      if (!dropdown.contains(e.target as Node)) {
         menu.classList.remove('is-open');
         trigger.setAttribute('aria-expanded', 'false');
       }
     });
-  }
+  });
 </script>

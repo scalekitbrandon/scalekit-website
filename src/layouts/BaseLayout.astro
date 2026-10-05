@@ -7,9 +7,12 @@ interface Props {
   // Array of JSON-LD objects (Organization, Service, WebSite, etc.) —
   // each rendered as its own <script type="application/ld+json"> in <head>.
   structuredData?: object[];
+  // Utility pages (e.g. /thank-you) that shouldn't appear in search.
+  noindex?: boolean;
 }
 
-const { title, description = '', structuredData = [] } = Astro.props;
+const { title, description = '', structuredData = [], noindex = false } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -36,8 +39,12 @@ const { title, description = '', structuredData = [] } = Astro.props;
       rel="stylesheet"
     />
     <title>{title}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     {description && <meta name="description" content={description} />}
     <meta property="og:title" content={title} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
     {description && <meta property="og:description" content={description} />}
     {structuredData.map((data) => (
       <script type="application/ld+json" set:html={JSON.stringify(data)} />
@@ -65,6 +72,15 @@ const { title, description = '', structuredData = [] } = Astro.props;
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: var(--font-weight-max);
+    margin: 0;
+  }
+  /* Headlines inside embedded template previews: styled like an h1 but not
+     one, so each page keeps a single real H1 for search engines. */
+  .sample-h1 {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-max);
+    font-size: 2em;
     margin: 0;
   }
   .container {

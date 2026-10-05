@@ -1,0 +1,76 @@
+---
+// Internal links between keyword pages. Each page links to its parent
+// service and its siblings so search engines can see how the topics fit
+// together, and visitors can move to the next thing they need.
+interface LinkItem {
+  label: string;
+  href: string;
+  description: string;
+}
+
+interface Props {
+  heading?: string;
+  links: LinkItem[];
+}
+
+const { heading = 'Related Services', links } = Astro.props;
+---
+
+<section class="related">
+  <div class="inner">
+    <h2 class="heading">{heading}</h2>
+    <div class="grid">
+      {links.map((link) => (
+        <a class="card" href={link.href}>
+          <span class="label">{link.label} <span aria-hidden="true">→</span></span>
+          <span class="desc">{link.description}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .related {
+    background: var(--color-bg);
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 1000px; margin: 0 auto; }
+  .heading {
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-6);
+    text-align: center;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: var(--space-4);
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .card:hover, .card:focus-visible { border-color: var(--color-fg); transform: translateY(-2px); }
+  .label { font-size: 16px; font-weight: 700; color: var(--color-fg); }
+  .desc { font-size: 14px; line-height: 1.55; color: var(--color-text-mid); }
+
+  @media (max-width: 560px) {
+    .related { padding: var(--space-7) var(--space-5); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card { transition: none; }
+    .card:hover { transform: none; }
+  }
+</style>

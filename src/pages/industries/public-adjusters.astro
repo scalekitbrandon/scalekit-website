@@ -10,6 +10,7 @@
 // dedicated page. No TemplateShowcase here — there's no public-adjuster
 // website template built, and this page's job is the full-service
 // overview, not a single-service sales page.
+import RelatedLinks from '../../components/RelatedLinks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import IndustryHero from '../../components/IndustryHero.astro';
@@ -30,7 +31,7 @@ const structuredData = [
     serviceType: 'Marketing & Automation for Public Adjusters',
     name: 'ScaleKit for Public Adjusters',
     description: 'ScaleKit builds public adjusters a website, local SEO, ads, CRM automation, and AI agents built around how policyholders actually choose who to trust with a claim.',
-    url: `${siteUrl}/services/public-adjusters`,
+    url: `${siteUrl}/industries/public-adjusters/`,
     provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
   },
 ];
@@ -38,11 +39,11 @@ const structuredData = [
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -57,7 +58,7 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/scout' },
+      { label: 'Local SEO', href: '/scout/' },
       { label: 'Google & Meta Ads', href: '/services/ads' },
       { label: 'CRM & Automation', href: '/services/automation' },
       { label: 'AI Agents & Solutions', href: '/services/ai-agents' },
@@ -79,7 +80,7 @@ const footerGroups = [
 ---
 
 <BaseLayout
-  title="Marketing & Automation for Public Adjusters | ScaleKit"
+  title="Public Adjuster Marketing & Lead Generation | ScaleKit"
   description="ScaleKit builds public adjusters a website, local SEO, ads, CRM automation, and AI agents built around how policyholders actually choose who to trust with a claim."
   structuredData={structuredData}
 >
@@ -87,7 +88,7 @@ const footerGroups = [
 
   <IndustryHero
     eyebrow="For Public Adjusters"
-    headline="More Claims. Faster Follow-Up. Less Busywork."
+    headline="Public Adjuster Marketing That Brings In More Claims"
     subheadline="Policyholders decide whether to trust you with their claim before they ever talk to you. We build the website, marketing, and follow-up system that wins that decision — and keeps every claim moving once you're hired."
     checklist={[
       'Website built to earn trust fast',
@@ -213,6 +214,12 @@ const footerGroups = [
       },
     ]}
   />
+  <RelatedLinks heading="More for Public Adjusters" links={[
+      { label: 'Public Adjuster CRM', href: '/industries/public-adjusters/crm/', description: 'Track every claim and keep clients updated automatically.' },
+      { label: 'Lead Follow-Up Automation', href: '/services/lead-follow-up-automation/', description: 'Respond to every policyholder in seconds.' },
+      { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Never lose a claim to voicemail.' },
+    ]} />
+
 
   <FinalCta
     eyebrow="Run Your Own Numbers"

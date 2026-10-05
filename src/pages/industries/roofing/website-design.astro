@@ -1,17 +1,18 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import IndustryHero from '../../components/IndustryHero.astro';
-import TemplateShowcase from '../../components/TemplateShowcase.astro';
-import ProcessCircles from '../../components/ProcessCircles.astro';
-import FinalCta from '../../components/FinalCta.astro';
-import BookCall from '../../components/BookCall.astro';
-import Footer from '../../components/Footer.astro';
-import RoofingSample from '../../components/samples/RoofingSample.astro';
-import AnchorSample from '../../components/samples/AnchorSample.astro';
-import PaintingSample from '../../components/samples/PaintingSample.astro';
-import LandscapingSample from '../../components/samples/LandscapingSample.astro';
-import RestorationSample from '../../components/samples/RestorationSample.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import IndustryHero from '../../../components/IndustryHero.astro';
+import TemplateShowcase from '../../../components/TemplateShowcase.astro';
+import ProcessCircles from '../../../components/ProcessCircles.astro';
+import FinalCta from '../../../components/FinalCta.astro';
+import BookCall from '../../../components/BookCall.astro';
+import Footer from '../../../components/Footer.astro';
+import RoofingSample from '../../../components/samples/RoofingSample.astro';
+import AnchorSample from '../../../components/samples/AnchorSample.astro';
+import PaintingSample from '../../../components/samples/PaintingSample.astro';
+import LandscapingSample from '../../../components/samples/LandscapingSample.astro';
+import RestorationSample from '../../../components/samples/RestorationSample.astro';
 
 const siteUrl = Astro.site.origin;
 
@@ -22,7 +23,7 @@ const structuredData = [
     serviceType: 'Roofing Company Websites & Funnels',
     name: 'Website Design for Roofing Companies',
     description: 'ScaleKit builds roofing companies a website and lead-follow-up system built around the insurance claim process.',
-    url: `${siteUrl}/services/roofing`,
+    url: `${siteUrl}/industries/roofing/website-design/`,
     provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
   },
 ];
@@ -30,11 +31,11 @@ const structuredData = [
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -49,11 +50,11 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/#local-seo' },
-      { label: 'Google & Meta Ads', href: '/#ads' },
-      { label: 'CRM & Automation', href: '/#automation' },
-      { label: 'Reactivation', href: '/#reactivation' },
-      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+      { label: 'Local SEO', href: '/scout/' },
+      { label: 'Google & Meta Ads', href: '/services/ads/' },
+      { label: 'CRM & Automation', href: '/services/automation/' },
+      { label: 'Reactivation', href: '/services/reactivation/' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
     ],
   },
   {
@@ -72,15 +73,15 @@ const footerGroups = [
 ---
 
 <BaseLayout
-  title="Website Design for Roofing Companies | ScaleKit"
+  title="Roofing Website Design & Lead Follow-Up | ScaleKit"
   description="ScaleKit builds roofing companies a website and lead-follow-up system built around the insurance claim process — so storm-season leads don't go cold."
   structuredData={structuredData}
 >
   <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
 
   <IndustryHero
-    eyebrow="Website Design for Roofing Companies"
-    headline="Turn Roofing Leads Into Booked Jobs — Automatically"
+    eyebrow="For Roofing Companies"
+    headline="Roofing Website Design That Turns Leads Into Booked Jobs"
     subheadline="Storm season floods you with leads, and half of them go cold before you can call back. We build roofing companies a website, a follow-up system, and a lead engine that works while you're on the roof."
     checklist={[
       'Lightning-fast load times',
@@ -113,6 +114,13 @@ const footerGroups = [
   </TemplateShowcase>
 
   <ProcessCircles />
+  <RelatedLinks heading="More for Roofing Companies" links={[
+      { label: 'Marketing Automation for Roofing Companies', href: '/industries/roofing/', description: 'Everything we do for roofing companies, in one system.' },
+      { label: 'Roofing CRM', href: '/industries/roofing/crm/', description: 'Track every inspection, estimate and insurance claim.' },
+      { label: 'Local SEO for Roofers', href: '/industries/roofing/local-seo/', description: 'Show up in Google Maps when homeowners need a roofer.' },
+      { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Never lose a storm-season call to voicemail.' },
+    ]} />
+
 
   <FinalCta
     eyebrow="Run Your Own Numbers"

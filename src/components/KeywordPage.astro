@@ -1,0 +1,130 @@
+---
+// Template for single-keyword landing pages (/services/<feature>/,
+// /industries/<trade>/<service>/, /guides/<topic>/). Each page owns exactly
+// one primary keyword — see memory/decisions.md "SEO Rules" — and passes
+// only its content; this builds the layout and the JSON-LD (Service or
+// Article, plus FAQPage and BreadcrumbList generated from the same visible
+// content, so the markup always matches the page).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import IndustryHero from './IndustryHero.astro';
+import ContentBlocks from './ContentBlocks.astro';
+import Process from './Process.astro';
+import PricingFaq from './PricingFaq.astro';
+import RelatedLinks from './RelatedLinks.astro';
+import FinalCta from './FinalCta.astro';
+import BookCall from './BookCall.astro';
+import Footer from './Footer.astro';
+import { headerNav, footerGroups } from '../data/site-nav';
+
+interface Props {
+  kind: 'service' | 'guide';
+  title: string;
+  description: string;
+  // Trail after Home, e.g. [{ name: 'Services', path: '/services/automation/' }, { name: 'Missed Call Text Back' }].
+  // The last crumb is this page and needs no path.
+  breadcrumbs: { name: string; path?: string }[];
+  serviceType?: string;
+  audience?: string;
+  datePublished?: string;
+  hero: {
+    eyebrow: string;
+    headline: string;
+    subheadline: string;
+    painPoints?: string[];
+    checklist?: string[];
+  };
+  blocks: { eyebrow?: string; heading: string; paragraphs?: string[]; list?: string[]; link?: { label: string; href: string } }[];
+  steps?: { number: string; title: string; description: string }[];
+  stepsHeadline?: string;
+  faq: { question: string; answer: string }[];
+  faqHeadline: string;
+  related: { label: string; href: string; description: string }[];
+  finalCta: { eyebrow: string; headline: string; subheadline: string };
+}
+
+const p = Astro.props;
+const site = Astro.site!.origin;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const orgRef = { '@type': 'ProfessionalService', name: 'ScaleKit', url: `${site}/` };
+
+const mainEntity =
+  p.kind === 'service'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: p.hero.headline,
+        serviceType: p.serviceType,
+        description: p.description,
+        url: pageUrl,
+        provider: orgRef,
+        areaServed: { '@type': 'Country', name: 'United States' },
+        ...(p.audience && { audience: { '@type': 'BusinessAudience', audienceType: p.audience } }),
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: p.hero.headline,
+        description: p.description,
+        url: pageUrl,
+        datePublished: p.datePublished,
+        author: { '@type': 'Person', name: 'Brandon Mortenson' },
+        publisher: orgRef,
+      };
+
+const structuredData = [
+  mainEntity,
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: p.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [{ name: 'Home', path: '/' }, ...p.breadcrumbs].map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.name,
+      item: c.path ? `${site}${c.path}` : pageUrl,
+    })),
+  },
+];
+---
+
+<BaseLayout title={p.title} description={p.description} structuredData={structuredData}>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <IndustryHero
+    eyebrow={p.hero.eyebrow}
+    headline={p.hero.headline}
+    subheadline={p.hero.subheadline}
+    painPoints={p.hero.painPoints}
+    checklist={p.hero.checklist}
+    ctaLabel="Book Your Free Strategy Call"
+  />
+
+  <ContentBlocks blocks={p.blocks} />
+
+  {p.steps && <Process eyebrow="How It Works" headline={p.stepsHeadline ?? 'How It Works'} steps={p.steps} />}
+
+  <PricingFaq eyebrow="Questions" headline={p.faqHeadline} subheadline="Straight answers before you book a call." items={p.faq} />
+
+  <RelatedLinks links={p.related} />
+
+  <FinalCta eyebrow={p.finalCta.eyebrow} headline={p.finalCta.headline} subheadline={p.finalCta.subheadline} />
+
+  <BookCall />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

@@ -1,0 +1,124 @@
+---
+// Body copy for the keyword landing pages: a stack of H2 sections, each
+// with paragraphs and an optional checklist. Sections alternate bg/bg-alt
+// like the rest of the site. This is where each page's keyword gets the
+// depth a hero alone can't give it.
+interface Block {
+  eyebrow?: string;
+  heading: string;
+  paragraphs?: string[];
+  list?: string[];
+  // Optional link to the page that covers this section in depth (used by
+  // the industry hub pages to point at each service's child page).
+  link?: { label: string; href: string };
+}
+
+interface Props {
+  blocks: Block[];
+}
+
+const { blocks } = Astro.props;
+---
+
+{blocks.map((block, i) => (
+  <section class:list={['content-block', i % 2 === 0 ? 'bg-alt' : 'bg']}>
+    <div class="inner">
+      {block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
+      <h2 class="heading">{block.heading}</h2>
+      {block.paragraphs?.map((p) => <p class="para">{p}</p>)}
+      {block.list && (
+        <ul class="list">
+          {block.list.map((item) => (
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {block.link && <a class="more" href={block.link.href}>{block.link.label} <span aria-hidden="true">→</span></a>}
+    </div>
+  </section>
+))}
+
+<style>
+  .content-block {
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .content-block.bg { background: var(--color-bg); }
+  .content-block.bg-alt { background: var(--color-bg-alt); }
+  .inner { max-width: 780px; margin: 0 auto; }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 18px;
+  }
+  .heading {
+    font-size: clamp(26px, 3.4vw, 36px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-fg);
+    margin: 0 0 var(--space-5);
+    text-wrap: balance;
+  }
+  .para {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--color-text-mid);
+    margin: 0 0 var(--space-4);
+  }
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-5) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--color-fg);
+  }
+  .check {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    border: 2px solid var(--color-fg);
+    display: grid;
+    place-items: center;
+    margin-top: 1px;
+  }
+  .check svg { width: 13px; height: 13px; color: var(--color-fg); }
+  .more {
+    display: inline-block;
+    margin-top: var(--space-5);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-fg);
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary-outline);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .more:hover { text-decoration-color: var(--color-fg); }
+
+  @media (max-width: 560px) {
+    .content-block { padding: var(--space-7) var(--space-5); }
+    .para { font-size: 16px; }
+  }
+</style>

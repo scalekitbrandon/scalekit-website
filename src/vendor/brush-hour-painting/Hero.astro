@@ -52,7 +52,7 @@ const {
   <div class="hero-inner">
     <div class="hero-text">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-      <h1>{headline}</h1>
+      <div class="hero-title sample-h1">{headline}</div>
       {subheadline && <p class="subheadline">{subheadline}</p>}
       <div class="hero-actions">
         <a class="btn primary" href={primaryHref}>
@@ -117,7 +117,7 @@ const {
     color: var(--color-primary);
     margin-bottom: var(--space-2);
   }
-  h1 {
+  .hero-title {
     font-size: var(--text-4xl);
     line-height: 1.1;
     margin-bottom: var(--space-3);
@@ -203,7 +203,7 @@ const {
   }
   @media (max-width: 900px) {
     .hero-inner { grid-template-columns: 1fr; }
-    h1 { font-size: var(--text-3xl); }
+    .hero-title { font-size: var(--text-3xl); }
   }
   @media (max-width: 640px) {
     .badges { flex-direction: column; flex-wrap: wrap; gap: var(--space-3); }

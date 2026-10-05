@@ -5,6 +5,7 @@
 // Process/TrustStrip/FinalCta/BookCall/Footer stack. Last of the 6 core
 // service pages — all six homepage service CTAs now resolve to a real
 // page.
+import ContentBlocks from '../../components/ContentBlocks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import IndustryHero from '../../components/IndustryHero.astro';
@@ -23,7 +24,7 @@ const structuredData = [
     serviceType: 'AI Agents & Automation',
     name: 'AI Agents & Solutions for Service Businesses',
     description: 'ScaleKit builds AI voice agents, chat agents, and custom agentic workflows that handle repetitive work so service businesses can scale without hiring more staff.',
-    url: `${siteUrl}/services/ai-agents`,
+    url: `${siteUrl}/services/ai-agents/`,
     provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
   },
 ];
@@ -31,11 +32,11 @@ const structuredData = [
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -58,11 +59,11 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/#local-seo' },
-      { label: 'Google & Meta Ads', href: '/#ads' },
-      { label: 'CRM & Automation', href: '/#automation' },
-      { label: 'Reactivation', href: '/#reactivation' },
-      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+      { label: 'Local SEO', href: '/scout/' },
+      { label: 'Google & Meta Ads', href: '/services/ads/' },
+      { label: 'CRM & Automation', href: '/services/automation/' },
+      { label: 'Reactivation', href: '/services/reactivation/' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
     ],
   },
   {
@@ -73,7 +74,7 @@ const footerGroups = [
 ---
 
 <BaseLayout
-  title="AI Agents & Solutions for Service Businesses | ScaleKit"
+  title="AI Receptionist & Voice Agents for Service Businesses | ScaleKit"
   description="ScaleKit builds AI voice agents, chat agents, and custom agentic workflows that handle repetitive work so service businesses can scale without hiring more staff."
   structuredData={structuredData}
 >
@@ -81,12 +82,13 @@ const footerGroups = [
 
   <IndustryHero
     eyebrow="AI Agents & Solutions"
-    headline="Save Time & Scale Without Hiring More Staff"
+    headline="AI Receptionist & AI Agents for Service Businesses"
     subheadline="Every hour your team spends on repetitive work is an hour they're not spending on customers. We build AI that handles the busywork — so you can grow without growing your headcount."
-    painPoints={[
-      'Calls go unanswered after hours, and those callers just call the next company',
-      'Your team spends hours a week on scheduling and data entry instead of customers',
-      "You can't tell what's actually working without digging through five different tools",
+    checklist={[
+      "Every call answered, 24/7",
+      "Appointments booked while you are on the job",
+      "Hours of admin back every week",
+      "Grow without hiring more front-desk staff",
     ]}
     ctaLabel="Get Started"
   />
@@ -99,6 +101,31 @@ const footerGroups = [
     ctaLabel="Get Started"
     ctaHref="#book-call"
   />
+  <ContentBlocks blocks={[
+      {
+        eyebrow: 'AI Receptionist',
+        heading: 'An AI Receptionist That Answers Every Call',
+        paragraphs: [
+          "An AI receptionist answers your business phone when you can't: after hours, on weekends, or when every line is busy. It greets callers by your business name, answers common questions, collects their details and books the appointment or alerts your team.",
+          "Unlike a traditional answering service, it doesn't put callers on hold, and it is trained on your services, your service area and your prices.",
+        ],
+        list: [
+          'Answers calls 24/7 in a natural voice',
+          'Books appointments straight into your calendar',
+          'Captures caller details and sends them to your CRM',
+          'Hands urgent calls to a person on your team',
+          'Answers the same questions your front desk hears every day',
+        ],
+      },
+      {
+        eyebrow: 'Beyond the Phone',
+        heading: 'AI Agents for Chat, Follow-Up and Admin',
+        paragraphs: [
+          'The same approach works beyond phone calls. Chat agents answer website visitors, and custom AI workflows handle repetitive admin like intake, scheduling and data entry, so your team spends its time on customers.',
+        ],
+      },
+    ]} />
+
 
   <Process />
 

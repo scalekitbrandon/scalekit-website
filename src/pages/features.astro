@@ -24,7 +24,7 @@ const structuredData = [
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'ScaleKit Features',
-    url: `${siteUrl}/features`,
+    url: `${siteUrl}/features/`,
     itemListElement: [
       'Functional Website',
       'Local SEO',
@@ -41,11 +41,11 @@ const structuredData = [
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -70,7 +70,7 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/scout' },
+      { label: 'Local SEO', href: '/scout/' },
       { label: 'Google & Meta Ads', href: '/services/ads' },
       { label: 'CRM & Automation', href: '/services/automation' },
       { label: 'AI Agents & Solutions', href: '/services/ai-agents' },
@@ -84,7 +84,7 @@ const footerGroups = [
 ---
 
 <BaseLayout
-  title="Features | ScaleKit"
+  title="All-in-One Business Tools for Service Businesses | ScaleKit"
   description="Every feature ScaleKit builds into your system — websites, local SEO, missed-call text-back, all-in-one inbox, review automation, and more, all connected in one place."
   structuredData={structuredData}
 >
@@ -92,9 +92,10 @@ const footerGroups = [
 
   <PricingTierSection
     id="all-features"
+    headingLevel={1}
     background="bg"
     eyebrow="Everything Included"
-    headline="Every Feature Your Business Actually Needs"
+    headline="All-in-One Business Tools for Service Businesses"
     subheadline="No separate tools, no extra logins — everything below works together inside your ScaleKit system. Each one links to where it's priced."
     cards={[
       {

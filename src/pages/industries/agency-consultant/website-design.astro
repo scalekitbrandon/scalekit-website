@@ -1,13 +1,14 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import IndustryHero from '../../components/IndustryHero.astro';
-import TemplateShowcase from '../../components/TemplateShowcase.astro';
-import ProcessCircles from '../../components/ProcessCircles.astro';
-import FinalCta from '../../components/FinalCta.astro';
-import BookCall from '../../components/BookCall.astro';
-import Footer from '../../components/Footer.astro';
-import AgencySample from '../../components/samples/AgencySample.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import IndustryHero from '../../../components/IndustryHero.astro';
+import TemplateShowcase from '../../../components/TemplateShowcase.astro';
+import ProcessCircles from '../../../components/ProcessCircles.astro';
+import FinalCta from '../../../components/FinalCta.astro';
+import BookCall from '../../../components/BookCall.astro';
+import Footer from '../../../components/Footer.astro';
+import AgencySample from '../../../components/samples/AgencySample.astro';
 
 const siteUrl = Astro.site.origin;
 
@@ -18,7 +19,7 @@ const structuredData = [
     serviceType: 'Agency & Consultant Websites & Funnels',
     name: 'Website Design for Agencies & Consultants',
     description: 'ScaleKit builds agencies and consultants a site that sells the outcome, not just the service list.',
-    url: `${siteUrl}/services/agency-consultant`,
+    url: `${siteUrl}/industries/agency-consultant/website-design/`,
     provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
   },
 ];
@@ -26,11 +27,11 @@ const structuredData = [
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -45,11 +46,11 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/#local-seo' },
-      { label: 'Google & Meta Ads', href: '/#ads' },
-      { label: 'CRM & Automation', href: '/#automation' },
-      { label: 'Reactivation', href: '/#reactivation' },
-      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+      { label: 'Local SEO', href: '/scout/' },
+      { label: 'Google & Meta Ads', href: '/services/ads/' },
+      { label: 'CRM & Automation', href: '/services/automation/' },
+      { label: 'Reactivation', href: '/services/reactivation/' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
     ],
   },
   {
@@ -75,8 +76,8 @@ const footerGroups = [
   <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
 
   <IndustryHero
-    eyebrow="Website Design for Agencies & Consultants"
-    headline="Look Like The Authority You Actually Are"
+    eyebrow="For Agencies & Consultants"
+    headline="Agency & Consultant Website Design That Builds Authority"
     subheadline="Prospects judge your expertise by your website before they ever book a call. We build agencies and consultants a site that sells the outcome, not just the service list."
     checklist={[
       'Lightning-fast load times',
@@ -97,6 +98,10 @@ const footerGroups = [
   </TemplateShowcase>
 
   <ProcessCircles />
+  <RelatedLinks heading="More for Coaches & Consultants" links={[
+      { label: 'Marketing Automation for Coaches & Consultants', href: '/industries/agency-consultant/', description: 'Everything we do for coaches & consultants, in one system.' },
+    ]} />
+
 
   <FinalCta
     eyebrow="Run Your Own Numbers"

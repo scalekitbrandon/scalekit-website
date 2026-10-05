@@ -21,7 +21,7 @@ const structuredData = [
     serviceType: 'Database Reactivation',
     name: 'Database Reactivation for Service Businesses',
     description: 'ScaleKit re-engages the dormant leads and past customers already sitting in your CRM, turning them back into booked jobs without spending more on ads.',
-    url: `${siteUrl}/services/reactivation`,
+    url: `${siteUrl}/services/reactivation/`,
     provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
   },
 ];
@@ -29,11 +29,11 @@ const structuredData = [
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -56,11 +56,11 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/#local-seo' },
-      { label: 'Google & Meta Ads', href: '/#ads' },
-      { label: 'CRM & Automation', href: '/#automation' },
-      { label: 'Reactivation', href: '/#reactivation' },
-      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+      { label: 'Local SEO', href: '/scout/' },
+      { label: 'Google & Meta Ads', href: '/services/ads/' },
+      { label: 'CRM & Automation', href: '/services/automation/' },
+      { label: 'Reactivation', href: '/services/reactivation/' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
     ],
   },
   {
@@ -79,12 +79,13 @@ const footerGroups = [
 
   <IndustryHero
     eyebrow="Reactivation"
-    headline="Recover Old Leads Sitting in Your CRM"
+    headline="Database Reactivation: Turn Old Leads Into Booked Jobs"
     subheadline="You already paid to get those leads. Most of them never booked — not because they weren't interested, but because nobody followed back up. We bring them back without spending another dollar on ads."
-    painPoints={[
-      'Thousands of old leads sit untouched in your CRM right now',
-      'Past customers who loved the work never hear from you again',
-      "You're paying for new leads instead of reactivating the ones you already have",
+    checklist={[
+      "New jobs from leads you already paid for",
+      "Revenue without spending more on ads",
+      "Past customers back on your schedule",
+      "Campaigns written and run for you",
     ]}
     ctaLabel="Get Started"
   />

@@ -6,6 +6,7 @@
 // deliverables grid, then the shared Process/TrustStrip/FinalCta/
 // BookCall/Footer stack. No industry-template showcase here since this
 // isn't a trade vertical — it's one of ScaleKit's own core services.
+import ContentBlocks from '../../components/ContentBlocks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import IndustryHero from '../../components/IndustryHero.astro';
@@ -24,7 +25,7 @@ const structuredData = [
     serviceType: 'Google & Meta Ads Management',
     name: 'Google & Meta Ads for Service Businesses',
     description: 'ScaleKit builds and manages Google Search, Local Services, and Meta ad campaigns for service businesses, with landing pages and conversion tracking built in.',
-    url: `${siteUrl}/services/ads`,
+    url: `${siteUrl}/services/ads/`,
     provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
   },
 ];
@@ -32,11 +33,11 @@ const structuredData = [
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -59,11 +60,11 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/#local-seo' },
-      { label: 'Google & Meta Ads', href: '/#ads' },
-      { label: 'CRM & Automation', href: '/#automation' },
-      { label: 'Reactivation', href: '/#reactivation' },
-      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+      { label: 'Local SEO', href: '/scout/' },
+      { label: 'Google & Meta Ads', href: '/services/ads/' },
+      { label: 'CRM & Automation', href: '/services/automation/' },
+      { label: 'Reactivation', href: '/services/reactivation/' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
     ],
   },
   {
@@ -74,7 +75,7 @@ const footerGroups = [
 ---
 
 <BaseLayout
-  title="Google & Meta Ads for Service Businesses | ScaleKit"
+  title="Google Ads Management for Service Businesses | ScaleKit"
   description="ScaleKit builds and manages Google Search, Local Services, and Meta ad campaigns for service businesses, with landing pages and conversion tracking built in."
   structuredData={structuredData}
 >
@@ -82,12 +83,13 @@ const footerGroups = [
 
   <IndustryHero
     eyebrow="Google & Meta Ads"
-    headline="Get More Leads Without Wasting Ad Spend"
+    headline="Google & Meta Ads Management for Service Businesses"
     subheadline="Clicks don't pay the bills. We build campaigns around the people who are actually ready to hire you — and we track every dollar back to a real lead."
-    painPoints={[
-      "Ad spend disappears and you can't tell what actually worked",
-      'Leads come in from ads, but nobody follows up before they go cold',
-      'Agencies report clicks and impressions — not real booked jobs',
+    checklist={[
+      "More booked jobs from every ad dollar",
+      "Ads shown only in the areas you serve",
+      "Know exactly what each lead costs you",
+      "Landing pages built to turn clicks into calls",
     ]}
     ctaLabel="Get Started"
   />
@@ -100,6 +102,32 @@ const footerGroups = [
     ctaLabel="Get Started"
     ctaHref="#book-call"
   />
+  <ContentBlocks blocks={[
+      {
+        eyebrow: 'Google Ads',
+        heading: 'Google Ads Management for Service Businesses',
+        paragraphs: [
+          'Google Ads put your business in front of people who are searching for your service right now. That makes them the fastest way to fill a schedule, and the easiest way to waste money if they are set up wrong.',
+          'We build and manage Google Search campaigns around the services you actually want more of, in the areas you actually serve, and track every call and form so you know what each lead costs.',
+        ],
+        list: [
+          'Search campaigns built around your highest-value services',
+          'Local Services Ads setup and management where available',
+          'Call and form tracking on every campaign',
+          'Negative keywords to cut wasted clicks',
+          'Landing pages built to turn clicks into calls',
+          'Monthly reporting in plain language',
+        ],
+      },
+      {
+        eyebrow: 'Meta Ads',
+        heading: 'Meta Ads to Reach Homeowners Before They Search',
+        paragraphs: [
+          'Facebook and Instagram ads reach people in your area before they start searching, with offers, seasonal promotions and reactivation campaigns. We run Meta ads alongside Google so both channels feed the same follow-up system.',
+        ],
+      },
+    ]} />
+
 
   <Process />
 

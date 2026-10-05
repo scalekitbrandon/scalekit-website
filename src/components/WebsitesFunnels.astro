@@ -55,15 +55,14 @@ const {
   cards = [
     { industry: 'Home Services', description: 'Bold video-hero layout built to turn browsers into booked estimates.', slug: 'home-services', image: '/images/template-previews/home-services.jpg' },
     { industry: 'Roofing', description: 'Storm-damage focused, built around the insurance claim process.', slug: 'roofing', image: '/images/template-previews/roofing.jpg' },
-    { industry: 'Therapists & Advisors', description: 'A warm, elegant design built to build trust before the first conversation.', slug: 'therapists-advisors', image: '/images/template-previews/therapists-advisors.jpg' },
+    { industry: 'Therapists', description: 'A warm, elegant design built to build trust before the first conversation.', slug: 'therapists', image: '/images/template-previews/therapists-advisors.jpg' },
     { industry: 'Landscaping', description: 'Portfolio-first design built to showcase real project photos.', slug: 'landscaping', image: '/images/template-previews/landscaping.jpg' },
     { industry: 'Agency & Consultant', description: 'AI-powered SaaS positioning built to convert agencies and consultants.', slug: 'agency-consultant', image: '/images/template-previews/agency-consultant.jpg' },
     { industry: 'Restoration', description: '24/7 emergency response front and center, claims-ready.', slug: 'restoration', image: '/images/template-previews/restoration.jpg' },
   ],
-  // NOTE: dedicated service page doesn't exist yet — placeholder path,
-  // wire up once /services/websites-funnels (or similar) is built.
+  // No standalone websites page yet; the pricing section lists what's included.
   ctaLabel = 'Explore Websites & Funnels',
-  ctaHref = '/services/websites-funnels',
+  ctaHref = '/pricing/#websites-funnels',
 } = Astro.props;
 ---
 
@@ -86,7 +85,7 @@ const {
 
       <div class="carousel-track" data-carousel-track>
         {cards.map((card) => (
-          <a href={`/services/${card.slug}`} class="card">
+          <a href={`/industries/${card.slug}/website-design/`} class="card">
             <div class="card-thumb">
               <img src={card.image} alt={`${card.industry} website template preview`} loading="lazy" />
             </div>

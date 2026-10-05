@@ -3,6 +3,8 @@
 // framing, then the homepage's own real StopLosingLeads section for the
 // deliverables grid, then the shared Process/TrustStrip/FinalCta/
 // BookCall/Footer stack.
+import ContentBlocks from '../../components/ContentBlocks.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import IndustryHero from '../../components/IndustryHero.astro';
@@ -21,7 +23,7 @@ const structuredData = [
     serviceType: 'CRM & Automation',
     name: 'CRM & Automation for Service Businesses',
     description: 'ScaleKit builds instant lead response, missed-call text-back, and automated follow-up systems so service businesses never miss a lead.',
-    url: `${siteUrl}/services/automation`,
+    url: `${siteUrl}/services/automation/`,
     provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
   },
 ];
@@ -29,11 +31,11 @@ const structuredData = [
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -56,11 +58,11 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/#local-seo' },
-      { label: 'Google & Meta Ads', href: '/#ads' },
-      { label: 'CRM & Automation', href: '/#automation' },
-      { label: 'Reactivation', href: '/#reactivation' },
-      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+      { label: 'Local SEO', href: '/scout/' },
+      { label: 'Google & Meta Ads', href: '/services/ads/' },
+      { label: 'CRM & Automation', href: '/services/automation/' },
+      { label: 'Reactivation', href: '/services/reactivation/' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
     ],
   },
   {
@@ -71,20 +73,21 @@ const footerGroups = [
 ---
 
 <BaseLayout
-  title="CRM & Automation for Service Businesses | ScaleKit"
-  description="ScaleKit builds instant lead response, missed-call text-back, and automated follow-up systems so service businesses never miss a lead."
+  title="CRM for Service Businesses, Set Up and Run for You | ScaleKit"
+  description="A CRM for service businesses that keeps every lead, call, text and job in one place, set up and managed for you by ScaleKit."
   structuredData={structuredData}
 >
   <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
 
   <IndustryHero
     eyebrow="CRM & Automation"
-    headline="Never Miss Another Lead Again"
+    headline="CRM for Service Businesses, Built and Run for You"
     subheadline="Most leads don't disappear because they weren't interested. They disappear because nobody followed up fast enough. We build the system that never forgets to."
-    painPoints={[
-      'New leads sit in an inbox for hours before anyone responds',
-      "A missed call is a lead who's already calling your competitor",
-      'Every lead, call, and conversation is scattered across five different apps',
+    checklist={[
+      "Every lead, call and text in one place",
+      "See where every job stands at a glance",
+      "Follow-up that runs without you",
+      "Set up and managed for you",
     ]}
     ctaLabel="Get Started"
   />
@@ -97,8 +100,40 @@ const footerGroups = [
     ctaLabel="Get Started"
     ctaHref="#book-call"
   />
+  <ContentBlocks blocks={[
+      {
+        eyebrow: 'Why a CRM',
+        heading: 'One CRM for Every Lead, Call and Job',
+        paragraphs: [
+          "Most service businesses run on a mix of a phone, a notebook, an email inbox and a few apps that don't talk to each other. Leads get lost in the gaps.",
+          'A CRM for service businesses puts every contact, conversation and job in one place. You can see who called, who needs a quote, who is waiting on a follow-up and which jobs are booked, from your phone or your desk.',
+        ],
+        list: [
+          'Every lead source in one inbox: calls, texts, forms, Facebook and Google',
+          'A pipeline that shows where every job stands',
+          'Contact history so anyone on your team can pick up a conversation',
+          'Automations for follow-up, reminders and reviews',
+          'Reports on where your leads come from and which ones book',
+        ],
+      },
+      {
+        eyebrow: 'Done for You',
+        heading: 'We Set It Up and Keep It Running',
+        paragraphs: [
+          'Most CRMs hand you a login and a pile of tutorials. We build your pipeline, connect your phone and lead sources, write your automations and train your team. When your business changes, we update the system with you.',
+        ],
+      },
+    ]} />
+
 
   <Process />
+  <RelatedLinks heading="What Your CRM Can Do" links={[
+      { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Text every caller you missed within seconds.' },
+      { label: 'Lead Follow-Up Automation', href: '/services/lead-follow-up-automation/', description: 'Instant replies and follow-up for every lead.' },
+      { label: 'Google Review Automation', href: '/services/google-review-automation/', description: 'Ask every customer for a Google review automatically.' },
+      { label: 'Database Reactivation', href: '/services/reactivation/', description: 'Turn old leads into new jobs.' },
+    ]} />
+
 
   <FinalCta
     eyebrow="Run Your Own Numbers"

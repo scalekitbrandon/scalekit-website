@@ -7,6 +7,10 @@ import mdx from '@astrojs/mdx';
 // hasn't been run yet. Defaults to static output in the meantime.
 export default defineConfig({
   site: 'https://scalekit.io',
-  integrations: [sitemap(), mdx()],
+  integrations: [
+    // /thank-you is the post-form booking step, not a search landing page.
+    sitemap({ filter: (page) => !page.includes('/thank-you') }),
+    mdx(),
+  ],
   output: 'static',
 });

@@ -1,17 +1,18 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import IndustryHero from '../../components/IndustryHero.astro';
-import TemplateShowcase from '../../components/TemplateShowcase.astro';
-import ProcessCircles from '../../components/ProcessCircles.astro';
-import FinalCta from '../../components/FinalCta.astro';
-import BookCall from '../../components/BookCall.astro';
-import Footer from '../../components/Footer.astro';
-import RestorationSample from '../../components/samples/RestorationSample.astro';
-import AnchorSample from '../../components/samples/AnchorSample.astro';
-import PaintingSample from '../../components/samples/PaintingSample.astro';
-import RoofingSample from '../../components/samples/RoofingSample.astro';
-import LandscapingSample from '../../components/samples/LandscapingSample.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import IndustryHero from '../../../components/IndustryHero.astro';
+import TemplateShowcase from '../../../components/TemplateShowcase.astro';
+import ProcessCircles from '../../../components/ProcessCircles.astro';
+import FinalCta from '../../../components/FinalCta.astro';
+import BookCall from '../../../components/BookCall.astro';
+import Footer from '../../../components/Footer.astro';
+import RestorationSample from '../../../components/samples/RestorationSample.astro';
+import AnchorSample from '../../../components/samples/AnchorSample.astro';
+import PaintingSample from '../../../components/samples/PaintingSample.astro';
+import RoofingSample from '../../../components/samples/RoofingSample.astro';
+import LandscapingSample from '../../../components/samples/LandscapingSample.astro';
 
 const siteUrl = Astro.site.origin;
 
@@ -22,7 +23,7 @@ const structuredData = [
     serviceType: 'Restoration & Remodeling Websites & Funnels',
     name: 'Website Design for Restoration & Remodeling Companies',
     description: 'ScaleKit builds restoration and remodeling companies a site and lead system built for the moment it matters most.',
-    url: `${siteUrl}/services/restoration`,
+    url: `${siteUrl}/industries/restoration/website-design/`,
     provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
   },
 ];
@@ -30,11 +31,11 @@ const structuredData = [
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -49,11 +50,11 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/#local-seo' },
-      { label: 'Google & Meta Ads', href: '/#ads' },
-      { label: 'CRM & Automation', href: '/#automation' },
-      { label: 'Reactivation', href: '/#reactivation' },
-      { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+      { label: 'Local SEO', href: '/scout/' },
+      { label: 'Google & Meta Ads', href: '/services/ads/' },
+      { label: 'CRM & Automation', href: '/services/automation/' },
+      { label: 'Reactivation', href: '/services/reactivation/' },
+      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
     ],
   },
   {
@@ -72,15 +73,15 @@ const footerGroups = [
 ---
 
 <BaseLayout
-  title="Website Design for Restoration & Remodeling Companies | ScaleKit"
+  title="Restoration Website Design & Lead Response | ScaleKit"
   description="ScaleKit builds restoration and remodeling companies a site and lead-response system built for the moment it matters most."
   structuredData={structuredData}
 >
   <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
 
   <IndustryHero
-    eyebrow="Website Design for Restoration & Remodeling Companies"
-    headline="Be The First Call When Disaster Strikes"
+    eyebrow="For Restoration & Remodeling Companies"
+    headline="Restoration Website Design That Makes You the First Call"
     subheadline="When a pipe bursts, homeowners call whoever answers first and looks the most trustworthy online. We build restoration companies a site and lead system built for the moment it matters most."
     checklist={[
       'Lightning-fast load times',
@@ -113,6 +114,13 @@ const footerGroups = [
   </TemplateShowcase>
 
   <ProcessCircles />
+  <RelatedLinks heading="More for Restoration Companies" links={[
+      { label: 'Marketing Automation for Restoration Companies', href: '/industries/restoration/', description: 'Everything we do for restoration companies, in one system.' },
+      { label: 'Restoration CRM', href: '/industries/restoration/crm/', description: 'Track every job from emergency call to rebuild.' },
+      { label: 'AI Receptionist', href: '/services/ai-agents/', description: 'Answer every emergency call, 24/7.' },
+      { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Text every caller you missed within seconds.' },
+    ]} />
+
 
   <FinalCta
     eyebrow="Run Your Own Numbers"

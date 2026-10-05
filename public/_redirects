@@ -1,0 +1,18 @@
+# Industry pages moved from /services/ to /industries/ (2026-10). Permanent redirects keep any old links and bookmarks working.
+/services/roofing /industries/roofing/ 301
+/services/roofing/ /industries/roofing/ 301
+/services/restoration /industries/restoration/ 301
+/services/restoration/ /industries/restoration/ 301
+/services/landscaping /industries/landscaping/ 301
+/services/landscaping/ /industries/landscaping/ 301
+/services/home-services /industries/home-services/ 301
+/services/home-services/ /industries/home-services/ 301
+/services/therapists-advisors /industries/therapists/ 301
+/services/therapists-advisors/ /industries/therapists/ 301
+/services/agency-consultant /industries/agency-consultant/ 301
+/services/agency-consultant/ /industries/agency-consultant/ 301
+/services/public-adjusters /industries/public-adjusters/ 301
+/services/public-adjusters/ /industries/public-adjusters/ 301
+# therapists-advisors renamed to therapists (2026-10-05) so it isn't confused with travel advisors.
+/industries/therapists-advisors /industries/therapists/ 301
+/industries/therapists-advisors/ /industries/therapists/ 301

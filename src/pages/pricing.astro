@@ -22,11 +22,11 @@ const siteUrl = Astro.site.origin;
 const headerNav = {
   services: [
     { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/#local-seo' },
-    { label: 'Google & Meta Ads', href: '/#ads' },
-    { label: 'CRM & Automation', href: '/#automation' },
-    { label: 'Reactivation', href: '/#reactivation' },
-    { label: 'AI Agents & Solutions', href: '/#ai-agents' },
+    { label: 'Local SEO', href: '/scout/' },
+    { label: 'Google & Meta Ads', href: '/services/ads/' },
+    { label: 'CRM & Automation', href: '/services/automation/' },
+    { label: 'Reactivation', href: '/services/reactivation/' },
+    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
     { label: 'Features', href: '/features' },
@@ -50,7 +50,7 @@ const footerGroups = [
     heading: 'Services',
     links: [
       { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/scout' },
+      { label: 'Local SEO', href: '/scout/' },
       { label: 'Google & Meta Ads', href: '/services/ads' },
       { label: 'CRM & Automation', href: '/services/automation' },
       { label: 'AI Agents & Solutions', href: '/services/ai-agents' },
@@ -64,12 +64,12 @@ const footerGroups = [
 ---
 
 <BaseLayout
-  title="Pricing | ScaleKit"
+  title="Pricing: Websites, Local SEO, Ads & Automation | ScaleKit"
   description="Pricing built around what your business actually needs — pick one service or combine multiple systems. Month-to-month, no long-term contracts."
 >
   <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
 
-  <PricingHero />
+  <PricingHero headline="ScaleKit Pricing: Websites, Local SEO, Ads & Automation" />
 
   <PricingTierSection
     id="websites-funnels"

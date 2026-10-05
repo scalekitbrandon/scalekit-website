@@ -7,6 +7,9 @@
 // they 404 until that page pass happens.
 interface Props {
   id?: string;
+  // false when rendered as a preview on scalekit.io, where the
+  // /service-areas/ pages don't exist and would be crawled as 404s.
+  linkLocations?: boolean;
   heading: string;
   intro?: string;
   locations: string[];
@@ -14,7 +17,7 @@ interface Props {
   mapQuery?: string;
 }
 
-const { id, heading, intro, locations, footnote, mapQuery } = Astro.props;
+const { id, heading, intro, locations, footnote, mapQuery, linkLocations = true } = Astro.props;
 
 const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 ---
@@ -27,7 +30,9 @@ const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-'
       <p class="areas-label">Areas We Serve:</p>
       <div class="location-links">
         {locations.map((loc) => (
-          <a class="location-link" href={`/service-areas/${slugify(loc)}`}>{loc}</a>
+          linkLocations
+            ? <a class="location-link" href={`/service-areas/${slugify(loc)}`}>{loc}</a>
+            : <span class="location-link">{loc}</span>
         ))}
       </div>
       {footnote && <p class="footnote">{footnote}</p>}
