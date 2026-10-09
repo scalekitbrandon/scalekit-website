@@ -16,3 +16,6 @@
 # therapists-advisors renamed to therapists (2026-10-05) so it isn't confused with travel advisors.
 /industries/therapists-advisors /industries/therapists/ 301
 /industries/therapists-advisors/ /industries/therapists/ 301
+# Old homepage CTA target (pre-2026-10-05) that was never built. Google crawled it as a 404; point it at the Websites & Funnels pricing.
+/services/websites-funnels /pricing/ 301
+/services/websites-funnels/ /pricing/ 301

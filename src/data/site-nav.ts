@@ -11,10 +11,10 @@ export const headerNav = {
     { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
   ],
   links: [
-    { label: 'Features', href: '/features' },
+    { label: 'Features', href: '/features/' },
     { label: 'How We Work', href: '/#process' },
     { label: 'Who We Work With', href: '/#built-for' },
-    { label: 'Pricing', href: '/pricing' },
+    { label: 'Pricing', href: '/pricing/' },
   ],
 };
 
