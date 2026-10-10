@@ -13,6 +13,7 @@ import AnchorSample from '../../../components/samples/AnchorSample.astro';
 import PaintingSample from '../../../components/samples/PaintingSample.astro';
 import RoofingSample from '../../../components/samples/RoofingSample.astro';
 import LandscapingSample from '../../../components/samples/LandscapingSample.astro';
+import { makeFooterGroups } from '../../../data/site-nav';
 
 const siteUrl = Astro.site.origin;
 
@@ -36,6 +37,7 @@ const headerNav = {
     { label: 'CRM & Automation', href: '/services/automation/' },
     { label: 'Reactivation', href: '/services/reactivation/' },
     { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
+    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
   ],
   links: [
     { label: 'Features', href: '/features/' },
@@ -45,31 +47,7 @@ const headerNav = {
   ],
 };
 
-const footerGroups = [
-  {
-    heading: 'Services',
-    links: [
-      { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/scout/' },
-      { label: 'Google & Meta Ads', href: '/services/ads/' },
-      { label: 'CRM & Automation', href: '/services/automation/' },
-      { label: 'Reactivation', href: '/services/reactivation/' },
-      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    ],
-  },
-  {
-    heading: 'Company',
-    links: [
-      { label: 'Home', href: '/' },
-      { label: 'How We Work', href: '/#process' },
-      { label: 'Who We Work With', href: '/#built-for' },
-    ],
-  },
-  {
-    heading: 'Get Started',
-    links: [{ label: 'Book Your Free Strategy Call', href: '#book-call' }],
-  },
-];
+const footerGroups = makeFooterGroups();
 ---
 
 <BaseLayout
@@ -130,5 +108,11 @@ const footerGroups = [
 
   <BookCall />
 
-  <Footer slot="footer" logoText="ScaleKit" groups={footerGroups} />
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
 </BaseLayout>

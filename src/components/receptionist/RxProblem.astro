@@ -1,0 +1,79 @@
+---
+// Problem section: story, 2x2 "where the calls go" cards (each ending in
+// what the receptionist does about it), closing claim, CTA.
+import RxHead from './RxHead.astro';
+import RxIcon from './RxIcon.astro';
+import RxCta from './RxCta.astro';
+import type { ReceptionistPage } from '../../data/ai-receptionist';
+
+type Props = ReceptionistPage['problem'];
+const { headline, intro, cards, closing, closingBold, followUp } = Astro.props;
+---
+
+<section class="rx-problem">
+  <div class="inner">
+    <RxHead eyebrow="The Problem" headline={headline} />
+    {intro.map((p) => <p class="para">{p}</p>)}
+
+    <div class="grid">
+      {cards.map((card) => (
+        <article class="card">
+          <span class="icon"><RxIcon name={card.icon} /></span>
+          <h3 class="title">{card.title}</h3>
+          <p class="body">{card.body} <em>{card.solution}</em></p>
+        </article>
+      ))}
+    </div>
+
+    <p class="para">{closing} <strong>{closingBold}</strong></p>
+    <p class="para last">{followUp}</p>
+
+    <RxCta />
+  </div>
+</section>
+
+<style>
+  .rx-problem {
+    background: #ffffff;
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 880px; margin: 0 auto; }
+  .para { font-size: 17px; line-height: 1.7; color: var(--color-text-mid); margin: 0 0 var(--space-4); }
+  .para strong { color: var(--color-fg); }
+  .para.last { margin-bottom: var(--space-7); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin: var(--space-6) 0 var(--space-7);
+  }
+  .card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: var(--color-fg);
+    color: var(--color-primary);
+    margin: 0 0 var(--space-3);
+  }
+  .icon :global(svg) { width: 22px; height: 22px; }
+  .title { font-size: 18px; font-weight: var(--font-weight-max); color: var(--color-fg); margin: 0 0 10px; }
+  .body { font-size: 15px; line-height: 1.65; color: var(--color-text-mid); margin: 0; }
+  .body em { color: var(--color-fg); font-weight: 600; }
+
+  @media (max-width: 700px) {
+    .rx-problem { padding: var(--space-7) var(--space-3); }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>

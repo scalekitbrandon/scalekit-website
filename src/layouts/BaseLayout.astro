@@ -49,6 +49,28 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     {structuredData.map((data) => (
       <script type="application/ld+json" set:html={JSON.stringify(data)} />
     ))}
+    <!-- Swarmify video player, site-wide. Every video on the site is a
+         <smartvideo> tag; autoreplace also swaps any YouTube/Vimeo embed
+         for the Swarmify player. Theme uses ScaleKit lime. -->
+    <script is:inline data-cfasync="false">
+      var swarmoptions = {
+        "swarmcdnkey": "f37a0946-485e-429d-8384-ee79f39fda94",
+        "autoreplace": {
+          "youtube": true,
+          "vimeo": true
+        },
+        "theme": {
+          "primaryColor": "#d7ff00",
+          "glassTint": 3,
+          "cornerRadius": "24px",
+          "button": {
+            "shape": "circle",
+            "borderRadius": "8px"
+          }
+        }
+      };
+    </script>
+    <script is:inline async data-cfasync="false" src="https://assets.swarmcdn.com/swarmcdn.js"></script>
   </head>
   <body>
     <slot name="header" />

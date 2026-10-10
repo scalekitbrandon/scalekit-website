@@ -1,0 +1,192 @@
+---
+// "Hear how it handles calls" carousel. One slide per call type: an
+// outcome card on the left, a transcript excerpt on the right. These are
+// clearly labeled sample calls (not real customer results) until real
+// recordings exist. Vanilla JS, no framework hydration.
+import RxHead from './RxHead.astro';
+import RxCta from './RxCta.astro';
+import type { CallDemo } from '../../data/ai-receptionist';
+
+interface Props { headline: string; sub: string; items: CallDemo[] }
+const { headline, sub, items } = Astro.props;
+---
+
+<section class="rx-calls" id="calls">
+  <div class="inner">
+    <RxHead eyebrow="Sample Calls" headline={headline} sub={sub} />
+
+    <div class="carousel" data-rx-carousel>
+      <button type="button" class="arrow prev" data-rx-prev aria-label="Previous call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+      </button>
+
+      <div class="viewport">
+        <div class="track" data-rx-track>
+          {items.map((call) => (
+            <article class="slide">
+              <div class="outcome">
+                <p class="type">{call.type} · Sample</p>
+                <p class="call-title">{call.title}</p>
+                <p class="result">{call.outcome}</p>
+                <hr />
+                <p class="cap-label">Captured on the call</p>
+                <ul class="captured">
+                  {call.captured.map((c) => <li>{c}</li>)}
+                </ul>
+              </div>
+              <div class="transcript">
+                {call.transcript.map((line) => (
+                  <p class:list={['line', line.who]}>
+                    <span class="who">{line.who === 'agent' ? 'AI Receptionist' : 'Caller'}</span>
+                    {line.text}
+                  </p>
+                ))}
+                <p class="summary">{call.summary}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <button type="button" class="arrow next" data-rx-next aria-label="Next call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+      </button>
+    </div>
+
+    <div class="dots" data-rx-dots>
+      {items.map((_, i) => <button type="button" class:list={['dot', { active: i === 0 }]} aria-label={`Show call ${i + 1}`} data-rx-dot={i} />)}
+    </div>
+
+    <RxCta />
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-rx-carousel]');
+  const track = root?.querySelector<HTMLElement>('[data-rx-track]');
+  const dots = document.querySelectorAll<HTMLButtonElement>('[data-rx-dot]');
+  if (root && track) {
+    const count = track.children.length;
+    let index = 0;
+    const go = (i: number) => {
+      index = (i + count) % count;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d, n) => d.classList.toggle('active', n === index));
+    };
+    root.querySelector('[data-rx-prev]')?.addEventListener('click', () => go(index - 1));
+    root.querySelector('[data-rx-next]')?.addEventListener('click', () => go(index + 1));
+    dots.forEach((d) => d.addEventListener('click', () => go(Number(d.dataset.rxDot))));
+  }
+</script>
+
+<style>
+  .rx-calls {
+    background: #ffffff;
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: var(--container-max-nav); margin: 0 auto; }
+
+  .carousel { display: flex; align-items: center; gap: var(--space-4); }
+  .viewport { overflow: hidden; flex: 1; }
+  .track { display: flex; transition: transform 0.4s ease; }
+  .slide {
+    flex: 0 0 100%;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 40px;
+    align-items: center;
+    padding: 4px;
+  }
+
+  .outcome {
+    background: var(--color-dark-bg);
+    background-image: var(--bg-lime-grid);
+    background-size: var(--bg-lime-grid-size);
+    color: var(--color-dark-fg);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+  }
+  .type {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-dark-text-mid);
+    margin: 0 0 10px;
+  }
+  .call-title { font-size: 16px; font-weight: 600; margin: 0 0 6px; }
+  .result {
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: var(--font-weight-max);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-primary);
+    margin: 0;
+  }
+  hr { border: 0; border-top: 1px solid #2a2a2a; margin: 24px 0 18px; }
+  .cap-label { font-size: 12px; font-weight: 700; color: var(--color-dark-text-mid); margin: 0 0 10px; }
+  .captured { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .captured li {
+    font-size: 13px;
+    font-weight: 600;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: var(--radius-pill);
+    padding: 6px 12px;
+  }
+
+  .transcript { display: flex; flex-direction: column; gap: 12px; }
+  .line {
+    max-width: 88%;
+    font-size: 15px;
+    line-height: 1.55;
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin: 0;
+  }
+  .line.caller { align-self: flex-start; background: var(--color-bg-alt); color: var(--color-fg); }
+  .line.agent { align-self: flex-end; background: var(--color-fg); color: var(--color-dark-fg); }
+  .who {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+    opacity: 0.6;
+  }
+  .line.agent .who { color: var(--color-primary); opacity: 1; }
+  .summary { font-size: 16px; font-weight: 800; color: var(--color-fg); margin: 8px 0 0; }
+
+  .arrow {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border);
+    background: #ffffff;
+    color: var(--color-fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .arrow:hover { background: var(--color-primary); border-color: var(--color-primary); }
+  .arrow svg { width: 20px; height: 20px; }
+
+  .dots { display: flex; justify-content: center; gap: 8px; margin: var(--space-6) 0 var(--space-7); }
+  .dot { width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 0; background: var(--color-border); cursor: pointer; }
+  .dot.active { background: var(--color-fg); width: 24px; border-radius: var(--radius-pill); }
+
+  @media (max-width: 900px) {
+    .slide { grid-template-columns: 1fr; gap: var(--space-5); align-items: start; }
+  }
+  @media (max-width: 560px) {
+    .rx-calls { padding: var(--space-7) var(--space-3); }
+    .arrow { display: none; }
+    .outcome { padding: 28px 22px; }
+    .line { max-width: 95%; }
+  }
+</style>

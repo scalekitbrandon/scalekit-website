@@ -1,0 +1,18 @@
+---
+// One page per industry from src/data/ai-receptionist.ts. Primary keyword:
+// "AI receptionist for <industry>". The hub at /services/ai-receptionist/
+// owns the generic "AI receptionist" keyword.
+import ReceptionistPage from '../../../components/receptionist/ReceptionistPage.astro';
+import { industries, type ReceptionistPage as Page } from '../../../data/ai-receptionist';
+
+export function getStaticPaths() {
+  return industries.map((page) => ({ params: { industry: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props as { page: Page };
+---
+
+<ReceptionistPage
+  page={page}
+  breadcrumbs={[{ name: 'AI Receptionist', path: '/services/ai-receptionist/' }, { name: page.breadcrumbName }]}
+/>

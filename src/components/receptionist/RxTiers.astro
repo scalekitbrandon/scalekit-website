@@ -1,0 +1,127 @@
+---
+// Dark band: the four receptionist tiers stacked on the left, the offer
+// card (starting price, what every tier includes, CTA) on the right.
+import RxHead from './RxHead.astro';
+import RxCta from './RxCta.astro';
+import { tiers, pricing } from '../../data/ai-receptionist';
+
+interface Props { headline?: string; sub?: string }
+const {
+  headline = 'Choose How Much Your Receptionist Handles.',
+  sub = "Start with answering and grow into booking, dispatch and custom workflows. Every tier is built custom to your business. After it goes live, we keep training it on your real calls, so it continually improves.",
+} = Astro.props;
+---
+
+<section class="rx-tiers" id="tiers">
+  <div class="inner">
+    <RxHead eyebrow="Receptionist Tiers" headline={headline} sub={sub} dark />
+
+    <div class="cols">
+      <ol class="tiers">
+        {tiers.map((tier, i) => (
+          <li class="tier">
+            <div class="tier-head">
+              <span class="level">Tier {i + 1}</span>
+              <h3 class="name">{tier.name}</h3>
+            </div>
+            <p class="tagline">{tier.tagline}</p>
+            <ul class="features">
+              {tier.features.map((f) => (
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+
+      <aside class="offer">
+        <p class="offer-label">{pricing.label}</p>
+        <p class="price">{pricing.price}<span>{pricing.period}</span></p>
+        <p class="buildout">{pricing.buildout}</p>
+        <p class="includes-label">Every tier includes</p>
+        <ul class="includes">
+          {pricing.includes.map((item) => (
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <RxCta note="We'll recommend the right tier on your call." />
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rx-tiers {
+    background: var(--color-dark-bg);
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: var(--container-max-nav); margin: 0 auto; }
+  .cols { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: start; }
+
+  .tiers { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .tier {
+    background: #141414;
+    border: 1px solid #262626;
+    border-radius: var(--radius-md);
+    padding: 24px 26px;
+    color: var(--color-dark-fg);
+  }
+  .tier-head { display: flex; align-items: center; gap: 12px; margin: 0 0 6px; }
+  .level {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+  }
+  .name { font-size: 20px; font-weight: var(--font-weight-max); margin: 0; }
+  .tagline { font-size: 15px; color: var(--color-dark-text-mid); margin: 0 0 14px; }
+  .features { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; }
+  .features li, .includes li { display: flex; gap: 9px; font-size: 14.5px; line-height: 1.45; }
+  .features svg, .includes svg { flex-shrink: 0; width: 15px; height: 15px; margin-top: 3px; color: var(--color-primary); }
+
+  .offer {
+    position: sticky;
+    top: 110px;
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    color: var(--color-fg);
+  }
+  .offer-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0;
+  }
+  .price { font-size: 64px; font-weight: var(--font-weight-max); letter-spacing: -0.03em; line-height: 1.05; margin: 4px 0 10px; }
+  .price span { font-size: 22px; font-weight: 600; color: var(--color-text-light); letter-spacing: 0; }
+  .buildout { font-size: 14.5px; line-height: 1.55; color: var(--color-text-mid); margin: 0 0 22px; }
+  .includes-label { font-size: 13px; font-weight: 800; margin: 0 0 12px; }
+  .includes { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-direction: column; gap: 10px; }
+  .includes svg { color: var(--color-fg); background: var(--color-primary); border-radius: 50%; padding: 2px; width: 17px; height: 17px; margin-top: 1px; }
+
+  @media (max-width: 900px) {
+    .cols { grid-template-columns: 1fr; }
+    .offer { position: static; }
+  }
+  @media (max-width: 560px) {
+    .rx-tiers { padding: var(--space-7) var(--space-3); }
+    .features { grid-template-columns: 1fr; }
+    .tier { padding: 20px; }
+    .offer { padding: 28px 22px; }
+  }
+</style>

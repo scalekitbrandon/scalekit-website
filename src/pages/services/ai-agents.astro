@@ -14,6 +14,7 @@ import Process from '../../components/Process.astro';
 import FinalCta from '../../components/FinalCta.astro';
 import BookCall from '../../components/BookCall.astro';
 import Footer from '../../components/Footer.astro';
+import { makeFooterGroups } from '../../data/site-nav';
 
 const siteUrl = Astro.site.origin;
 
@@ -37,6 +38,7 @@ const headerNav = {
     { label: 'CRM & Automation', href: '/services/automation/' },
     { label: 'Reactivation', href: '/services/reactivation/' },
     { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
+    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
   ],
   links: [
     { label: 'Features', href: '/features/' },
@@ -46,35 +48,11 @@ const headerNav = {
   ],
 };
 
-const footerGroups = [
-  {
-    heading: 'Company',
-    links: [
-      { label: 'Home', href: '/' },
-      { label: 'How We Work', href: '/#process' },
-      { label: 'Who We Work With', href: '/#built-for' },
-    ],
-  },
-  {
-    heading: 'Services',
-    links: [
-      { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/scout/' },
-      { label: 'Google & Meta Ads', href: '/services/ads/' },
-      { label: 'CRM & Automation', href: '/services/automation/' },
-      { label: 'Reactivation', href: '/services/reactivation/' },
-      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    ],
-  },
-  {
-    heading: 'Get Started',
-    links: [{ label: 'Get Started', href: '#book-call' }],
-  },
-];
+const footerGroups = makeFooterGroups();
 ---
 
 <BaseLayout
-  title="AI Receptionist & Voice Agents for Service Businesses | ScaleKit"
+  title="AI Agents for Service Businesses: Voice, Chat & Automation | ScaleKit"
   description="ScaleKit builds AI voice agents, chat agents, and custom agentic workflows that handle repetitive work so service businesses can scale without hiring more staff."
   structuredData={structuredData}
 >
@@ -82,7 +60,7 @@ const footerGroups = [
 
   <IndustryHero
     eyebrow="AI Agents & Solutions"
-    headline="AI Receptionist & AI Agents for Service Businesses"
+    headline="AI Agents for Service Businesses"
     subheadline="Every hour your team spends on repetitive work is an hour they're not spending on customers. We build AI that handles the busywork — so you can grow without growing your headcount."
     checklist={[
       "Every call answered, 24/7",
@@ -103,10 +81,10 @@ const footerGroups = [
   />
   <ContentBlocks blocks={[
       {
-        eyebrow: 'AI Receptionist',
-        heading: 'An AI Receptionist That Answers Every Call',
+        eyebrow: 'AI Voice Agents',
+        heading: 'AI Voice Agents That Answer Every Call',
         paragraphs: [
-          "An AI receptionist answers your business phone when you can't: after hours, on weekends, or when every line is busy. It greets callers by your business name, answers common questions, collects their details and books the appointment or alerts your team.",
+          "An AI voice agent answers your business phone when you can't: after hours, on weekends, or when every line is busy. It greets callers by your business name, answers common questions, collects their details and books the appointment or alerts your team.",
           "Unlike a traditional answering service, it doesn't put callers on hold, and it is trained on your services, your service area and your prices.",
         ],
         list: [
@@ -116,6 +94,7 @@ const footerGroups = [
           'Hands urgent calls to a person on your team',
           'Answers the same questions your front desk hears every day',
         ],
+        link: { label: 'See how our AI receptionist works', href: '/services/ai-receptionist/' },
       },
       {
         eyebrow: 'Beyond the Phone',

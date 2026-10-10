@@ -1,0 +1,19 @@
+---
+// Hub for the AI Receptionist industry pages. Primary keyword: "AI
+// receptionist for service businesses". Lists every industry page from
+// src/data/ai-receptionist.ts, so new industries appear here automatically.
+import ReceptionistPage from '../../../components/receptionist/ReceptionistPage.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+import { hub, industries } from '../../../data/ai-receptionist';
+---
+
+<ReceptionistPage page={hub} breadcrumbs={[{ name: hub.breadcrumbName }]}>
+  <RelatedLinks
+    heading="AI Receptionists Built for Your Trade"
+    links={industries.map((p) => ({
+      label: `AI Receptionist for ${p.breadcrumbName}`,
+      href: `/services/ai-receptionist/${p.slug}/`,
+      description: p.seo.description,
+    }))}
+  />
+</ReceptionistPage>

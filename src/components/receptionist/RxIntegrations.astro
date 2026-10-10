@@ -1,0 +1,60 @@
+---
+// "Works with" band under the hero. Text wordmarks rather than logo files:
+// ScaleKit has no press logos, and these are the tools it really connects to.
+import { integrations } from '../../data/ai-receptionist';
+---
+
+<section class="rx-integrations">
+  <div class="inner">
+    <p class="label">Connects to the tools you already run</p>
+    <ul class="names">
+      {integrations.map((name) => <li>{name}</li>)}
+    </ul>
+    <p class="more">Plus <strong>any other tool with an API</strong>. Jobs, contacts and call notes land where your team already works.</p>
+  </div>
+</section>
+
+<style>
+  .rx-integrations {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-7) var(--space-6);
+    font-family: var(--font-body);
+    text-align: center;
+  }
+  .inner { max-width: var(--container-max-nav); margin: 0 auto; }
+  .label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin: 0 0 var(--space-5);
+  }
+  .names {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .names li {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-fg);
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 9px 18px;
+  }
+  .more { font-size: 15px; color: var(--color-text-mid); margin: 0; }
+  .more strong { color: var(--color-fg); }
+
+  @media (max-width: 560px) {
+    .rx-integrations { padding: var(--space-6) var(--space-3); }
+    .names li { font-size: 13px; padding: 7px 14px; }
+  }
+</style>

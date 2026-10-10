@@ -1,0 +1,130 @@
+---
+// Comparison table: alternatives vs. ScaleKit (last column, highlighted).
+// On phones the table becomes one card per option with ScaleKit first,
+// so the highlighted column is never cut off screen.
+import RxHead from './RxHead.astro';
+import RxCta from './RxCta.astro';
+import type { ReceptionistPage } from '../../data/ai-receptionist';
+
+type Props = ReceptionistPage['comparison'];
+const { headline, columns, rows, statement } = Astro.props;
+const brand = columns.length - 1;
+const mobileOrder = [brand, ...columns.map((_, i) => i).filter((i) => i !== brand)];
+---
+
+<section class="rx-compare">
+  <div class="inner">
+    <RxHead eyebrow="Compare Your Options" headline={headline} />
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"><span class="sr">Feature</span></th>
+          {columns.map((col, i) => (
+            <th scope="col" class:list={{ brand: i === brand }}>
+              <span class="col-name">{col.name}</span>
+              <span class="col-note">{col.note}</span>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr>
+            <th scope="row">{row.label}</th>
+            {row.values.map((v, i) => (
+              <td class:list={[row.good[i] ? 'good' : 'bad', { brand: i === brand }]}>{v}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <div class="cards">
+      {mobileOrder.map((i) => (
+        <div class:list={['card', { brand: i === brand }]}>
+          <p class="col-name">{columns[i].name}</p>
+          <p class="col-note">{columns[i].note}</p>
+          <dl>
+            {rows.map((row) => (
+              <div class="row">
+                <dt>{row.label}</dt>
+                <dd class={row.good[i] ? 'good' : 'bad'}>{row.values[i]}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))}
+    </div>
+
+    <p class="statement">{statement}</p>
+    <RxCta />
+  </div>
+</section>
+
+<style>
+  .rx-compare {
+    background: #ffffff;
+    padding: var(--space-8) var(--space-6);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 1080px; margin: 0 auto; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    font-size: 14.5px;
+  }
+  .table th, .table td { padding: 16px 14px; text-align: center; border-bottom: 1px solid var(--color-border); }
+  .table tbody tr:last-child th, .table tbody tr:last-child td { border-bottom: 0; }
+  .table tbody th { text-align: left; font-weight: 700; color: var(--color-fg); }
+  .table thead th { vertical-align: bottom; }
+  .col-name { display: block; font-size: 15px; font-weight: 800; color: var(--color-fg); }
+  .col-note { display: block; font-size: 12px; font-weight: 500; color: var(--color-text-light); margin-top: 4px; }
+  .table .brand { background: var(--color-fg); color: var(--color-dark-fg); border-bottom-color: #262626; }
+  .table thead .brand .col-name { color: var(--color-primary); }
+  .table thead .brand .col-note { color: var(--color-dark-text-mid); }
+  td.good { color: var(--color-success); font-weight: 700; }
+  td.bad { color: var(--color-text-mid); }
+  td.brand.good { color: var(--color-primary); }
+  .table tbody tr:last-child td { font-weight: 800; }
+
+  .cards { display: none; }
+
+  .statement {
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-fg);
+    max-width: 680px;
+    margin: var(--space-7) auto var(--space-6);
+  }
+
+  @media (max-width: 760px) {
+    .rx-compare { padding: var(--space-7) var(--space-3); }
+    .table { display: none; }
+    .cards { display: flex; flex-direction: column; gap: 14px; }
+    .card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 20px; }
+    .card.brand { background: var(--color-fg); border-color: var(--color-fg); }
+    .card.brand .col-name { color: var(--color-primary); }
+    .card.brand .col-note, .card.brand dt { color: var(--color-dark-text-mid); }
+    .card .col-name, .card .col-note { margin: 0; }
+    dl { margin: 14px 0 0; }
+    .row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--color-border); font-size: 14px; }
+    .card.brand .row { border-top-color: #262626; }
+    dt { color: var(--color-text-mid); }
+    dd { margin: 0; text-align: right; font-weight: 700; }
+    dd.good { color: var(--color-success); }
+    dd.bad { color: var(--color-text-mid); font-weight: 500; }
+    .card.brand dd { color: var(--color-primary); }
+    .statement { font-size: 17px; }
+  }
+</style>

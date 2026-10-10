@@ -1,5 +1,4 @@
-// Shared header/footer nav for the keyword landing pages built on
-// KeywordPage.astro. Older pages still carry their own inline copies.
+// Shared header nav for the keyword landing pages, and the site-wide footer links.
 
 export const headerNav = {
   services: [
@@ -9,6 +8,7 @@ export const headerNav = {
     { label: 'CRM & Automation', href: '/services/automation/' },
     { label: 'Reactivation', href: '/services/reactivation/' },
     { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
+    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
   ],
   links: [
     { label: 'Features', href: '/features/' },
@@ -18,28 +18,34 @@ export const headerNav = {
   ],
 };
 
-export const footerGroups = [
-  {
-    heading: 'Company',
-    links: [
-      { label: 'Home', href: '/' },
-      { label: 'How We Work', href: '/#process' },
-      { label: 'Who We Work With', href: '/#built-for' },
-    ],
-  },
-  {
-    heading: 'Services',
-    links: [
-      { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/' },
-      { label: 'Lead Follow-Up Automation', href: '/services/lead-follow-up-automation/' },
-      { label: 'Google Review Automation', href: '/services/google-review-automation/' },
-      { label: 'Google Business Profile Management', href: '/services/google-business-profile-management/' },
-      { label: 'CRM for Service Businesses', href: '/services/automation/' },
-      { label: 'AI Local SEO Agent', href: '/scout/' },
-    ],
-  },
-  {
-    heading: 'Guides',
-    links: [{ label: 'Speed to Lead', href: '/guides/speed-to-lead/' }],
-  },
-];
+// The one footer used on every page (matches the homepage). Pages without
+// their own #book-call section pass '/#book-call' so the link still works.
+export function makeFooterGroups(bookHref = '#book-call') {
+  return [
+    {
+      heading: 'Company',
+      links: [
+        { label: 'Home', href: '/' },
+        { label: 'How We Work', href: '/#process' },
+        { label: 'Who We Work With', href: '/#built-for' },
+      ],
+    },
+    {
+      heading: 'Services',
+      links: [
+        { label: 'Websites & Funnels', href: '/#websites-funnels' },
+        { label: 'Local SEO', href: '/scout/' },
+        { label: 'Google & Meta Ads', href: '/services/ads/' },
+        { label: 'CRM & Automation', href: '/services/automation/' },
+        { label: 'Reactivation', href: '/services/reactivation/' },
+        { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
+      ],
+    },
+    {
+      heading: 'Get Started',
+      links: [{ label: 'Book Your Free Strategy Call', href: bookHref }],
+    },
+  ];
+}
+
+export const footerGroups = makeFooterGroups();

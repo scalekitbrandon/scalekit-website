@@ -1,0 +1,46 @@
+---
+// Primary CTA + one-line reassurance underneath. Repeated at the end of
+// most sections on the AI Receptionist pages, so a ready visitor never
+// has to scroll to find the button.
+import { ctaNote } from '../../data/ai-receptionist';
+
+interface Props { label?: string; href?: string; note?: string; align?: 'center' | 'left'; inverted?: boolean }
+const { label = 'Book Your Free Strategy Call', href = '#book-call', note = ctaNote, align = 'center', inverted = false } = Astro.props;
+---
+
+<div class:list={['rx-cta', align, { inverted }]}>
+  <a class="btn" href={href}>
+    {label}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+  </a>
+  {note && <p class="note">{note}</p>}
+</div>
+
+<style>
+  .rx-cta { display: flex; flex-direction: column; gap: 12px; }
+  .rx-cta.center { align-items: center; text-align: center; }
+  .rx-cta.left { align-items: flex-start; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 16px 32px;
+    font-size: 15.5px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-fg);
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: var(--color-primary-hover); }
+  .btn svg { width: 15px; height: 15px; }
+  .note { font-size: 13px; color: var(--color-text-light); margin: 0; }
+  .inverted .note { color: var(--color-dark-text-mid); }
+
+  @media (max-width: 420px) {
+    .btn { white-space: normal; text-align: center; justify-content: center; }
+  }
+</style>

@@ -15,6 +15,7 @@ import Process from '../../components/Process.astro';
 import FinalCta from '../../components/FinalCta.astro';
 import BookCall from '../../components/BookCall.astro';
 import Footer from '../../components/Footer.astro';
+import { makeFooterGroups } from '../../data/site-nav';
 
 const siteUrl = Astro.site.origin;
 
@@ -38,6 +39,7 @@ const headerNav = {
     { label: 'CRM & Automation', href: '/services/automation/' },
     { label: 'Reactivation', href: '/services/reactivation/' },
     { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
+    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
   ],
   links: [
     { label: 'Features', href: '/features/' },
@@ -47,31 +49,7 @@ const headerNav = {
   ],
 };
 
-const footerGroups = [
-  {
-    heading: 'Company',
-    links: [
-      { label: 'Home', href: '/' },
-      { label: 'How We Work', href: '/#process' },
-      { label: 'Who We Work With', href: '/#built-for' },
-    ],
-  },
-  {
-    heading: 'Services',
-    links: [
-      { label: 'Websites & Funnels', href: '/#websites-funnels' },
-      { label: 'Local SEO', href: '/scout/' },
-      { label: 'Google & Meta Ads', href: '/services/ads/' },
-      { label: 'CRM & Automation', href: '/services/automation/' },
-      { label: 'Reactivation', href: '/services/reactivation/' },
-      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    ],
-  },
-  {
-    heading: 'Get Started',
-    links: [{ label: 'Get Started', href: '#book-call' }],
-  },
-];
+const footerGroups = makeFooterGroups();
 ---
 
 <BaseLayout

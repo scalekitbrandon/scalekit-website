@@ -1,0 +1,100 @@
+---
+// Full-page template for the AI Receptionist hub and industry pages.
+// Section order follows layout-blueprint-ai-receptionist.md: hero →
+// problem → capabilities → sample calls → how it works → tiers + offer →
+// comparison → integrations → FAQ → related → booking form. The hub
+// passes extra content (the industry list) through the default slot,
+// which renders after the tiers.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+import ScoutFaq from '../ScoutFaq.astro';
+import RelatedLinks from '../RelatedLinks.astro';
+import BookCall from '../BookCall.astro';
+import RxHero from './RxHero.astro';
+import RxIntegrations from './RxIntegrations.astro';
+import RxProblem from './RxProblem.astro';
+import RxCapabilities from './RxCapabilities.astro';
+import RxCalls from './RxCalls.astro';
+import RxSteps from './RxSteps.astro';
+import RxTiers from './RxTiers.astro';
+import RxComparison from './RxComparison.astro';
+import { headerNav, footerGroups } from '../../data/site-nav';
+import type { ReceptionistPage } from '../../data/ai-receptionist';
+
+interface Props { page: ReceptionistPage; breadcrumbs: { name: string; path?: string }[] }
+const { page, breadcrumbs } = Astro.props;
+
+const site = Astro.site!.origin;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: page.seo.serviceType,
+    serviceType: page.seo.serviceType,
+    description: page.seo.description,
+    url: pageUrl,
+    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: `${site}/` },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    audience: { '@type': 'BusinessAudience', audienceType: page.seo.audience },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: page.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [{ name: 'Home', path: '/' }, ...breadcrumbs].map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.name,
+      item: c.path ? `${site}${c.path}` : pageUrl,
+    })),
+  },
+];
+---
+
+<BaseLayout title={page.seo.title} description={page.seo.description} structuredData={structuredData}>
+  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
+
+  <RxHero {...page.hero} hasCalls={!!page.calls} />
+  <RxProblem {...page.problem} />
+  <RxCapabilities {...page.capabilities} />
+  {page.calls && <RxCalls {...page.calls} />}
+  <RxSteps {...page.steps} />
+  <RxTiers />
+  <slot />
+  <RxComparison {...page.comparison} />
+  <RxIntegrations />
+
+  <ScoutFaq
+    eyebrow="Questions"
+    headline="Questions Owners Ask Before They Book"
+    subheadline="Don't see yours? Ask us on your free strategy call."
+    items={page.faq}
+  />
+
+  <RelatedLinks links={page.related} />
+
+  <BookCall
+    eyebrow="Get Started"
+    headline="Book Your Free Strategy Call"
+    subheadline="Tell us about your business, then pick a time. We'll map your calls and show you exactly what your receptionist would handle. 20 minutes, free."
+  />
+
+  <Footer
+    slot="footer"
+    logoText="ScaleKit"
+    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
+    contactEmail="hello@scalekit.io"
+    groups={footerGroups}
+  />
+</BaseLayout>

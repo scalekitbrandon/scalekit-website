@@ -16,6 +16,7 @@ import ProcessCircles from '../components/ProcessCircles.astro';
 import FinalCta from '../components/FinalCta.astro';
 import BookCall from '../components/BookCall.astro';
 import Footer from '../components/Footer.astro';
+import { makeFooterGroups } from '../data/site-nav';
 
 const siteUrl = Astro.site.origin;
 
@@ -57,31 +58,7 @@ const serviceSchemas = services.map((s) => ({
 
 const structuredData = [organizationSchema, websiteSchema, ...serviceSchemas];
 
-const footerGroups = [
-  {
-    heading: 'Company',
-    links: [
-      { label: 'Home', href: '#home' },
-      { label: 'How We Work', href: '#process' },
-      { label: 'Who We Work With', href: '#built-for' },
-    ],
-  },
-  {
-    heading: 'Services',
-    links: [
-      { label: 'Websites & Funnels', href: '#websites-funnels' },
-      { label: 'Local SEO', href: '/scout/' },
-      { label: 'Google & Meta Ads', href: '/services/ads/' },
-      { label: 'CRM & Automation', href: '/services/automation/' },
-      { label: 'Reactivation', href: '/services/reactivation/' },
-      { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    ],
-  },
-  {
-    heading: 'Get Started',
-    links: [{ label: 'Book Your Free Strategy Call', href: '#book-call' }],
-  },
-];
+const footerGroups = makeFooterGroups();
 ---
 
 <BaseLayout title="Marketing & Automation for Local Service Businesses | ScaleKit" description="ScaleKit helps service businesses get found, convert more leads, automate the work that slows them down, and scale with AI." structuredData={structuredData}>
