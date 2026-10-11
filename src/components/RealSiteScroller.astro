@@ -36,7 +36,7 @@ const { items } = Astro.props;
         <div class="site-card">
           <div class="browser-chrome">
             <div class="dots"><span></span><span></span><span></span></div>
-            <a class="address-pill" href={item.href} target="_blank" rel="noopener noreferrer">{item.addressLabel}</a>
+            <span class="address-pill">{item.addressLabel}</span>
           </div>
           <div class="site-thumb">
             <iframe src={item.src} title={`${item.label} — scroll to explore`} loading="lazy"></iframe>
@@ -142,7 +142,6 @@ const { items } = Astro.props;
     text-overflow: ellipsis;
     text-decoration: none;
   }
-  .address-pill:hover { color: var(--color-text-mid); }
 
   .site-thumb {
     position: relative;
