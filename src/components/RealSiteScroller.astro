@@ -167,12 +167,18 @@ const { items } = Astro.props;
     top: 0;
     left: 0;
     width: 1440px;
-    height: 900px;
+    /* Tall enough to hold most full homepages, not just the first
+       screen — the auto-scroll below moves through this extra height,
+       so there's actually somewhere for it to scroll to. Pages shorter
+       than this just show background past their footer, which is an
+       acceptable tradeoff for a preview and not knowable up front for
+       the cross-origin (real, non-ScaleKit-domain) card. */
+    height: 3600px;
     border: 0;
     transform-origin: top left;
-    /* Scaled down to the card's real width by the script below, so the
-       site renders at its real desktop layout/aspect ratio instead of
-       reflowing to a narrow mobile breakpoint at the card's own width. */
+    /* Combined scale (real desktop layout, not a reflowed mobile one)
+       + vertical offset (auto-scroll on hover) — both written by the
+       script below. */
   }
 
   @media (max-width: 560px) {
@@ -208,17 +214,63 @@ const { items } = Astro.props;
   window.addEventListener('resize', updateArrows);
   updateArrows();
 
-  // Scale each 1440px-wide iframe down to its card's real rendered
-  // width so the embedded site shows its actual desktop layout instead
-  // of reflowing to a narrow mobile breakpoint.
+  // Each card's iframe is scaled down to the card's real rendered width
+  // (so the site shows its actual desktop layout, not a reflowed mobile
+  // one) AND, while hovered, translated upward to auto-scroll through
+  // the page. Both live in one transform, applied together below —
+  // this works even for the cross-origin Brooklyn Therapy Services card
+  // because it only ever repositions our own iframe element from the
+  // parent page; it never reaches into the iframe's own document (which
+  // cross-origin JS can't do anyway).
+  const VIEWPORT_HEIGHT = 900; // matches the iframe's aspect-ratio crop
+  const SCROLL_DURATION = 7000; // ms to reach the bottom while hovered
+  const RESET_DURATION = 450; // ms to snap back on mouseleave
+  const animationIds = new WeakMap();
+
+  function applyTransform(iframe: HTMLIFrameElement) {
+    const scale = parseFloat(iframe.dataset.scale || '1');
+    const offset = parseFloat(iframe.dataset.offset || '0');
+    iframe.style.transform = `scale(${scale}) translateY(${-offset}px)`;
+  }
+
   function scaleThumbs() {
     document.querySelectorAll('.site-thumb').forEach((thumb) => {
       const iframe = thumb.querySelector('iframe');
       if (!(iframe instanceof HTMLIFrameElement)) return;
-      const scale = thumb.clientWidth / 1440;
-      iframe.style.transform = `scale(${scale})`;
+      iframe.dataset.scale = String(thumb.clientWidth / 1440);
+      applyTransform(iframe);
     });
   }
   window.addEventListener('resize', scaleThumbs);
   scaleThumbs();
+
+  function animateOffset(iframe: HTMLIFrameElement, toOffset: number, duration: number) {
+    const existing = animationIds.get(iframe);
+    if (existing) cancelAnimationFrame(existing);
+
+    const fromOffset = parseFloat(iframe.dataset.offset || '0');
+    const start = performance.now();
+
+    function step(now: number) {
+      const t = Math.min((now - start) / duration, 1);
+      iframe.dataset.offset = String(fromOffset + (toOffset - fromOffset) * t);
+      applyTransform(iframe);
+      if (t < 1) {
+        animationIds.set(iframe, requestAnimationFrame(step));
+      } else {
+        animationIds.delete(iframe);
+      }
+    }
+    animationIds.set(iframe, requestAnimationFrame(step));
+  }
+
+  document.querySelectorAll('.site-card').forEach((card) => {
+    const iframe = card.querySelector('iframe');
+    if (!(iframe instanceof HTMLIFrameElement)) return;
+    const nativeHeight = parseFloat(iframe.getAttribute('height') || String(VIEWPORT_HEIGHT));
+    const maxOffset = Math.max(nativeHeight - VIEWPORT_HEIGHT, 0);
+
+    card.addEventListener('mouseenter', () => animateOffset(iframe, maxOffset, SCROLL_DURATION));
+    card.addEventListener('mouseleave', () => animateOffset(iframe, 0, RESET_DURATION));
+  });
 </script>
