@@ -134,15 +134,23 @@ const { items } = Astro.props;
   .address-pill:hover { color: var(--color-fg); border-color: var(--color-fg); }
 
   .site-thumb {
-    height: 420px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1440 / 900;
     overflow: hidden;
     background: var(--color-bg-alt);
   }
   .site-thumb iframe {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1440px;
+    height: 900px;
     border: 0;
-    display: block;
+    transform-origin: top left;
+    /* Scaled down to the card's real width by the script below, so the
+       site renders at its real desktop layout/aspect ratio instead of
+       reflowing to a narrow mobile breakpoint at the card's own width. */
   }
 
   .site-label {
@@ -156,7 +164,6 @@ const { items } = Astro.props;
 
   @media (max-width: 560px) {
     .site-card { flex: 0 0 82%; }
-    .site-thumb { height: 360px; }
   }
 </style>
 
@@ -183,4 +190,18 @@ const { items } = Astro.props;
   track?.addEventListener('scroll', updateArrows, { passive: true });
   window.addEventListener('resize', updateArrows);
   updateArrows();
+
+  // Scale each 1440px-wide iframe down to its card's real rendered
+  // width so the embedded site shows its actual desktop layout instead
+  // of reflowing to a narrow mobile breakpoint.
+  function scaleThumbs() {
+    document.querySelectorAll('.site-thumb').forEach((thumb) => {
+      const iframe = thumb.querySelector('iframe');
+      if (!(iframe instanceof HTMLIFrameElement)) return;
+      const scale = thumb.clientWidth / 1440;
+      iframe.style.transform = `scale(${scale})`;
+    });
+  }
+  window.addEventListener('resize', scaleThumbs);
+  scaleThumbs();
 </script>
