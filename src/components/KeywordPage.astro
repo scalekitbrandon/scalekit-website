@@ -9,7 +9,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import IndustryHero from './IndustryHero.astro';
 import ContentBlocks from './ContentBlocks.astro';
-import RealSiteScroller from './RealSiteScroller.astro';
 import Process from './Process.astro';
 import PricingFaq from './PricingFaq.astro';
 import RelatedLinks from './RelatedLinks.astro';
@@ -113,9 +112,7 @@ const structuredData = [
     ctaLabel="Book Your Free Strategy Call"
   />
 
-  <ContentBlocks blocks={p.blocks} />
-
-  {p.websiteSamples && <RealSiteScroller items={p.websiteSamples} />}
+  <ContentBlocks blocks={p.blocks} websiteSamples={p.websiteSamples} />
 
   {p.steps &&<Process eyebrow="How It Works" headline={p.stepsHeadline ?? 'How It Works'} steps={p.steps} />}
 

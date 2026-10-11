@@ -3,6 +3,8 @@
 // with paragraphs and an optional checklist. Sections alternate bg/bg-alt
 // like the rest of the site. This is where each page's keyword gets the
 // depth a hero alone can't give it.
+import RealSiteScroller from './RealSiteScroller.astro';
+
 interface Block {
   eyebrow?: string;
   heading: string;
@@ -13,34 +15,50 @@ interface Block {
   link?: { label: string; href: string };
 }
 
-interface Props {
-  blocks: Block[];
+interface SampleItem {
+  label: string;
+  addressLabel: string;
+  image: string;
+  href?: string;
 }
 
-const { blocks } = Astro.props;
+interface Props {
+  blocks: Block[];
+  // Real-site screenshot strip inserted right after a specific block
+  // (by index, default 0 — the first block, typically "Website") so it
+  // reads as part of that block, not as a separate section after
+  // everything else.
+  websiteSamples?: SampleItem[];
+  websiteSamplesAfterIndex?: number;
+}
+
+const { blocks, websiteSamples, websiteSamplesAfterIndex = 0 } = Astro.props;
 ---
 
 {blocks.map((block, i) => (
-  <section class:list={['content-block', i % 2 === 0 ? 'bg-alt' : 'bg']}>
-    <div class="inner">
-      {block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
-      <h2 class="heading">{block.heading}</h2>
-      {block.paragraphs?.map((p) => <p class="para">{p}</p>)}
-      {block.list && (
-        <ul class="list">
-          {block.list.map((item) => (
-            <li>
-              <span class="check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
-              </span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-      {block.link && <a class="more" href={block.link.href}>{block.link.label} <span aria-hidden="true">→</span></a>}
-    </div>
-  </section>
+  <>
+    <section class:list={['content-block', i % 2 === 0 ? 'bg-alt' : 'bg']}>
+      <div class="inner">
+        {block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
+        <h2 class="heading">{block.heading}</h2>
+        {block.paragraphs?.map((p) => <p class="para">{p}</p>)}
+        {block.list && (
+          <ul class="list">
+            {block.list.map((item) => (
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {block.link && <a class="more" href={block.link.href}>{block.link.label} <span aria-hidden="true">→</span></a>}
+      </div>
+    </section>
+    {websiteSamples && i === websiteSamplesAfterIndex && <RealSiteScroller items={websiteSamples} />}
+  </>
 ))}
 
 <style>
