@@ -100,38 +100,43 @@ const { items } = Astro.props;
     flex: 0 0 340px;
     scroll-snap-align: start;
     background: #ffffff;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border: none;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 16px 32px rgba(10, 10, 10, 0.08);
+    box-shadow: 0 24px 48px rgba(10, 10, 10, 0.16);
   }
 
   .browser-chrome {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    background: var(--color-bg-alt);
-    border-bottom: 1px solid var(--color-border);
+    padding: 11px 16px;
+    background: #f0eee6;
   }
-  .dots { display: flex; gap: 5px; flex-shrink: 0; }
-  .dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--color-border); }
+  .dots { display: flex; gap: 6px; flex-shrink: 0; }
+  .dots span { width: 9px; height: 9px; border-radius: 50%; }
+  .dots span:nth-child(1) { background: #ed6a5e; }
+  .dots span:nth-child(2) { background: #f4bf4f; }
+  .dots span:nth-child(3) { background: #61c454; }
   .address-pill {
-    flex: 1;
-    min-width: 0;
-    padding: 5px 12px;
-    background: #ffffff;
-    border: 1px solid var(--color-border);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 60%;
+    padding: 4px 14px;
+    background: rgba(10, 10, 10, 0.05);
+    border: none;
     border-radius: var(--radius-pill);
-    font-size: 11.5px;
-    font-weight: 600;
-    color: var(--color-text-mid);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-light);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
   }
-  .address-pill:hover { color: var(--color-fg); border-color: var(--color-fg); }
+  .address-pill:hover { color: var(--color-text-mid); }
 
   .site-thumb {
     position: relative;
