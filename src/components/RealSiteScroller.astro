@@ -117,36 +117,25 @@ const { items } = Astro.props;
     min-width: 280px;
     scroll-snap-align: start;
     background: #ffffff;
-    border: none;
-    border-radius: 12px;
+    border: 1px solid rgba(10, 10, 10, 0.08);
+    border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 24px 48px rgba(10, 10, 10, 0.16);
   }
 
   .browser-chrome {
-    position: relative;
     display: flex;
     align-items: center;
-    padding: 11px 16px;
+    gap: 12px;
+    padding: 14px 18px;
     background: #f0eee6;
   }
   .dots { display: flex; gap: 6px; flex-shrink: 0; }
-  .dots span { width: 9px; height: 9px; border-radius: 50%; }
-  .dots span:nth-child(1) { background: #ed6a5e; }
-  .dots span:nth-child(2) { background: #f4bf4f; }
-  .dots span:nth-child(3) { background: #61c454; }
+  .dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(10, 10, 10, 0.25); }
   .address-pill {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 60%;
-    padding: 4px 14px;
-    background: rgba(10, 10, 10, 0.05);
-    border: none;
-    border-radius: var(--radius-pill);
-    font-size: 11px;
-    font-weight: 500;
+    min-width: 0;
+    font-size: 13px;
+    font-weight: 400;
     color: var(--color-text-light);
     white-space: nowrap;
     overflow: hidden;
