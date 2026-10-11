@@ -167,13 +167,7 @@ const { items } = Astro.props;
     top: 0;
     left: 0;
     width: 1440px;
-    /* Tall enough to hold most full homepages, not just the first
-       screen — the auto-scroll below moves through this extra height,
-       so there's actually somewhere for it to scroll to. Pages shorter
-       than this just show background past their footer, which is an
-       acceptable tradeoff for a preview and not knowable up front for
-       the cross-origin (real, non-ScaleKit-domain) card. */
-    height: 3600px;
+    height: 900px;
     border: 0;
     transform-origin: top left;
     /* Combined scale (real desktop layout, not a reflowed mobile one)
