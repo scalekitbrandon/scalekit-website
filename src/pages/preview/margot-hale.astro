@@ -1,0 +1,13 @@
+---
+// Standalone, unlinked route that renders just the Margot Hale therapist
+// template sample full-page — exists only so RealSiteScroller can iframe
+// a real, scrollable page for this sample (it otherwise only lives as
+// slot content inside website-design.astro's TemplateShowcase, with no
+// URL of its own to point an iframe at).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TherapistsSample from '../../components/samples/TherapistsSample.astro';
+---
+
+<BaseLayout title="Margot Hale Therapy — ScaleKit Sample" description="Sample therapist website built by ScaleKit." noindex={true}>
+  <TherapistsSample />
+</BaseLayout>

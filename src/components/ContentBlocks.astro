@@ -36,29 +36,27 @@ const { blocks, websiteSamples, websiteSamplesAfterIndex = 0 } = Astro.props;
 ---
 
 {blocks.map((block, i) => (
-  <>
-    <section class:list={['content-block', i % 2 === 0 ? 'bg-alt' : 'bg']}>
-      <div class="inner">
-        {block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
-        <h2 class="heading">{block.heading}</h2>
-        {block.paragraphs?.map((p) => <p class="para">{p}</p>)}
-        {block.list && (
-          <ul class="list">
-            {block.list.map((item) => (
-              <li>
-                <span class="check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
-                </span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-        {block.link && <a class="more" href={block.link.href}>{block.link.label} <span aria-hidden="true">→</span></a>}
-      </div>
-    </section>
-    {websiteSamples && i === websiteSamplesAfterIndex && <RealSiteScroller items={websiteSamples} />}
-  </>
+  <section class:list={['content-block', i % 2 === 0 ? 'bg-alt' : 'bg']}>
+    <div class="inner">
+      {block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
+      <h2 class="heading">{block.heading}</h2>
+      {block.paragraphs?.map((p) => <p class="para">{p}</p>)}
+      {block.list && (
+        <ul class="list">
+          {block.list.map((item) => (
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {websiteSamples && i === websiteSamplesAfterIndex && <RealSiteScroller items={websiteSamples} />}
+      {block.link && <a class="more" href={block.link.href}>{block.link.label} <span aria-hidden="true">→</span></a>}
+    </div>
+  </section>
 ))}
 
 <style>

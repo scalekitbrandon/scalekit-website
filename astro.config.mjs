@@ -9,7 +9,7 @@ export default defineConfig({
   site: 'https://scalekit.io',
   integrations: [
     // /thank-you is the post-form booking step, not a search landing page.
-    sitemap({ filter: (page) => !page.includes('/thank-you') }),
+    sitemap({ filter: (page) => !page.includes('/thank-you') && !page.includes('/preview/') }),
     mdx(),
   ],
   output: 'static',

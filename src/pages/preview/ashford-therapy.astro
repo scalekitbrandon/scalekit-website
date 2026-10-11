@@ -1,0 +1,11 @@
+---
+// Standalone, unlinked route that renders just the Ashford Therapy
+// template sample full-page — same purpose as preview/margot-hale.astro:
+// gives RealSiteScroller a real URL to iframe for a scrollable preview.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AshfordSample from '../../components/samples/AshfordSample.astro';
+---
+
+<BaseLayout title="Ashford Therapy — ScaleKit Sample" description="Sample therapist website built by ScaleKit." noindex={true}>
+  <AshfordSample />
+</BaseLayout>
