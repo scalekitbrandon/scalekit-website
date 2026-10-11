@@ -90,6 +90,10 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     background: var(--color-bg);
     color: var(--color-fg);
     font-family: var(--font-body);
+    /* Guards against the 1px-ish horizontal overflow a 100vw full-bleed
+       breakout (see RealSiteScroller) can introduce when the vertical
+       scrollbar itself is included in 100vw's measurement. */
+    overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);

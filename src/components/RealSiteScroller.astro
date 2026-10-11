@@ -25,6 +25,7 @@ const { items } = Astro.props;
 ---
 
 <div class="site-scroller">
+  <div class="site-scroller-inner">
   <div class="scroller-row">
     <button type="button" class="scroller-arrow prev" data-scroller-prev aria-label="Previous">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -48,14 +49,30 @@ const { items } = Astro.props;
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </button>
   </div>
+  </div>
 </div>
 
 <style>
   .site-scroller {
-    margin: var(--space-6) 0;
+    /* Breaks out of the narrow ~780px text column its parent block
+       keeps everything else inside, so these cards can be as large as
+       a real full-width showcase instead of being capped by the
+       article-width column — that's what was making them read "too
+       small" even after widening them to 50% of that narrow column. */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: var(--space-6) var(--space-6) 0;
+    margin-top: var(--space-6);
+    margin-bottom: 0;
+    box-sizing: border-box;
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
   }
+  .site-scroller-inner { max-width: 1200px; margin: 0 auto; }
 
   .scroller-row {
     display: flex;
@@ -159,7 +176,11 @@ const { items } = Astro.props;
   }
 
   @media (max-width: 560px) {
-    .site-card { flex: 0 0 86%; }
+    .site-scroller { padding: var(--space-5) var(--space-4) 0; }
+    .scroller-row { gap: var(--space-2); }
+    .scroller-arrow { width: 34px; height: 34px; }
+    .scroller-arrow svg { width: 15px; height: 15px; }
+    .site-card { flex: 0 0 94%; }
   }
 </style>
 
