@@ -9,7 +9,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import IndustryHero from './IndustryHero.astro';
 import ContentBlocks from './ContentBlocks.astro';
-import WebsitesFunnels from './WebsitesFunnels.astro';
+import RealSiteScroller from './RealSiteScroller.astro';
 import Process from './Process.astro';
 import PricingFaq from './PricingFaq.astro';
 import RelatedLinks from './RelatedLinks.astro';
@@ -42,10 +42,10 @@ interface Props {
   faqHeadline: string;
   related: { label: string; href: string; description: string }[];
   finalCta: { eyebrow: string; headline: string; subheadline: string };
-  // Shows the homepage's real-website-screenshot carousel on this page too.
-  // Off by default — only meaningful on pages where "see what we'd build
-  // you" lands well, e.g. an industry hub's website-design angle.
-  showcaseWebsites?: boolean;
+  // Real-site screenshot strip shown right after the content blocks —
+  // meant to sit directly under this page's "Website" block as visual
+  // proof, not a separate section. Omit to render nothing.
+  websiteSamples?: { label: string; addressLabel: string; image: string; href?: string }[];
 }
 
 const p = Astro.props;
@@ -115,7 +115,7 @@ const structuredData = [
 
   <ContentBlocks blocks={p.blocks} />
 
-  {p.showcaseWebsites && <WebsitesFunnels />}
+  {p.websiteSamples && <RealSiteScroller items={p.websiteSamples} />}
 
   {p.steps &&<Process eyebrow="How It Works" headline={p.stepsHeadline ?? 'How It Works'} steps={p.steps} />}
 
