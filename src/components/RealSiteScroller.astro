@@ -40,7 +40,6 @@ const { items } = Astro.props;
           <div class="site-thumb">
             <iframe src={item.src} title={`${item.label} — scroll to explore`} loading="lazy"></iframe>
           </div>
-          <p class="site-label">{item.label}</p>
         </div>
       ))}
     </div>
@@ -97,11 +96,12 @@ const { items } = Astro.props;
   .scroller-track::-webkit-scrollbar { display: none; }
 
   .site-card {
-    flex: 0 0 340px;
+    flex: 0 0 calc(50% - var(--space-4) / 2);
+    min-width: 280px;
     scroll-snap-align: start;
     background: #ffffff;
     border: none;
-    border-radius: 14px;
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 24px 48px rgba(10, 10, 10, 0.16);
   }
@@ -158,17 +158,8 @@ const { items } = Astro.props;
        reflowing to a narrow mobile breakpoint at the card's own width. */
   }
 
-  .site-label {
-    margin: 0;
-    padding: 12px 14px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--color-fg);
-    border-top: 1px solid var(--color-border);
-  }
-
   @media (max-width: 560px) {
-    .site-card { flex: 0 0 82%; }
+    .site-card { flex: 0 0 86%; }
   }
 </style>
 
