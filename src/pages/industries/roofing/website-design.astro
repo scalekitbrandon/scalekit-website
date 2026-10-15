@@ -1,118 +1,95 @@
 ---
-import RelatedLinks from '../../../components/RelatedLinks.astro';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Header from '../../../components/Header.astro';
-import IndustryHero from '../../../components/IndustryHero.astro';
-import TemplateShowcase from '../../../components/TemplateShowcase.astro';
-import ProcessCircles from '../../../components/ProcessCircles.astro';
-import FinalCta from '../../../components/FinalCta.astro';
-import BookCall from '../../../components/BookCall.astro';
-import Footer from '../../../components/Footer.astro';
-import RoofingSample from '../../../components/samples/RoofingSample.astro';
-import AnchorSample from '../../../components/samples/AnchorSample.astro';
-import PaintingSample from '../../../components/samples/PaintingSample.astro';
-import LandscapingSample from '../../../components/samples/LandscapingSample.astro';
-import RestorationSample from '../../../components/samples/RestorationSample.astro';
-import { makeFooterGroups } from '../../../data/site-nav';
-
-const siteUrl = Astro.site.origin;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    serviceType: 'Roofing Company Websites & Funnels',
-    name: 'Website Design for Roofing Companies',
-    description: 'ScaleKit builds roofing companies a website and lead-follow-up system built around the insurance claim process.',
-    url: `${siteUrl}/industries/roofing/website-design/`,
-    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
-  },
-];
-
-const headerNav = {
-  services: [
-    { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/scout/' },
-    { label: 'Google & Meta Ads', href: '/services/ads/' },
-    { label: 'CRM & Automation', href: '/services/automation/' },
-    { label: 'Reactivation', href: '/services/reactivation/' },
-    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
-  ],
-  links: [
-    { label: 'Features', href: '/features/' },
-    { label: 'How We Work', href: '/#process' },
-    { label: 'Who We Work With', href: '/#built-for' },
-    { label: 'Pricing', href: '/pricing/' },
-  ],
-};
-
-const footerGroups = makeFooterGroups();
+// Primary keyword: roofing website design. Samples are iframed /preview/
+// routes, not inline components — rendering them inline put ~2,000 words of
+// identical sample-site copy on every trade page (95% duplicate, 2026-10-15).
+import KeywordPage from '../../../components/KeywordPage.astro';
 ---
 
-<BaseLayout
+<KeywordPage
+  kind="service"
   title="Roofing Website Design & Lead Follow-Up | ScaleKit"
   description="ScaleKit builds roofing companies a website and lead-follow-up system built around the insurance claim process — so storm-season leads don't go cold."
-  structuredData={structuredData}
->
-  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
-
-  <IndustryHero
-    eyebrow="For Roofing Companies"
-    headline="Roofing Website Design That Turns Leads Into Booked Jobs"
-    subheadline="Storm season floods you with leads, and half of them go cold before you can call back. We build roofing companies a website, a follow-up system, and a lead engine that works while you're on the roof."
-    checklist={[
-      'Lightning-fast load times',
-      'Mobile-first on every device',
-      'Technical SEO from day one',
-      'Ranks in Google & AI search',
-      'Live in days, not months',
-      'High-conversion copywriting',
-      'Built to convert, not just look good',
-      'Unlimited review requests',
-      'Connected straight to your CRM',
-      'Instant lead form engagement',
-    ]}
-  />
-
-  <TemplateShowcase
-    addressLabel="yourroofingcompany.com"
-    sampleLabels={[
-      'yourhomeservicesco.com',
-      'brushhourpaintingtexas.com',
-      'yourlandscapingco.com',
-      'yourrestorationco.com',
-    ]}
-  >
-    <RoofingSample />
-    <Fragment slot="sample-1"><AnchorSample /></Fragment>
-    <Fragment slot="sample-2"><PaintingSample /></Fragment>
-    <Fragment slot="sample-3"><LandscapingSample /></Fragment>
-    <Fragment slot="sample-4"><RestorationSample /></Fragment>
-  </TemplateShowcase>
-
-  <ProcessCircles />
-  <RelatedLinks heading="More for Roofing Companies" links={[
-      { label: 'Marketing Automation for Roofing Companies', href: '/industries/roofing/', description: 'Everything we do for roofing companies, in one system.' },
-      { label: 'Roofing CRM', href: '/industries/roofing/crm/', description: 'Track every inspection, estimate and insurance claim.' },
-      { label: 'Local SEO for Roofers', href: '/industries/roofing/local-seo/', description: 'Show up in Google Maps when homeowners need a roofer.' },
-      { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Never lose a storm-season call to voicemail.' },
-    ]} />
-
-
-  <FinalCta
-    eyebrow="Run Your Own Numbers"
-    headline="What's One More Booked Roofing Job Actually Worth?"
-    subheadline="Every missed callback is a job you already paid to generate the lead for. ScaleKit makes sure it doesn't happen again."
-  />
-
-  <BookCall />
-
-  <Footer
-    slot="footer"
-    logoText="ScaleKit"
-    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
-    contactEmail="hello@scalekit.io"
-    groups={footerGroups}
-  />
-</BaseLayout>
+  serviceType="Roofing company website design"
+  audience="Roofing companies"
+  breadcrumbs={[{ name: 'Roofing', path: '/industries/roofing/' }, { name: 'Website Design' }]}
+  hero={{
+    eyebrow: 'For Roofing Companies',
+    headline: 'Roofing Website Design That Turns Leads Into Booked Jobs',
+    subheadline: "Storm season floods you with leads, and half of them go cold before you can call back. We build roofing companies a website, a follow-up system, and a lead engine that works while you're on the roof.",
+    checklist: [
+      'Free inspection requests answered in seconds',
+      'Storm and insurance claim pages that rank',
+      'Project photos and reviews homeowners trust',
+      'Every lead sent straight to your CRM',
+    ],
+  }}
+  blocks={[
+    {
+      eyebrow: 'Sample Roofing Sites',
+      heading: 'Roofing Websites Built to Book Inspections',
+      paragraphs: [
+        "Scroll through a few of the sites we've built. Every one is fast on a phone, puts the call button and inspection form within one tap, and shows real work before it asks for anything.",
+      ],
+    },
+    {
+      eyebrow: 'What Roofers Need',
+      heading: 'What a Roofing Company Website Has to Do',
+      paragraphs: [
+        "A homeowner with a leak or hail damage isn't browsing. They're on their phone, often standing in the yard, looking for a roofer who seems legitimate and can come out soon. Your site has about five seconds to show you're local, licensed and insured, and easy to reach.",
+        "After a storm, the same homeowner is also being knocked on by out-of-town crews. A site with your address, your local reviews, your crew and your past roofs in their neighborhood is what separates you from storm chasers.",
+      ],
+    },
+    {
+      eyebrow: "What's Included",
+      heading: 'What We Build Into Every Roofing Website',
+      list: [
+        'Free inspection request form that texts the homeowner back instantly',
+        'Pages for roof replacement, repair, storm damage and insurance claims',
+        'Service area pages for the towns you actually work in',
+        'Before-and-after project gallery and Google reviews on every page',
+        'Licensing, insurance, warranty and manufacturer certifications up front',
+        'Financing section for homeowners paying out of pocket',
+        'Click-to-call on every screen, tracked so you know which calls came from the site',
+      ],
+    },
+    {
+      eyebrow: 'Insurance Claims',
+      heading: 'Built Around the Insurance Claim Process',
+      paragraphs: [
+        "Most storm work runs through insurance, and most homeowners don't know how that works. We add a plain-English page that walks them through the claim: the inspection, the adjuster meeting, the scope and the build. It answers the question that stops a lot of homeowners from calling at all.",
+        "Every inspection lead then drops into a follow-up sequence that keeps the homeowner warm through the weeks it takes for an adjuster to show up, so the job doesn't go to whoever called them last.",
+      ],
+    },
+  ]}
+  websiteSamples={[
+    { label: 'Roofing sample', addressLabel: 'yourroofingcompany.com', src: '/preview/roofing/', href: '/preview/roofing/' },
+    { label: 'Restoration sample', addressLabel: 'yourrestorationco.com', src: '/preview/restoration/', href: '/preview/restoration/' },
+    { label: 'Home services sample', addressLabel: 'yourhomeservicesco.com', src: '/preview/home-services/', href: '/preview/home-services/' },
+  ]}
+  stepsHeadline="Your Roofing Site, Live in Days"
+  steps={[
+    { number: '01', title: 'Strategy Call', description: 'Your services, service area, crews and the jobs you want more of.' },
+    { number: '02', title: 'We Build It', description: 'Copy, photos, service and town pages, forms and tracking.' },
+    { number: '03', title: 'Review Together', description: 'You check every page. We fix anything that doesn\'t sound like you.' },
+    { number: '04', title: 'Launch and Rank', description: 'Live on your domain, connected to your CRM and Google Business Profile.' },
+  ]}
+  faqHeadline="Roofing Website Design Questions"
+  faq={[
+    { question: 'How long does it take to build a roofing website?', answer: 'Most roofing sites go live within one to two weeks of the strategy call. The biggest factor is how quickly we get your photos, logo and service list.' },
+    { question: 'Will my roofing website rank on Google?', answer: 'Every site is built with technical SEO, service pages and town pages from day one. Rankings also depend on your Google Business Profile and reviews, which is why we connect the site to both.' },
+    { question: 'Do I need professional photos of my roofs?', answer: 'Phone photos of real jobs work better than stock images. Homeowners want to see your actual crews and roofs. We help you pick and crop the best ones.' },
+    { question: 'Can the site handle storm-season lead volume?', answer: 'Yes. Every form and missed call gets an instant text reply and lands in your CRM, so a spike in leads after a storm doesn\'t mean a spike in leads lost.' },
+    { question: 'Can I keep my current domain?', answer: 'Yes. We build the new site and point your existing domain at it, so you keep any search history the old site earned.' },
+  ]}
+  related={[
+    { label: 'Marketing Automation for Roofing Companies', href: '/industries/roofing/', description: 'Everything we do for roofing companies, in one system.' },
+    { label: 'Roofing CRM', href: '/industries/roofing/crm/', description: 'Track every inspection, estimate and insurance claim.' },
+    { label: 'Local SEO for Roofers', href: '/industries/roofing/local-seo/', description: 'Show up in Google Maps when homeowners need a roofer.' },
+    { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Never lose a storm-season call to voicemail.' },
+  ]}
+  finalCta={{
+    eyebrow: 'Run Your Own Numbers',
+    headline: "What's One More Booked Roofing Job Actually Worth?",
+    subheadline: "Every missed callback is a job you already paid to generate the lead for. ScaleKit makes sure it doesn't happen again.",
+  }}
+/>

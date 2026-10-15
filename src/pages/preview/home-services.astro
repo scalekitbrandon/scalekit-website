@@ -1,0 +1,11 @@
+---
+// Standalone, unlinked route that renders the Home Services template sample
+// full-page so RealSiteScroller can iframe it. noindex: the sample's copy
+// must never be indexed as ScaleKit content (see indexing-health skill).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AnchorSample from '../../components/samples/AnchorSample.astro';
+---
+
+<BaseLayout title="Home Services Website Sample — ScaleKit" description="Sample home services company website built by ScaleKit." noindex={true}>
+  <AnchorSample />
+</BaseLayout>

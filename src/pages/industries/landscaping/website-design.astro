@@ -1,118 +1,95 @@
 ---
-import RelatedLinks from '../../../components/RelatedLinks.astro';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Header from '../../../components/Header.astro';
-import IndustryHero from '../../../components/IndustryHero.astro';
-import TemplateShowcase from '../../../components/TemplateShowcase.astro';
-import ProcessCircles from '../../../components/ProcessCircles.astro';
-import FinalCta from '../../../components/FinalCta.astro';
-import BookCall from '../../../components/BookCall.astro';
-import Footer from '../../../components/Footer.astro';
-import LandscapingSample from '../../../components/samples/LandscapingSample.astro';
-import AnchorSample from '../../../components/samples/AnchorSample.astro';
-import PaintingSample from '../../../components/samples/PaintingSample.astro';
-import RoofingSample from '../../../components/samples/RoofingSample.astro';
-import RestorationSample from '../../../components/samples/RestorationSample.astro';
-import { makeFooterGroups } from '../../../data/site-nav';
-
-const siteUrl = Astro.site.origin;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    serviceType: 'Landscaping & Tree Care Websites & Funnels',
-    name: 'Website Design for Landscaping & Tree Care Companies',
-    description: 'ScaleKit builds landscaping and tree care companies a portfolio-first website that turns browsers into booked estimates.',
-    url: `${siteUrl}/industries/landscaping/website-design/`,
-    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
-  },
-];
-
-const headerNav = {
-  services: [
-    { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/scout/' },
-    { label: 'Google & Meta Ads', href: '/services/ads/' },
-    { label: 'CRM & Automation', href: '/services/automation/' },
-    { label: 'Reactivation', href: '/services/reactivation/' },
-    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
-  ],
-  links: [
-    { label: 'Features', href: '/features/' },
-    { label: 'How We Work', href: '/#process' },
-    { label: 'Who We Work With', href: '/#built-for' },
-    { label: 'Pricing', href: '/pricing/' },
-  ],
-};
-
-const footerGroups = makeFooterGroups();
+// Primary keyword: landscaping website design. Samples are iframed /preview/
+// routes, not inline components — rendering them inline put ~2,000 words of
+// identical sample-site copy on every trade page (94% duplicate, 2026-10-15).
+import KeywordPage from '../../../components/KeywordPage.astro';
 ---
 
-<BaseLayout
+<KeywordPage
+  kind="service"
   title="Landscaping Website Design & Lead Follow-Up | ScaleKit"
   description="ScaleKit builds landscaping and tree care companies a portfolio-first website that turns browsers into booked estimates."
-  structuredData={structuredData}
->
-  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
-
-  <IndustryHero
-    eyebrow="For Landscaping & Tree Care Companies"
-    headline="Landscaping Website Design That Books More Estimates"
-    subheadline="Your best marketing is the yards you've already transformed. We build landscaping and tree care companies a portfolio-first website that turns browsers into booked estimates."
-    checklist={[
-      'Lightning-fast load times',
-      'Mobile-first on every device',
-      'Technical SEO from day one',
-      'Ranks in Google & AI search',
-      'Live in days, not months',
-      'High-conversion copywriting',
-      'Built to convert, not just look good',
-      'Unlimited review requests',
-      'Connected straight to your CRM',
-      'Instant lead form engagement',
-    ]}
-  />
-
-  <TemplateShowcase
-    addressLabel="yourlandscapingco.com"
-    sampleLabels={[
-      'yourhomeservicesco.com',
-      'brushhourpaintingtexas.com',
-      'yourroofingcompany.com',
-      'yourrestorationco.com',
-    ]}
-  >
-    <LandscapingSample />
-    <Fragment slot="sample-1"><AnchorSample /></Fragment>
-    <Fragment slot="sample-2"><PaintingSample /></Fragment>
-    <Fragment slot="sample-3"><RoofingSample /></Fragment>
-    <Fragment slot="sample-4"><RestorationSample /></Fragment>
-  </TemplateShowcase>
-
-  <ProcessCircles />
-  <RelatedLinks heading="More for Landscaping Companies" links={[
-      { label: 'Marketing Automation for Landscaping Companies', href: '/industries/landscaping/', description: 'Everything we do for landscaping companies, in one system.' },
-      { label: 'Landscaping CRM', href: '/industries/landscaping/crm/', description: 'Follow up on every estimate and renew clients each season.' },
-      { label: 'Google Review Automation', href: '/services/google-review-automation/', description: 'Get a review after every install.' },
-      { label: 'Database Reactivation', href: '/services/reactivation/', description: 'Bring back past clients before the season starts.' },
-    ]} />
-
-
-  <FinalCta
-    eyebrow="Run Your Own Numbers"
-    headline="What's One More Booked Estimate Actually Worth?"
-    subheadline="Every project photo that never makes it onto your site is a sale you're leaving on the table. ScaleKit makes sure it gets seen."
-  />
-
-  <BookCall />
-
-  <Footer
-    slot="footer"
-    logoText="ScaleKit"
-    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
-    contactEmail="hello@scalekit.io"
-    groups={footerGroups}
-  />
-</BaseLayout>
+  serviceType="Landscaping company website design"
+  audience="Landscaping and tree care companies"
+  breadcrumbs={[{ name: 'Landscaping', path: '/industries/landscaping/' }, { name: 'Website Design' }]}
+  hero={{
+    eyebrow: 'For Landscaping & Tree Care Companies',
+    headline: 'Landscaping Website Design That Books More Estimates',
+    subheadline: "Your best marketing is the yards you've already transformed. We build landscaping and tree care companies a portfolio-first website that turns browsers into booked estimates.",
+    checklist: [
+      'Project galleries that sell the work for you',
+      'Estimate requests with photos of the yard',
+      'Separate pages for design, maintenance and tree care',
+      'Seasonal campaigns that fill your spring schedule',
+    ],
+  }}
+  blocks={[
+    {
+      eyebrow: 'Sample Sites',
+      heading: 'Landscaping Websites That Lead With the Work',
+      paragraphs: [
+        "Scroll through a few of the sites we've built. Big photos first, a clear list of what you do, and an estimate button that's never more than a thumb away.",
+      ],
+    },
+    {
+      eyebrow: 'What Landscapers Need',
+      heading: 'Homeowners Hire the Landscaper Whose Work They Can See',
+      paragraphs: [
+        "Landscaping is a visual buy. Before anyone fills out a form, they want to see patios, plantings and cleanups that look like what they have in mind. A site with three stock photos and a phone number loses to the company down the road with a real portfolio.",
+        "Your site also has to sort the work you want from the work you don't. A homeowner looking for a $40 mow and a homeowner planning a $30,000 backyard need different pages and different forms, so your crew's time goes to the right jobs.",
+      ],
+    },
+    {
+      eyebrow: "What's Included",
+      heading: 'What We Build Into Every Landscaping Website',
+      list: [
+        'Project gallery organized by type: hardscape, planting, lawn, tree work',
+        'Estimate form that lets homeowners upload photos of their yard and set a budget',
+        'Separate pages for design-build, recurring maintenance, tree care and snow removal',
+        'Service area pages for the neighborhoods and towns you cover',
+        'Google reviews pulled onto your project and service pages',
+        'Maintenance plan sign-up for recurring revenue',
+        'Every request sent to your CRM with an instant text reply',
+      ],
+    },
+    {
+      eyebrow: 'Seasons',
+      heading: 'A Website That Works With Your Seasons',
+      paragraphs: [
+        "Landscaping demand swings with the weather. We set up your site and follow-up so you can push spring cleanups in March, irrigation and planting in early summer, fall cleanups in October and snow contracts before the first storm, without rebuilding anything.",
+        "Past clients get a reminder before each season, so your schedule fills from people who already know your work before you spend a dollar on ads.",
+      ],
+    },
+  ]}
+  websiteSamples={[
+    { label: 'Landscaping sample', addressLabel: 'yourlandscapingco.com', src: '/preview/landscaping/', href: '/preview/landscaping/' },
+    { label: 'Painting sample', addressLabel: 'brushhourpaintingtexas.com', src: '/preview/painting/', href: '/preview/painting/' },
+    { label: 'Home services sample', addressLabel: 'yourhomeservicesco.com', src: '/preview/home-services/', href: '/preview/home-services/' },
+  ]}
+  stepsHeadline="Your Landscaping Site, Live Before the Season"
+  steps={[
+    { number: '01', title: 'Strategy Call', description: 'Your services, crews, best projects and the jobs you want more of.' },
+    { number: '02', title: 'Gather Your Work', description: 'We sort your project photos into a gallery that sells.' },
+    { number: '03', title: 'We Build It', description: 'Pages, estimate forms, reviews and tracking, written in your voice.' },
+    { number: '04', title: 'Launch', description: 'Live on your domain and connected to your CRM before the busy season.' },
+  ]}
+  faqHeadline="Landscaping Website Design Questions"
+  faq={[
+    { question: 'I only have phone photos of my work. Is that enough?', answer: 'Yes. Clear phone photos of real yards beat stock photos every time. Before-and-after shots from the same angle work especially well, and we help you choose the best ones.' },
+    { question: 'Can the website show different services for residential and commercial clients?', answer: 'Yes. We build separate pages and forms for each, so a property manager and a homeowner each see the work and the next step that fits them.' },
+    { question: 'Can customers sign up for a maintenance plan online?', answer: 'We can add a maintenance plan request or sign-up page that drops new clients straight into your CRM and schedule.' },
+    { question: 'How long does a landscaping website take to build?', answer: 'Most sites launch within one to two weeks of the strategy call. If you want it live before spring, start in the winter.' },
+    { question: 'Will it help me show up on Google Maps?', answer: 'The site is built with local SEO and service area pages, and we connect it to your Google Business Profile, which is what drives Maps rankings.' },
+  ]}
+  related={[
+    { label: 'Marketing Automation for Landscaping Companies', href: '/industries/landscaping/', description: 'Everything we do for landscaping companies, in one system.' },
+    { label: 'Landscaping CRM', href: '/industries/landscaping/crm/', description: 'Follow up on every estimate and renew clients each season.' },
+    { label: 'Google Review Automation', href: '/services/google-review-automation/', description: 'Get a review after every install.' },
+    { label: 'Database Reactivation', href: '/services/reactivation/', description: 'Bring back past clients before the season starts.' },
+  ]}
+  finalCta={{
+    eyebrow: 'Run Your Own Numbers',
+    headline: "What's One More Booked Estimate Actually Worth?",
+    subheadline: "Every project photo that never makes it onto your site is a sale you're leaving on the table. ScaleKit makes sure it gets seen.",
+  }}
+/>

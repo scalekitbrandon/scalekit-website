@@ -1,0 +1,11 @@
+---
+// Standalone, unlinked route that renders the Landscaping template sample
+// full-page so RealSiteScroller can iframe it. noindex: the sample's copy
+// must never be indexed as ScaleKit content (see indexing-health skill).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LandscapingSample from '../../components/samples/LandscapingSample.astro';
+---
+
+<BaseLayout title="Landscaping Website Sample — ScaleKit" description="Sample landscaping company website built by ScaleKit." noindex={true}>
+  <LandscapingSample />
+</BaseLayout>

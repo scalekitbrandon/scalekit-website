@@ -1,118 +1,95 @@
 ---
-import RelatedLinks from '../../../components/RelatedLinks.astro';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Header from '../../../components/Header.astro';
-import IndustryHero from '../../../components/IndustryHero.astro';
-import TemplateShowcase from '../../../components/TemplateShowcase.astro';
-import ProcessCircles from '../../../components/ProcessCircles.astro';
-import FinalCta from '../../../components/FinalCta.astro';
-import BookCall from '../../../components/BookCall.astro';
-import Footer from '../../../components/Footer.astro';
-import RestorationSample from '../../../components/samples/RestorationSample.astro';
-import AnchorSample from '../../../components/samples/AnchorSample.astro';
-import PaintingSample from '../../../components/samples/PaintingSample.astro';
-import RoofingSample from '../../../components/samples/RoofingSample.astro';
-import LandscapingSample from '../../../components/samples/LandscapingSample.astro';
-import { makeFooterGroups } from '../../../data/site-nav';
-
-const siteUrl = Astro.site.origin;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    serviceType: 'Restoration & Remodeling Websites & Funnels',
-    name: 'Website Design for Restoration & Remodeling Companies',
-    description: 'ScaleKit builds restoration and remodeling companies a site and lead system built for the moment it matters most.',
-    url: `${siteUrl}/industries/restoration/website-design/`,
-    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
-  },
-];
-
-const headerNav = {
-  services: [
-    { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/scout/' },
-    { label: 'Google & Meta Ads', href: '/services/ads/' },
-    { label: 'CRM & Automation', href: '/services/automation/' },
-    { label: 'Reactivation', href: '/services/reactivation/' },
-    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
-  ],
-  links: [
-    { label: 'Features', href: '/features/' },
-    { label: 'How We Work', href: '/#process' },
-    { label: 'Who We Work With', href: '/#built-for' },
-    { label: 'Pricing', href: '/pricing/' },
-  ],
-};
-
-const footerGroups = makeFooterGroups();
+// Primary keyword: restoration website design. Samples are iframed /preview/
+// routes, not inline components — rendering them inline put ~2,000 words of
+// identical sample-site copy on every trade page (95% duplicate, 2026-10-15).
+import KeywordPage from '../../../components/KeywordPage.astro';
 ---
 
-<BaseLayout
+<KeywordPage
+  kind="service"
   title="Restoration Website Design & Lead Response | ScaleKit"
   description="ScaleKit builds restoration and remodeling companies a site and lead-response system built for the moment it matters most."
-  structuredData={structuredData}
->
-  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
-
-  <IndustryHero
-    eyebrow="For Restoration & Remodeling Companies"
-    headline="Restoration Website Design That Makes You the First Call"
-    subheadline="When a pipe bursts, homeowners call whoever answers first and looks the most trustworthy online. We build restoration companies a site and lead system built for the moment it matters most."
-    checklist={[
-      'Lightning-fast load times',
-      'Mobile-first on every device',
-      'Technical SEO from day one',
-      'Ranks in Google & AI search',
-      'Live in days, not months',
-      'High-conversion copywriting',
-      'Built to convert, not just look good',
-      'Unlimited review requests',
-      'Connected straight to your CRM',
-      'Instant lead form engagement',
-    ]}
-  />
-
-  <TemplateShowcase
-    addressLabel="yourrestorationco.com"
-    sampleLabels={[
-      'yourhomeservicesco.com',
-      'brushhourpaintingtexas.com',
-      'yourroofingcompany.com',
-      'yourlandscapingco.com',
-    ]}
-  >
-    <RestorationSample />
-    <Fragment slot="sample-1"><AnchorSample /></Fragment>
-    <Fragment slot="sample-2"><PaintingSample /></Fragment>
-    <Fragment slot="sample-3"><RoofingSample /></Fragment>
-    <Fragment slot="sample-4"><LandscapingSample /></Fragment>
-  </TemplateShowcase>
-
-  <ProcessCircles />
-  <RelatedLinks heading="More for Restoration Companies" links={[
-      { label: 'Marketing Automation for Restoration Companies', href: '/industries/restoration/', description: 'Everything we do for restoration companies, in one system.' },
-      { label: 'Restoration CRM', href: '/industries/restoration/crm/', description: 'Track every job from emergency call to rebuild.' },
-      { label: 'AI Receptionist', href: '/services/ai-agents/', description: 'Answer every emergency call, 24/7.' },
-      { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Text every caller you missed within seconds.' },
-    ]} />
-
-
-  <FinalCta
-    eyebrow="Run Your Own Numbers"
-    headline="What's One More Emergency Call Actually Worth?"
-    subheadline="Every minute a panicked homeowner waits for a callback is a minute your competitor has to answer first. ScaleKit makes sure that's you."
-  />
-
-  <BookCall />
-
-  <Footer
-    slot="footer"
-    logoText="ScaleKit"
-    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
-    contactEmail="hello@scalekit.io"
-    groups={footerGroups}
-  />
-</BaseLayout>
+  serviceType="Restoration company website design"
+  audience="Restoration and remodeling companies"
+  breadcrumbs={[{ name: 'Restoration', path: '/industries/restoration/' }, { name: 'Website Design' }]}
+  hero={{
+    eyebrow: 'For Restoration & Remodeling Companies',
+    headline: 'Restoration Website Design That Makes You the First Call',
+    subheadline: "When a pipe bursts, homeowners call whoever answers first and looks the most trustworthy online. We build restoration companies a site and lead system built for the moment it matters most.",
+    checklist: [
+      '24/7 emergency call button on every screen',
+      'Water, fire and mold pages that rank locally',
+      'Insurance billing explained in plain English',
+      'Every emergency lead answered in seconds',
+    ],
+  }}
+  blocks={[
+    {
+      eyebrow: 'Sample Sites',
+      heading: 'Restoration Websites Built for Emergencies',
+      paragraphs: [
+        "Scroll through a few of the sites we've built. Each one leads with a phone number and a 24/7 promise, because that's the only thing a homeowner standing in an inch of water is looking for.",
+      ],
+    },
+    {
+      eyebrow: 'What Restoration Needs',
+      heading: 'Nobody Shops Around in an Emergency',
+      paragraphs: [
+        "Restoration leads don't compare five quotes over a week. A flooded basement, a kitchen fire or mold behind the drywall sends people to Google with their phone in one hand. They call the first company that looks legitimate and picks up.",
+        "That means your website has two jobs: prove you're a real, local, certified company in a few seconds, and make calling you the easiest thing on the page. Everything else comes second.",
+      ],
+    },
+    {
+      eyebrow: "What's Included",
+      heading: 'What We Build Into Every Restoration Website',
+      list: [
+        'Click-to-call and 24/7 emergency banner fixed to every screen',
+        'Separate pages for water damage, fire and smoke, mold remediation and storm damage',
+        'Rebuild and remodeling pages for the work that follows mitigation',
+        'IICRC certifications, licensing and insurance shown up front',
+        'Service area pages for every town you dispatch to',
+        'Photos of real jobs and Google reviews from past customers',
+        'Missed calls and form fills answered by text within seconds',
+      ],
+    },
+    {
+      eyebrow: 'Insurance',
+      heading: 'Answer the Insurance Question Before They Ask',
+      paragraphs: [
+        "The first thing most homeowners wonder is whether insurance will cover it and whether you'll deal with their adjuster. A clear page on how you work with insurance companies, what the homeowner pays and what happens next removes the biggest reason people hesitate to call.",
+        "Once the emergency is handled, follow-up keeps you in touch through the rebuild and asks for a review when the job is finished, so the next panicked homeowner sees proof that you show up.",
+      ],
+    },
+  ]}
+  websiteSamples={[
+    { label: 'Restoration sample', addressLabel: 'yourrestorationco.com', src: '/preview/restoration/', href: '/preview/restoration/' },
+    { label: 'Roofing sample', addressLabel: 'yourroofingcompany.com', src: '/preview/roofing/', href: '/preview/roofing/' },
+    { label: 'Home services sample', addressLabel: 'yourhomeservicesco.com', src: '/preview/home-services/', href: '/preview/home-services/' },
+  ]}
+  stepsHeadline="Your Restoration Site, Live in Days"
+  steps={[
+    { number: '01', title: 'Strategy Call', description: 'Your services, certifications, dispatch area and insurance process.' },
+    { number: '02', title: 'We Build It', description: 'Emergency-first pages, service and town pages, call tracking.' },
+    { number: '03', title: 'Test the Emergency Path', description: 'We call, text and submit forms to make sure every lead reaches you fast.' },
+    { number: '04', title: 'Launch', description: 'Live on your domain and connected to your CRM and Google Business Profile.' },
+  ]}
+  faqHeadline="Restoration Website Design Questions"
+  faq={[
+    { question: 'What should a water damage restoration website include?', answer: 'A visible 24/7 phone number, a dedicated water damage page, your certifications, the towns you serve, photos of real jobs, reviews and a clear explanation of how you work with insurance.' },
+    { question: 'Can the website answer emergency calls after hours?', answer: "The site makes it easy to call. To make sure every call is answered at 2 a.m., pair it with missed call text back or our AI receptionist, which can take the details and alert your on-call tech." },
+    { question: 'Do you build separate pages for water, fire and mold?', answer: 'Yes. Each service gets its own page because homeowners search for each one separately, and Google ranks pages that match the search.' },
+    { question: 'Can you include our rebuild and remodeling work?', answer: "Yes. Many restoration companies do the rebuild too. We add pages for it so customers who came to you for mitigation know you can finish the job." },
+    { question: 'How fast can a restoration website go live?', answer: 'Usually one to two weeks from the strategy call, depending on how quickly we get your photos, certifications and service list.' },
+  ]}
+  related={[
+    { label: 'Marketing Automation for Restoration Companies', href: '/industries/restoration/', description: 'Everything we do for restoration companies, in one system.' },
+    { label: 'Restoration CRM', href: '/industries/restoration/crm/', description: 'Track every job from emergency call to rebuild.' },
+    { label: 'AI Receptionist', href: '/services/ai-receptionist/', description: 'Answer every emergency call, 24/7.' },
+    { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Text every caller you missed within seconds.' },
+  ]}
+  finalCta={{
+    eyebrow: 'Run Your Own Numbers',
+    headline: "What's One More Emergency Call Actually Worth?",
+    subheadline: "Every minute a panicked homeowner waits for a callback is a minute your competitor has to answer first. ScaleKit makes sure that's you.",
+  }}
+/>

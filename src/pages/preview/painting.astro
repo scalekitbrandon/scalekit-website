@@ -1,0 +1,11 @@
+---
+// Standalone, unlinked route that renders the Painting template sample
+// full-page so RealSiteScroller can iframe it. noindex: the sample's copy
+// must never be indexed as ScaleKit content (see indexing-health skill).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PaintingSample from '../../components/samples/PaintingSample.astro';
+---
+
+<BaseLayout title="Painting Website Sample — ScaleKit" description="Sample painting company website built by ScaleKit." noindex={true}>
+  <PaintingSample />
+</BaseLayout>

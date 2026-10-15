@@ -1,0 +1,11 @@
+---
+// Standalone, unlinked route that renders the Roofing template sample
+// full-page so RealSiteScroller can iframe it. noindex: the sample's copy
+// must never be indexed as ScaleKit content (see indexing-health skill).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RoofingSample from '../../components/samples/RoofingSample.astro';
+---
+
+<BaseLayout title="Roofing Website Sample — ScaleKit" description="Sample roofing company website built by ScaleKit." noindex={true}>
+  <RoofingSample />
+</BaseLayout>

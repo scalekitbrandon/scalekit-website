@@ -1,0 +1,11 @@
+---
+// Standalone, unlinked route that renders the Restoration template sample
+// full-page so RealSiteScroller can iframe it. noindex: the sample's copy
+// must never be indexed as ScaleKit content (see indexing-health skill).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RestorationSample from '../../components/samples/RestorationSample.astro';
+---
+
+<BaseLayout title="Restoration Website Sample — ScaleKit" description="Sample restoration company website built by ScaleKit." noindex={true}>
+  <RestorationSample />
+</BaseLayout>
