@@ -1,131 +1,97 @@
 ---
-// Same pattern as /services/ads.astro: IndustryHero for pain-point
-// framing, then the homepage's own real StopLosingLeads section for the
-// deliverables grid, then the shared Process/TrustStrip/FinalCta/
-// BookCall/Footer stack.
-import ContentBlocks from '../../components/ContentBlocks.astro';
-import RelatedLinks from '../../components/RelatedLinks.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import IndustryHero from '../../components/IndustryHero.astro';
-import StopLosingLeads from '../../components/StopLosingLeads.astro';
-import Process from '../../components/Process.astro';
-import FinalCta from '../../components/FinalCta.astro';
-import BookCall from '../../components/BookCall.astro';
-import Footer from '../../components/Footer.astro';
-import { makeFooterGroups } from '../../data/site-nav';
-
-const siteUrl = Astro.site.origin;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    serviceType: 'CRM & Automation',
-    name: 'CRM & Automation for Service Businesses',
-    description: 'ScaleKit builds instant lead response, missed-call text-back, and automated follow-up systems so service businesses never miss a lead.',
-    url: `${siteUrl}/services/automation/`,
-    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
-  },
-];
-
-const headerNav = {
-  services: [
-    { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/scout/' },
-    { label: 'Google & Meta Ads', href: '/services/ads/' },
-    { label: 'CRM & Automation', href: '/services/automation/' },
-    { label: 'Reactivation', href: '/services/reactivation/' },
-    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
-  ],
-  links: [
-    { label: 'Features', href: '/features/' },
-    { label: 'How We Work', href: '/#process' },
-    { label: 'Who We Work With', href: '/#built-for' },
-    { label: 'Pricing', href: '/pricing/' },
-  ],
-};
-
-const footerGroups = makeFooterGroups();
+// Primary keyword: CRM for service businesses. No other page targets this term.
+// Was built around the homepage's StopLosingLeads grid until 2026-10-15; GSC
+// flagged it "Duplicate without user-selected canonical" because its text
+// overlapped the homepage. Keep this page's copy its own.
+import KeywordPage from '../../components/KeywordPage.astro';
 ---
 
-<BaseLayout
+<KeywordPage
+  kind="service"
   title="CRM for Service Businesses, Set Up and Run for You | ScaleKit"
   description="A CRM for service businesses that keeps every lead, call, text and job in one place, set up and managed for you by ScaleKit."
-  structuredData={structuredData}
->
-  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
-
-  <IndustryHero
-    eyebrow="CRM & Automation"
-    headline="CRM for Service Businesses, Built and Run for You"
-    subheadline="Most leads don't disappear because they weren't interested. They disappear because nobody followed up fast enough. We build the system that never forgets to."
-    checklist={[
+  serviceType="CRM setup and automation"
+  audience="Local service businesses"
+  breadcrumbs={[{ name: 'CRM for Service Businesses' }]}
+  hero={{
+    eyebrow: 'CRM & Automation',
+    headline: 'CRM for Service Businesses, Built and Run for You',
+    subheadline: "Most leads don't disappear because they weren't interested. They disappear because nobody followed up fast enough. We build the system that never forgets to.",
+    checklist: [
       "Every lead, call and text in one place",
       "See where every job stands at a glance",
       "Follow-up that runs without you",
       "Set up and managed for you",
-    ]}
-    ctaLabel="Get Started"
-  />
-
-  <StopLosingLeads
-    eyebrow="What's Included"
-    headlineLine1="Everything Your"
-    headlineLine2="Automation System Includes"
-    subheadline="One connected system — not a patchwork of apps that don't talk to each other."
-    ctaLabel="Get Started"
-    ctaHref="#book-call"
-  />
-  <ContentBlocks blocks={[
-      {
-        eyebrow: 'Why a CRM',
-        heading: 'One CRM for Every Lead, Call and Job',
-        paragraphs: [
-          "Most service businesses run on a mix of a phone, a notebook, an email inbox and a few apps that don't talk to each other. Leads get lost in the gaps.",
-          'A CRM for service businesses puts every contact, conversation and job in one place. You can see who called, who needs a quote, who is waiting on a follow-up and which jobs are booked, from your phone or your desk.',
-        ],
-        list: [
-          'Every lead source in one inbox: calls, texts, forms, Facebook and Google',
-          'A pipeline that shows where every job stands',
-          'Contact history so anyone on your team can pick up a conversation',
-          'Automations for follow-up, reminders and reviews',
-          'Reports on where your leads come from and which ones book',
-        ],
-      },
-      {
-        eyebrow: 'Done for You',
-        heading: 'We Set It Up and Keep It Running',
-        paragraphs: [
-          'Most CRMs hand you a login and a pile of tutorials. We build your pipeline, connect your phone and lead sources, write your automations and train your team. When your business changes, we update the system with you.',
-        ],
-      },
-    ]} />
-
-
-  <Process />
-  <RelatedLinks heading="What Your CRM Can Do" links={[
-      { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Text every caller you missed within seconds.' },
-      { label: 'Lead Follow-Up Automation', href: '/services/lead-follow-up-automation/', description: 'Instant replies and follow-up for every lead.' },
-      { label: 'Google Review Automation', href: '/services/google-review-automation/', description: 'Ask every customer for a Google review automatically.' },
-      { label: 'Database Reactivation', href: '/services/reactivation/', description: 'Turn old leads into new jobs.' },
-    ]} />
-
-
-  <FinalCta
-    eyebrow="Run Your Own Numbers"
-    headline="What's One More Lead That Doesn't Slip Through the Cracks Worth?"
-    subheadline="Every lead that waits too long for a response is a job that goes to whoever called back first. ScaleKit makes sure that's you."
-  />
-
-  <BookCall />
-
-  <Footer
-    slot="footer"
-    logoText="ScaleKit"
-    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
-    contactEmail="hello@scalekit.io"
-    groups={footerGroups}
-  />
-</BaseLayout>
+    ],
+  }}
+  blocks={[
+    {
+      eyebrow: 'Why a CRM',
+      heading: 'One CRM for Every Lead, Call and Job',
+      paragraphs: [
+        "Most service businesses run on a mix of a phone, a notebook, an email inbox and a few apps that don't talk to each other. Leads get lost in the gaps.",
+        'A CRM for service businesses puts every contact, conversation and job in one place. You can see who called, who needs a quote, who is waiting on a follow-up and which jobs are booked, from your phone or your desk.',
+      ],
+      list: [
+        'Every lead source in one inbox: calls, texts, forms, Facebook and Google',
+        'A pipeline that shows where every job stands',
+        'Contact history so anyone on your team can pick up a conversation',
+        'Automations for follow-up, reminders and reviews',
+        'Reports on where your leads come from and which ones book',
+      ],
+    },
+    {
+      eyebrow: 'Built for Field Work',
+      heading: 'Why Generic CRMs Fall Short for Service Businesses',
+      paragraphs: [
+        "Most CRMs are built for sales teams that sit at a desk all day. Service businesses are different. You're on a job site, a roof or a client visit when the phone rings, and the next lead won't wait until you're back in the truck.",
+        "Your CRM needs to catch calls you can't answer, reply to web leads in seconds, remind customers about appointments and ask for reviews after the job, all without you opening a laptop. That's how we build it.",
+      ],
+    },
+    {
+      eyebrow: 'Automations',
+      heading: 'The Automations We Turn On First',
+      list: [
+        'Instant reply to every new web form, Facebook and Google lead',
+        'Text back to any caller you miss',
+        'Follow-up texts and emails until a lead books or says no',
+        'Appointment confirmations and reminders to cut no-shows',
+        'Estimate follow-up so quotes don\'t go cold',
+        'Review request after every finished job',
+      ],
+    },
+    {
+      eyebrow: 'Done for You',
+      heading: 'We Set It Up and Keep It Running',
+      paragraphs: [
+        'Most CRMs hand you a login and a pile of tutorials. We build your pipeline, connect your phone and lead sources, write your automations and train your team. When your business changes, we update the system with you.',
+      ],
+    },
+  ]}
+  stepsHeadline="Your CRM, Live in Days"
+  steps={[
+    { number: '01', title: 'Map Your Process', description: 'We walk through how leads come in and how jobs get booked today.' },
+    { number: '02', title: 'Build and Connect', description: 'Pipeline, phone, forms and calendar set up and connected in one place.' },
+    { number: '03', title: 'Move Your Contacts', description: 'We import your existing leads and customers so nothing starts from zero.' },
+    { number: '04', title: 'Train and Tune', description: 'Your team learns the system, and we adjust it as you use it.' },
+  ]}
+  faqHeadline="CRM for Service Businesses Questions"
+  faq={[
+    { question: 'What CRM does ScaleKit use?', answer: 'We build on an all-in-one platform that combines your CRM, phone, texting, email, calendar and automations, so you are not paying for and connecting five separate tools.' },
+    { question: 'Can you move my contacts from my current CRM or spreadsheet?', answer: 'Yes. We import your existing leads and customers as part of setup, including notes and tags where your old system allows it.' },
+    { question: 'Do I need to be good with technology to use it?', answer: 'No. We set it up around how you already work and train you and your team. Most day-to-day use happens in a phone app.' },
+    { question: 'Does it replace my job management or invoicing software?', answer: 'Not always. The CRM handles leads, follow-up and communication. If you already use a tool for scheduling crews or invoicing, we can usually connect the two.' },
+    { question: 'What happens if I want to change something later?', answer: 'Tell us. We keep managing the system after launch, so new services, new team members or new automations get added for you.' },
+  ]}
+  related={[
+    { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Text every caller you missed within seconds.' },
+    { label: 'Lead Follow-Up Automation', href: '/services/lead-follow-up-automation/', description: 'Instant replies and follow-up for every lead.' },
+    { label: 'Google Review Automation', href: '/services/google-review-automation/', description: 'Ask every customer for a Google review automatically.' },
+    { label: 'Database Reactivation', href: '/services/reactivation/', description: 'Turn old leads into new jobs.' },
+  ]}
+  finalCta={{
+    eyebrow: 'Run Your Own Numbers',
+    headline: "What's One More Lead That Doesn't Slip Through the Cracks Worth?",
+    subheadline: 'Every lead that waits too long for a response is a job that goes to whoever called back first. ScaleKit makes sure that\'s you.',
+  }}
+/>

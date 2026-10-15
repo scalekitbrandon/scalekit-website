@@ -1,97 +1,92 @@
 ---
-// Same pattern as /services/ads.astro and /services/automation.astro:
-// IndustryHero for pain-point framing, then the homepage's own real
-// RecoverOldLeads section for the deliverables grid, then the shared
-// Process/TrustStrip/FinalCta/BookCall/Footer stack.
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import IndustryHero from '../../components/IndustryHero.astro';
-import RecoverOldLeads from '../../components/RecoverOldLeads.astro';
-import Process from '../../components/Process.astro';
-import FinalCta from '../../components/FinalCta.astro';
-import BookCall from '../../components/BookCall.astro';
-import Footer from '../../components/Footer.astro';
-import { makeFooterGroups } from '../../data/site-nav';
-
-const siteUrl = Astro.site.origin;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    serviceType: 'Database Reactivation',
-    name: 'Database Reactivation for Service Businesses',
-    description: 'ScaleKit re-engages the dormant leads and past customers already sitting in your CRM, turning them back into booked jobs without spending more on ads.',
-    url: `${siteUrl}/services/reactivation/`,
-    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
-  },
-];
-
-const headerNav = {
-  services: [
-    { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/scout/' },
-    { label: 'Google & Meta Ads', href: '/services/ads/' },
-    { label: 'CRM & Automation', href: '/services/automation/' },
-    { label: 'Reactivation', href: '/services/reactivation/' },
-    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
-  ],
-  links: [
-    { label: 'Features', href: '/features/' },
-    { label: 'How We Work', href: '/#process' },
-    { label: 'Who We Work With', href: '/#built-for' },
-    { label: 'Pricing', href: '/pricing/' },
-  ],
-};
-
-const footerGroups = makeFooterGroups();
+// Primary keyword: database reactivation. No other page targets this term.
+// Was built from the homepage's RecoverOldLeads grid until 2026-10-15; GSC
+// flagged it "Duplicate without user-selected canonical" because ~70% of
+// its text matched the homepage. Keep this page's copy its own.
+import KeywordPage from '../../components/KeywordPage.astro';
 ---
 
-<BaseLayout
+<KeywordPage
+  kind="service"
   title="Database Reactivation for Service Businesses | ScaleKit"
   description="ScaleKit re-engages the dormant leads and past customers already sitting in your CRM, turning them back into booked jobs without spending more on ads."
-  structuredData={structuredData}
->
-  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
-
-  <IndustryHero
-    eyebrow="Reactivation"
-    headline="Database Reactivation: Turn Old Leads Into Booked Jobs"
-    subheadline="You already paid to get those leads. Most of them never booked — not because they weren't interested, but because nobody followed back up. We bring them back without spending another dollar on ads."
-    checklist={[
+  serviceType="Database reactivation"
+  audience="Local service businesses"
+  breadcrumbs={[{ name: 'Database Reactivation' }]}
+  hero={{
+    eyebrow: 'Reactivation',
+    headline: 'Database Reactivation: Turn Old Leads Into Booked Jobs',
+    subheadline: "You already paid to get those leads. Most of them never booked — not because they weren't interested, but because nobody followed back up. We bring them back without spending another dollar on ads.",
+    checklist: [
       "New jobs from leads you already paid for",
       "Revenue without spending more on ads",
       "Past customers back on your schedule",
       "Campaigns written and run for you",
-    ]}
-    ctaLabel="Get Started"
-  />
-
-  <RecoverOldLeads
-    eyebrow="What's Included"
-    headlineLine1="Everything Your"
-    headlineLine2="Reactivation Campaign Includes"
-    subheadline="Every dormant lead and past customer in your CRM, worked automatically across every channel."
-    ctaLabel="Get Started"
-    ctaHref="#book-call"
-  />
-
-  <Process />
-
-  <FinalCta
-    eyebrow="Run Your Own Numbers"
-    headline="What's One More Job From an Old Lead Actually Worth?"
-    subheadline="You already paid to acquire that lead once. Reactivating them costs nothing close to what a new lead does. ScaleKit makes sure that list doesn't just sit there."
-  />
-
-  <BookCall />
-
-  <Footer
-    slot="footer"
-    logoText="ScaleKit"
-    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
-    contactEmail="hello@scalekit.io"
-    groups={footerGroups}
-  />
-</BaseLayout>
+    ],
+  }}
+  blocks={[
+    {
+      eyebrow: 'What It Is',
+      heading: 'What Is Database Reactivation?',
+      paragraphs: [
+        "Database reactivation is a campaign that reaches back out to the people already in your contact list: old quote requests, leads that went quiet, and customers you haven't worked with in a year or more. Instead of buying new leads, you start new conversations with people who already know your name.",
+        "It works because timing changes. Someone who wasn't ready for a new roof, a remodel or a deep clean last spring might be ready now. A short, personal text from your business is often all it takes to get them to reply.",
+      ],
+    },
+    {
+      eyebrow: 'Why It Matters',
+      heading: 'Your Cheapest Leads Are Already in Your Phone',
+      paragraphs: [
+        "Every name in your CRM cost you something to get: an ad click, a Google call, a referral you earned. Most service businesses work a lead for a few days, then move on to whoever called next. Those older leads sit untouched for years.",
+        "A reactivation campaign puts that list back to work. You're not convincing strangers to trust you. You're reminding people who already reached out once that you're still here and ready to help.",
+      ],
+    },
+    {
+      eyebrow: "What's Included",
+      heading: 'What a ScaleKit Reactivation Campaign Includes',
+      list: [
+        'A cleanup of your contact list so messages only go to real, reachable people',
+        'Separate campaigns for old leads, past customers and lost quotes',
+        'Messages written in your voice, with an offer or reason to reply now',
+        'Text first, with email and ringless voicemail where they fit',
+        'Replies routed to your inbox and flagged so your team can book fast',
+        'Opt-outs handled automatically so you stay compliant',
+        'A simple report showing replies, booked jobs and revenue from the campaign',
+      ],
+    },
+    {
+      eyebrow: 'Who It Works For',
+      heading: 'Best Fit: Businesses With a List and Repeat Work',
+      paragraphs: [
+        "Reactivation works best if you have at least a few hundred past leads or customers and offer services people need more than once, or put off and come back to. Roofers, HVAC and plumbing companies, landscapers, cleaners, remodelers and public adjusters usually see the fastest results.",
+        "If your contacts are scattered across a phone, spreadsheets and an old CRM, that's fine. Pulling them into one list is the first thing we do.",
+      ],
+    },
+  ]}
+  stepsHeadline="From Dead List to Booked Jobs"
+  steps={[
+    { number: '01', title: 'Pull Your List', description: 'We gather your old leads and customers from wherever they live today.' },
+    { number: '02', title: 'Clean and Sort', description: 'Bad numbers out, contacts grouped by how and when they last heard from you.' },
+    { number: '03', title: 'Launch the Campaign', description: 'Messages go out in small batches so your team can keep up with replies.' },
+    { number: '04', title: 'Book and Report', description: 'Interested contacts get booked, and you see what the campaign brought in.' },
+  ]}
+  faqHeadline="Database Reactivation Questions"
+  faq={[
+    { question: 'How many contacts do I need for reactivation to be worth it?', answer: 'A few hundred is a good starting point. Bigger lists produce more replies, but even a small list of past customers can fill open days on your schedule.' },
+    { question: 'Will texting old leads annoy people or hurt my reputation?', answer: 'Not when it is done right. Messages are short, personal and easy to opt out of. Most people either reply or ignore it, and opt-outs are removed automatically.' },
+    { question: 'How quickly do reactivation campaigns get results?', answer: 'Replies usually start the same day the first batch goes out. Most of the booked work from a campaign comes in during the first two weeks.' },
+    { question: 'Do I need a discount or special offer?', answer: "It helps, but it doesn't have to be a discount. A seasonal check-up, a free inspection or simply \"we have openings next week\" can give people a reason to reply." },
+    { question: 'Is this a one-time campaign or ongoing?', answer: 'Either. Many businesses run one big campaign to start, then keep a smaller one running so leads never go cold again.' },
+  ]}
+  related={[
+    { label: 'CRM for Service Businesses', href: '/services/automation/', description: 'Keep every lead and customer in one list you can actually use.' },
+    { label: 'Lead Follow-Up Automation', href: '/services/lead-follow-up-automation/', description: 'Stop new leads from going cold in the first place.' },
+    { label: 'Google Review Automation', href: '/services/google-review-automation/', description: 'Ask happy past customers for a review automatically.' },
+    { label: 'Speed to Lead Guide', href: '/guides/speed-to-lead/', description: 'Why the first business to respond usually wins the job.' },
+  ]}
+  finalCta={{
+    eyebrow: 'Run Your Own Numbers',
+    headline: "What's One More Job From an Old Lead Actually Worth?",
+    subheadline: "You already paid to acquire that lead once. Reactivating them costs nothing close to what a new lead does. ScaleKit makes sure that list doesn't just sit there.",
+  }}
+/>

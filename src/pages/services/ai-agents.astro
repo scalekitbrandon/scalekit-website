@@ -1,126 +1,101 @@
 ---
-// Same pattern as the other three /services/<core-service> pages:
-// IndustryHero for pain-point framing, then the homepage's own real
-// SaveTimeScale section for the deliverables grid, then the shared
-// Process/TrustStrip/FinalCta/BookCall/Footer stack. Last of the 6 core
-// service pages — all six homepage service CTAs now resolve to a real
-// page.
-import ContentBlocks from '../../components/ContentBlocks.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import IndustryHero from '../../components/IndustryHero.astro';
-import SaveTimeScale from '../../components/SaveTimeScale.astro';
-import Process from '../../components/Process.astro';
-import FinalCta from '../../components/FinalCta.astro';
-import BookCall from '../../components/BookCall.astro';
-import Footer from '../../components/Footer.astro';
-import { makeFooterGroups } from '../../data/site-nav';
-
-const siteUrl = Astro.site.origin;
-
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    serviceType: 'AI Agents & Automation',
-    name: 'AI Agents & Solutions for Service Businesses',
-    description: 'ScaleKit builds AI voice agents, chat agents, and custom agentic workflows that handle repetitive work so service businesses can scale without hiring more staff.',
-    url: `${siteUrl}/services/ai-agents/`,
-    provider: { '@type': 'ProfessionalService', name: 'ScaleKit', url: siteUrl },
-  },
-];
-
-const headerNav = {
-  services: [
-    { label: 'Websites & Funnels', href: '/#websites-funnels' },
-    { label: 'Local SEO', href: '/scout/' },
-    { label: 'Google & Meta Ads', href: '/services/ads/' },
-    { label: 'CRM & Automation', href: '/services/automation/' },
-    { label: 'Reactivation', href: '/services/reactivation/' },
-    { label: 'AI Agents & Solutions', href: '/services/ai-agents/' },
-    { label: 'AI Receptionist', href: '/services/ai-receptionist/' },
-  ],
-  links: [
-    { label: 'Features', href: '/features/' },
-    { label: 'How We Work', href: '/#process' },
-    { label: 'Who We Work With', href: '/#built-for' },
-    { label: 'Pricing', href: '/pricing/' },
-  ],
-};
-
-const footerGroups = makeFooterGroups();
+// Primary keyword: AI agents for service businesses. "AI receptionist" is
+// owned by /services/ai-receptionist/ — link to it, don't compete with it.
+// Was built around the homepage's SaveTimeScale grid until 2026-10-15; GSC
+// flagged it "Duplicate without user-selected canonical" because its text
+// overlapped the homepage. Keep this page's copy its own.
+import KeywordPage from '../../components/KeywordPage.astro';
 ---
 
-<BaseLayout
+<KeywordPage
+  kind="service"
   title="AI Agents for Service Businesses: Voice, Chat & Automation | ScaleKit"
   description="ScaleKit builds AI voice agents, chat agents, and custom agentic workflows that handle repetitive work so service businesses can scale without hiring more staff."
-  structuredData={structuredData}
->
-  <Header slot="header" homeHref="/" services={headerNav.services} links={headerNav.links} />
-
-  <IndustryHero
-    eyebrow="AI Agents & Solutions"
-    headline="AI Agents for Service Businesses"
-    subheadline="Every hour your team spends on repetitive work is an hour they're not spending on customers. We build AI that handles the busywork — so you can grow without growing your headcount."
-    checklist={[
+  serviceType="AI agent development"
+  audience="Local service businesses"
+  breadcrumbs={[{ name: 'AI Agents' }]}
+  hero={{
+    eyebrow: 'AI Agents & Solutions',
+    headline: 'AI Agents for Service Businesses',
+    subheadline: "Every hour your team spends on repetitive work is an hour they're not spending on customers. We build AI that handles the busywork — so you can grow without growing your headcount.",
+    checklist: [
       "Every call answered, 24/7",
       "Appointments booked while you are on the job",
       "Hours of admin back every week",
       "Grow without hiring more front-desk staff",
-    ]}
-    ctaLabel="Get Started"
-  />
-
-  <SaveTimeScale
-    eyebrow="What's Included"
-    headlineLine1="Everything Your"
-    headlineLine2="AI Agent Setup Includes"
-    subheadline="Built around what your business actually needs — not a generic bot bolted onto your website."
-    ctaLabel="Get Started"
-    ctaHref="#book-call"
-  />
-  <ContentBlocks blocks={[
-      {
-        eyebrow: 'AI Voice Agents',
-        heading: 'AI Voice Agents That Answer Every Call',
-        paragraphs: [
-          "An AI voice agent answers your business phone when you can't: after hours, on weekends, or when every line is busy. It greets callers by your business name, answers common questions, collects their details and books the appointment or alerts your team.",
-          "Unlike a traditional answering service, it doesn't put callers on hold, and it is trained on your services, your service area and your prices.",
-        ],
-        list: [
-          'Answers calls 24/7 in a natural voice',
-          'Books appointments straight into your calendar',
-          'Captures caller details and sends them to your CRM',
-          'Hands urgent calls to a person on your team',
-          'Answers the same questions your front desk hears every day',
-        ],
-        link: { label: 'See how our AI receptionist works', href: '/services/ai-receptionist/' },
-      },
-      {
-        eyebrow: 'Beyond the Phone',
-        heading: 'AI Agents for Chat, Follow-Up and Admin',
-        paragraphs: [
-          'The same approach works beyond phone calls. Chat agents answer website visitors, and custom AI workflows handle repetitive admin like intake, scheduling and data entry, so your team spends its time on customers.',
-        ],
-      },
-    ]} />
-
-
-  <Process />
-
-  <FinalCta
-    eyebrow="Run Your Own Numbers"
-    headline="What's One More Answered Call After Hours Actually Worth?"
-    subheadline="Every call that goes to voicemail is a job that goes to whoever picked up. ScaleKit makes sure that's you, every time."
-  />
-
-  <BookCall />
-
-  <Footer
-    slot="footer"
-    logoText="ScaleKit"
-    tagline="Not a bundle of connected tools. One team that builds, ranks, and grows your business, start to finish."
-    contactEmail="hello@scalekit.io"
-    groups={footerGroups}
-  />
-</BaseLayout>
+    ],
+  }}
+  blocks={[
+    {
+      eyebrow: 'What They Are',
+      heading: 'What Is an AI Agent?',
+      paragraphs: [
+        "An AI agent is software that can hold a conversation and take action on its own: answer a question, book an appointment, update a contact record or send a follow-up. A chatbot follows a script. An AI agent understands what the person wants and works out the next step.",
+        "For a service business, that means the repetitive conversations your front desk has every day can be handled without a person, while anything unusual or urgent still goes to your team.",
+      ],
+    },
+    {
+      eyebrow: 'AI Voice Agents',
+      heading: 'AI Voice Agents That Answer Every Call',
+      paragraphs: [
+        "An AI voice agent answers your business phone when you can't: after hours, on weekends, or when every line is busy. It greets callers by your business name, answers common questions, collects their details and books the appointment or alerts your team.",
+        "Unlike a traditional answering service, it doesn't put callers on hold, and it is trained on your services, your service area and your prices.",
+      ],
+      list: [
+        'Answers calls 24/7 in a natural voice',
+        'Books appointments straight into your calendar',
+        'Captures caller details and sends them to your CRM',
+        'Hands urgent calls to a person on your team',
+        'Answers the same questions your front desk hears every day',
+      ],
+      link: { label: 'See how our AI receptionist works', href: '/services/ai-receptionist/' },
+    },
+    {
+      eyebrow: 'Beyond the Phone',
+      heading: 'AI Agents for Chat, Follow-Up and Admin',
+      paragraphs: [
+        'The same approach works beyond phone calls. Chat agents answer website visitors, and custom AI workflows handle repetitive admin like intake, scheduling and data entry, so your team spends its time on customers.',
+      ],
+      list: [
+        'Website and Facebook chat that answers questions and books estimates',
+        'Lead qualification that asks the right questions before a job is scheduled',
+        'Intake forms and notes summarized and filed to the right contact',
+        'Follow-up messages written and sent after estimates and appointments',
+        'Workflows that move a job from booked to finished to invoiced',
+      ],
+    },
+    {
+      eyebrow: 'Guardrails',
+      heading: 'AI That Stays in Its Lane',
+      paragraphs: [
+        "Every agent we build has clear limits. It only answers from information you approve, it never makes up prices or promises, and it hands the conversation to a person when it's unsure. Every call and chat is logged so you can see exactly what was said.",
+      ],
+    },
+  ]}
+  stepsHeadline="From Idea to Working Agent"
+  steps={[
+    { number: '01', title: 'Find the Busywork', description: 'We look at where your team loses the most hours to repeat tasks.' },
+    { number: '02', title: 'Train the Agent', description: 'Your services, prices, hours and rules go into the agent\'s knowledge.' },
+    { number: '03', title: 'Test Live', description: 'We run real calls and chats against it until it handles them right.' },
+    { number: '04', title: 'Launch and Improve', description: 'It goes live, and we review conversations to keep making it better.' },
+  ]}
+  faqHeadline="AI Agent Questions"
+  faq={[
+    { question: 'Will customers know they are talking to AI?', answer: 'We recommend the agent says so up front. Most callers care far more about getting a fast, useful answer than whether a person picked up.' },
+    { question: 'What if the AI agent cannot answer a question?', answer: 'It takes a message or transfers the call to your team, depending on how urgent it is. You set the rules for when it hands off.' },
+    { question: 'Does an AI agent replace my office staff?', answer: 'It takes repetitive work off their plate: after-hours calls, the same ten questions, data entry. Most businesses use it so their team can spend more time with customers, not to cut people.' },
+    { question: 'How is an AI agent different from a chatbot?', answer: 'A chatbot follows a fixed script and breaks when someone goes off it. An AI agent understands the request, answers in plain language and can take actions like booking or updating your CRM.' },
+    { question: 'Can you build a custom AI agent for something specific to my business?', answer: 'Yes. Beyond voice and chat, we build custom agents and workflows for tasks unique to how you operate. We scope them on the strategy call.' },
+  ]}
+  related={[
+    { label: 'AI Receptionist', href: '/services/ai-receptionist/', description: 'Have every call answered, 24/7, by an AI agent trained on your business.' },
+    { label: 'CRM for Service Businesses', href: '/services/automation/', description: 'The system your AI agents log every call and booking into.' },
+    { label: 'Missed Call Text Back', href: '/services/missed-call-text-back/', description: 'Text every caller you missed within seconds.' },
+    { label: 'Speed to Lead Guide', href: '/guides/speed-to-lead/', description: 'Why the first business to respond usually wins the job.' },
+  ]}
+  finalCta={{
+    eyebrow: 'Run Your Own Numbers',
+    headline: "What's One More Answered Call After Hours Actually Worth?",
+    subheadline: 'Every call that goes to voicemail is a job that goes to whoever picked up. ScaleKit makes sure that\'s you, every time.',
+  }}
+/>
